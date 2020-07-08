@@ -5,7 +5,7 @@ include("includes/header.php");
 
 # include header
   /* Admin : affichage de certaines parties du code uniquement si l'admin est connecté
-   - change les droits utilisateurs, peut supprimer les utilisateurs = afficher liste d'users
+   - change les droits utilisateurs, peut supprimer les utilisateurs
    gérer les messages signalés = afficher liste messages signalés, possibilité de supprimer (requête)
     ajouter/ supprimer les topics = afficher liste des topics + requête d'ajout et de suppression
 
@@ -26,44 +26,9 @@ include("includes/header.php");
   </head>
 
   <body>
-    <?php
-      /* Admin : gestion des utilisateurs */
-      # Afficher la liste des utilisateurs
-      $sql = 'SELECT * FROM utilisateurs';
-      $params = [];
-      $resultats = $bdd->prepare($sql);
-      $resultats->execute($params);
+    <?php include("includes/admin.php");
 
-      if ($resultats->rowCount() > 0)
-      { ?>
-        <table>
-          <thead>
-		 				<tr>
-              <th> Id </th>
-              <th> Login </th>
-              <th> Email </th>
-              <th> Date d'inscription </th>
-              <th> Droits </th>
-            </tr>
-	 				</thead>
-          <?php
-          while ($d = $resultats->fetch(PDO::FETCH_ASSOC))
-          {
-            ?>
-            <tbody>
-              <tr>
-                <td><?=$d['id'] ?></td>
-                <td><?=$d['login'] ?></td>
-                <td><?=$d['email'] ?></td>
-                <td><?=$d['date_inscription'] ?></td>
-                <td><?=$d['id_droits'] ?></td>
-              </tr>
-            </tbody>
-          <?php } ?>
-        </table>
-        <?php
-        $resultats->closeCursor();
-      }
+      # Affichage des messages
       ?>
 
 
