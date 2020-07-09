@@ -2,7 +2,7 @@
 <?php
   /* Admin : gestion des utilisateurs */
 
-  # Ajouter les autres champs de l'utilisateur pour que l'admin puisse modifier leurs informations ?
+  # Modification des droits
   if(isset($_GET['modifier_droits']))
   {
     $pdoselect = $bdd->prepare('SELECT * FROM utilisateurs WHERE id = :id');
@@ -115,9 +115,8 @@
             <td><?=$d['email'] ?></td>
             <td><?=$d['date_inscription'] ?></td>
             <td><?=$d['id_droits'] ?></td>
-
             <td><a href="moderation.php?modifier_droits=<?php echo $d['id'] ?>">Modifier les droits</a></td>
-
+            <td><a href="moderation.php?supprimer_user=<?php echo $d['id'] ?>"> Supprimer l'utilisateur </a></td>
           </tr>
         </tbody>
       <?php } ?>
