@@ -1,7 +1,6 @@
 <h2 class="h2_moderation"> Gestion des utilisateurs :</h2>
 <?php
-  /* Admin : gestion des utilisateurs :
-  A ajouter :  - supprimer utilisateur */
+  /* Admin : gestion des utilisateurs */
 
   # Ajouter les autres champs de l'utilisateur pour que l'admin puisse modifier leurs informations ?
   if(isset($_GET['modifier_droits']))
@@ -15,7 +14,17 @@
     {
       $id_droits=$_POST['id_droits'];
       $id= $_GET['modifier_droits'];
-      $req = $bdd->prepare('UPDATE utilisateurs SET id_droits = :id_droits WHERE id = :id');
+      $req = $bdd->prepare('UPDATE utilisateurs
+        SET login = :login,
+        password = :password,
+        email = :email,
+        id_droits = :id_droits,
+        date_inscription = :date_inscription,
+        localisation = :localisation,
+        website = :website,
+        signature = :signature,
+        avatar = :avatar
+        WHERE id = :id');
       $req->execute(array('id_droits' => $id_droits,'id' => $id));
 
       if ($req)
@@ -26,12 +35,51 @@
     }
       ?>
       <form name="modifier_droits" action="moderation.php" method="POST">
-        <select name="id_droits" id="id_droits">
-          <option value="1"> Utilisateur </option>
-          <option value="2"> Modérateur </option>
-          <option value="3"> Admin </option>
-        </select>
-        <td><input name="modifier_droits" type="submit" value="Modifier les droits"></td>
+        <table border="0" align="center" cellspacing="2" cellpadding="2">
+					<tr align="center">
+						<td> Login </td>
+						<td><input type="text" name="login" value="<?php echo $info['login']; ?>"></td>
+					</tr>
+					<tr align="center">
+						<td> E-mail </td>
+						<td><input type="text" name="email"value="<?php echo $info['email'] ; ?>"></td>
+					</tr>
+          <tr align="center">
+						<td> Mot de passe </td>
+						<td><input type="password" name="password" value="<?php echo $info['password'] ?>"></td>
+					</tr>
+          <tr align="center">
+						<td> Date d'inscription </td>
+						<td><input type="date" name="date" value="<?php echo $info['date_inscription'] ?>"></td>
+					</tr>
+          <tr align="center">
+						<td> Id_droits </td>
+						<td>
+              <select name="id_droits" id="id_droits">
+                <option value="1"> Utilisateur </option>
+                <option value="2"> Modérateur </option>
+                <option value="3"> Admin </option>
+              </select>
+            </td>
+          </tr>
+          <tr align="center">
+						<td> Localisation </td>
+						<td><input type="text" name="localisation" value="<?php echo $info['localisation'] ?>"></td>
+					</tr>
+          <tr align="center">
+						<td> Site web </td>
+						<td><input type="text" name="website" value="<?php echo $info['website'] ?>"></td>
+					</tr>
+          <tr align="center">
+						<td> Signature</td>
+						<td><input type="text" name="signature" value="<?php echo $info['signature'] ?>"></td>
+					</tr>
+          <tr align="center">
+						<td> Avatar </td>
+						<td><input type="image" name="avatar" value="<?php echo $info['avatar'] ?>"></td>
+					</tr>
+          <td><input name="modifier_droits" type="submit" value="Modifier les droits"></td>
+        </table>
       </form>
       <?php
 
