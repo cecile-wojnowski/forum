@@ -37,7 +37,34 @@ include("includes/header.php");
 
     <h2 class="h2_moderation"> Gestion des signalements : </h2>
     <?php
-    # Si l'id de la table messages est identique à l'id_message de signaler, afficher ici ?>
+    # Afficher les messages signalés
+    $sql = 'SELECT * FROM messages INNER JOIN signaler ON messages.id = signaler.id_message ';
+    $params = [];
+    $resultats = $bdd->prepare($sql);
+    $resultats->execute($params);
+
+    if ($resultats->rowCount() > 0)
+    {
+      ?>
+      <table>
+        <thead>
+          <tr>
+            <th> Message </th>
+          </tr>
+        </thead>
+        <?php
+        while ($d = $resultats->fetch(PDO::FETCH_ASSOC))
+        {
+          ?>
+          <tbody>
+            <tr>
+              <td><?=$d['message'] ?></td>
+              <td><a href="moderation.php?supprimer_message=<?php echo $d['id'] ?>"> Supprimer le message </a></td>
+            </tr>
+          </tbody>
+        <?php } ?>
+      </table>
+    <?php } ?>
 
   </body>
 </html>
