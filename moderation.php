@@ -3,7 +3,7 @@
 include("includes/identifiant.php");
 include("includes/header.php");
 
-# include header
+#
   /* Admin : affichage de certaines parties du code uniquement si l'admin est connecté
    - change les droits utilisateurs, peut supprimer les utilisateurs
    gérer les messages signalés = afficher liste messages signalés, possibilité de supprimer (requête)
@@ -28,42 +28,16 @@ include("includes/header.php");
   <body>
     <?php
     # Gestion des utilisateurs réservée à l'admin
+    /* Mettre admin dans une condition : if isset session admin, echo include admin */
     include("includes/admin.php");
-    include("includes/topics.php")?>
 
+    include("includes/moderation_topics.php");
+    include("includes/moderation_messages.php");
+    ?>
+
+    <h2 class="h2_moderation"> Gestion des signalements : </h2>
     <?php
-    # Gestion des messages accessible pour l'admin et le modérateur ?>
-    <h2 class="h2_moderation"> Gestion des messages : </h2>
-      <table>
-   		  <thead>
-   			  <tr>
-            <th> Id </th>
-            <th> Message </th>
-          </tr>
-   		  </thead>
-   		  <tbody>
-   			 <?php
-           $sql = 'SELECT * FROM messages';
-           $params = [];
-           $resultats = $bdd->prepare($sql);
-           $resultats->execute($params);
-           if ($resultats->rowCount() > 0)
-           {
-              while ($d = $resultats->fetch(PDO::FETCH_ASSOC))
-                {
-                  ?>
-         					<tr>
-                    <td><?=$d['id'] ?></td>
-                    <td><?=$d['message'] ?></td>
-                  <?php
-                }
-            } ?>
-        </tbody>
-      </table>
-
-        <h2 class="h2_moderation"> Gestion des signalements : </h2>
-        <?php
-        # Si l'id de la table messages est identique à l'id_message de signaler, afficher ici ?>
+    # Si l'id de la table messages est identique à l'id_message de signaler, afficher ici ?>
 
   </body>
 </html>
