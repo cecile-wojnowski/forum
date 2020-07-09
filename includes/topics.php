@@ -108,4 +108,18 @@ if (isset($_POST['creer_topic'])) {
           </table>
         </form>
       <?php
-    } ?>
+    }
+    # Suppression des topics
+    if (isset($_GET['supprimer_topic'])) {
+                      try {
+                          $id = $_GET["supprimer_topic"];
+                          $req = $bdd->prepare("DELETE FROM topics WHERE id = $id");
+                          $req->execute();
+                          echo 'Topic supprimé.';
+                          $delai = 1;
+                          $url = 'moderation.php?topics';
+                          header("Refresh: $delai;url=$url");
+                      } catch (PDOException $e) {
+                          echo "Erreur : " . $e->getMessage();
+                      }
+                  }?>
