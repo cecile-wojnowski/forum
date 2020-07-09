@@ -3,15 +3,14 @@ $titre="Connexion";
 include("includes/identifiant.php");
 include("includes/header.php");
 echo '<p><i>Vous êtes ici</i> : <a href="./index.php">Index du forum</a> --> Connexion';
+
 ?>
 
+
 <?php
-$id=$_SESSION['id'];
 
 echo '<h1>Connexion</h1>';
-if ($id!=0) {
-    erreur(ERR_IS_CO);
-}
+
 ?>
 
 <!DOCTYPE html>
@@ -29,15 +28,15 @@ if ($id!=0) {
 </html>
 
 <?php
+if (isset($_SESSION['id'])) {
+echo "vous êtes déjà connecté, <a href='deconnexion.php' me déconnecter </a> ou <a href='profil.php'> voir mon profil </a> ";
+} else{
 if (!isset($_POST['login'])) { //On est dans la page de formulaire
 ?>  '<form method="post" action="connexion.php">
 
   <div class="container">
-    <div class="left">
-      <div class="header">
-        <h2 class="animation a1">Bon retour parmi nous !</h2>
-        <h4 class="animation a2">Connectez-vous avec votre login et mot de passe</h4>
-      </div>
+        <h2 >Bon retour parmi nous !</h2>
+        <h4 >Connectez-vous avec votre login et mot de passe</h4>
       <div class="form">
 <label for="">Login</label>        <input type="text" class="form-field animation a3" placeholder="login" name="login" id="pseudo">
       <label for="">Password</label>  <input type="password" class="form-field animation a4" placeholder="Password" name="password" id="password">
@@ -49,9 +48,6 @@ if (!isset($_POST['login'])) { //On est dans la page de formulaire
   </div>
 	</body>
 	</html>';
-
-
-
 
 <?php } else {
     $message='';
@@ -69,10 +65,10 @@ if (!isset($_POST['login'])) { //On est dans la page de formulaire
             $_SESSION['login'] = $data['login'];
             $_SESSION['id_droits'] = $data['id_droits'];
             $_SESSION['id'] = $data['id'];
-            $message = '<p>Bienvenue '.$data['login'].',
+            $message = '<p>Bienvenue '.$data['login'].'votre id_droits est'.$data['id_droits'].',
 			vous êtes maintenant connecté!</p>
 			<p>Cliquez <a href="./index.php">ici</a>
-			pour revenir à la page d accueil</p>';
+			pour revenir à la page d accueil</p> et ici pour <a href="profil.php"> voir votre profil </a';
         } else { // Acces pas OK !
             $message = '<p>Une erreur s\'est produite
 	    pendant votre identification.<br /> Le mot de passe ou le pseudo
@@ -82,6 +78,8 @@ if (!isset($_POST['login'])) { //On est dans la page de formulaire
     }
     echo $message.'</div></body></html>';
 }
+}
+
 ?>
 
 <?php include("includes/footer.php");

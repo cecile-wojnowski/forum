@@ -1,26 +1,19 @@
 <?php
-session_start();
-$titre="Enregistrement";
+$titre="Inscription";
 include("includes/identifiant.php");
 include("includes/header.php");
-include("./includes/function.php");
-?>
+include("includes/footer.php");
 
-	<head>
-<link rel="stylesheet" href="form.css">
-	</head>
-	<body>
-
-	</body>
-</html>
+echo '<p><i>Vous êtes ici</i> : <a href="./index.php">Index du forum</a> --> Inscription';
+		?>
 
 <?php
-if (empty($_POST['pseudo'])) // S	i on la variable est vide, on peut considérer qu'on est sur la page de formulaire
-{
-	echo '<h1>Inscription</h1>';
-	echo '<div class="container"><form method="post" action="inscription.php" enctype="multipart/form-data">
+if (empty($_POST['login'])) // Si on la variable est vide, on peut considérer qu'on est sur la page de formulaire
+{?>
+	<h1>Inscription</h1>
+	<form method="post" action="inscription.php" enctype="multipart/form-data">
 	<fieldset><legend>Identifiants</legend>
-	<label for="pseudo">* Pseudo :</label>  <input name="pseudo" type="text" id="pseudo" /> (le pseudo doit contenir entre 3 et 15 caractères)<br />
+	<label for="login">* Login :</label>  <input name="login" type="text" id="login" /> (le login doit contenir entre 3 et 15 caractères)<br />
 	<label for="password">* Mot de Passe :</label><input type="password" name="password" id="password" /><br />
 	<label for="confirm">* Confirmer le mot de passe :</label><input type="password" name="confirm" id="confirm" />
 	</fieldset>
@@ -37,19 +30,16 @@ if (empty($_POST['pseudo'])) // S	i on la variable est vide, on peut considérer
 	</fieldset>
 	<p>Les champs précédés d un * sont obligatoires</p>
 	<p><input type="submit" value="S\'inscrire" /></p></form>
-	</div></div>
+	</div>
 	</body>
-	</html>';
-?>
+	</html>
 
 
 <?php
-} //Fin de la partie formulaire
-
-else //On est dans le cas traitement
+} else
 {
-    $pseudo_erreur1 = NULL;
-    $pseudo_erreur2 = NULL;
+    $login_erreur1 = NULL;
+    $login_erreur2 = NULL;
     $mdp_erreur = NULL;
     $email_erreur1 = NULL;
     $email_erreur2 = NULL;
@@ -58,57 +48,55 @@ else //On est dans le cas traitement
     $avatar_erreur1 = NULL;
     $avatar_erreur2 = NULL;
     $avatar_erreur3 = NULL;
-?>
-<?php
-
+}
+if(isset($_POST['submit'])){
     //On récupère les variables
     $i = 0;
     $temps = time();
-    $pseudo=$_POST['pseudo'];
+    $login=$_POST['login'];
     $signature = $_POST['signature'];
     $email = $_POST['email'];
     $website = $_POST['website'];
     $localisation = $_POST['localisation'];
     $pass = md5($_POST['password']);
     $confirm = md5($_POST['confirm']);
-		$id_droits=1;
 
-    //Vérification du pseudo
-    $query=$db->prepare('SELECT COUNT(*) AS nbr FROM utilisateurs WHERE login =:login');
-    $query->bindValue(':login',$pseudo, PDO::PARAM_STR);
+    //Vérification du login
+    $query=$db->prepare('SELECT COUNT(*) AS nbr FROM utilisateurs WHERE Login =:login');
+    $query->bindValue(':login',$login, PDO::PARAM_STR);
     $query->execute();
-    $pseudo_free=($query->fetchColumn()==0)?1:0;
+    $login_free=($query->fetchColumn()==0)?1:0;
     $query->CloseCursor();
-    if(!$pseudo_free)
+
+    if(!$login_free)
     {
-        $pseudo_erreur1 = "Votre pseudo est déjà utilisé par un membre";
+        $login_erreur1 = "Votre login est déjà utilisé par un membre";
         $i++;
     }
 
-    if (strlen($pseudo) < 3 || strlen($pseudo) > 15)
+    if (strlen($login) < 3 || strlen($login) > 15)
     {
-        $pseudo_erreur2 = "Votre pseudo est soit trop grand, soit trop petit";
+        $login_erreur2 = "Votre login est soit trop grand, soit trop petit";
         $i++;
     }
 
     //Vérification du mdp
     if ($pass != $confirm || empty($confirm) || empty($pass))
     {
-        $mdp_erreur = "Votre mot de passe et votre confirmation diffèrent, ou sont vides";
+        $mdp_erreur = "Les mots de passe ne correspondent pas";
         $i++;
     }
-?>
-<?php
+
     //Vérification de l'adresse email
 
     //Il faut que l'adresse email n'ait jamais été utilisée
     $query=$db->prepare('SELECT COUNT(*) AS nbr FROM utilisateurs WHERE email =:email');
     $query->bindValue(':email',$email, PDO::PARAM_STR);
     $query->execute();
-    $mail_free=($query->fetchColumn()==0)?1:0;
+    $email_free=($query->fetchColumn()==0)?1:0;
     $query->CloseCursor();
 
-    if(!$mail_free)
+    if(!$email_free)
     {
         $email_erreur1 = "Votre adresse email est déjà utilisée par un membre";
         $i++;
@@ -119,15 +107,13 @@ else //On est dans le cas traitement
         $email_erreur2 = "Votre adresse E-Mail n'a pas un format valide";
         $i++;
     }
-
     //Vérification de la signature
     if (strlen($signature) > 200)
     {
         $signature_erreur = "Votre signature est trop longue";
         $i++;
     }
-?>
-<?php
+
     //Vérification de l'avatar :
     if (!empty($_FILES['avatar']['size']))
     {
@@ -162,46 +148,47 @@ else //On est dans le cas traitement
                 $avatar_erreur3 = "Extension de l'avatar incorrecte";
         }
     }
-?>
-<?php
+  }
+
+	$i = 0;
+
    if ($i==0)
    {
 	echo'<h1>Inscription terminée</h1>';
-        echo'<p>Bienvenue '.stripslashes(htmlspecialchars($_POST['pseudo'])).' vous êtes maintenant inscrit sur le forum</p>
+        echo'<p>Bienvenue '.stripslashes(htmlspecialchars($_POST['login'])).' vous êtes maintenant inscrit sur le forum</p>
 	<p>Cliquez <a href="./index.php">ici</a> pour revenir à la page d accueil</p>';
 
         //La ligne suivante sera commentée plus bas
-	$nomavatar=(!empty($_FILES['avatar']['size']))?move_avatar($_FILES['avatar']):'';
+	$avatar=(!empty($_FILES['avatar']['size']))?move_avatar($_FILES['avatar']):'';
 
-        $query=$db->prepare('INSERT INTO `utilisateurs`( `login`, `email`, `password`, `date_inscription`, `id_droits`, `localisation`, `website`, `signature`, `avatar`)
-        VALUES (:login, :email, :password,:temps, :id_droits, :localisation, :website, :signature, :avatar)');
-	$query->bindValue(':login', $pseudo, PDO::PARAM_STR);
-	$query->bindValue(':email', $email, PDO::PARAM_INT);
-	$query->bindValue(':password', $pass, PDO::PARAM_STR);
-	$query->bindValue(':temps', $temps, PDO::PARAM_STR);
-	$query->bindValue(':id_droits', $id_droits, PDO::PARAM_STR);
-	$query->bindValue(':localisation', $localisation, PDO::PARAM_STR);
+        $query=$db->prepare('INSERT INTO `utilisateurs`
+          ( `login`, `email`, `password`, `date_inscription`,`localisation`, `website`, `signature`, `avatar`))
+        VALUES (:login, :email, :password, :date_inscription, :localisation, :website, :signature, :avatar)');
+	$query->bindValue(':login', $login, PDO::PARAM_STR);
+  $query->bindValue(':email', $email, PDO::PARAM_STR);
+	$query->bindValue(':password', $pass, PDO::PARAM_INT);
+  $query->bindValue(':date_inscription', $temps, PDO::PARAM_INT);
+  $query->bindValue(':localisation', $localisation, PDO::PARAM_STR);
 	$query->bindValue(':website', $website, PDO::PARAM_STR);
-	$query->bindValue(':signature', $signature, PDO::PARAM_INT);
-	$query->bindValue(':avatar', $nomavatar, PDO::PARAM_INT);
-
+	$query->bindValue(':avatar', $avatar, PDO::PARAM_STR);
+	$query->bindValue(':signature', $signature, PDO::PARAM_STR);
         $query->execute();
 
 	//Et on définit les variables de sessions
-        $_SESSION['login'] = $pseudo;
+        $_SESSION['login'] = $login;
         $_SESSION['id'] = $db->lastInsertId(); ;
         $_SESSION['level'] = 2;
-				$_SESSION['id_droits'] = 1;
-
         $query->CloseCursor();
     }
+
+
     else
     {
         echo'<h1>Inscription interrompue</h1>';
         echo'<p>Une ou plusieurs erreurs se sont produites pendant l incription</p>';
         echo'<p>'.$i.' erreur(s)</p>';
-        echo'<p>'.$pseudo_erreur1.'</p>';
-        echo'<p>'.$pseudo_erreur2.'</p>';
+        echo'<p>'.$login_erreur1.'</p>';
+        echo'<p>'.$login_erreur2.'</p>';
         echo'<p>'.$mdp_erreur.'</p>';
         echo'<p>'.$email_erreur1.'</p>';
         echo'<p>'.$email_erreur2.'</p>';
@@ -213,22 +200,19 @@ else //On est dans le cas traitement
 
         echo'<p>Cliquez <a href="./inscription.php">ici</a> pour recommencer</p>';
     }
-}
-?>
-</div>
-</body>
-</html>
-<?php
+
 function move_avatar($avatar)
 {
     $extension_upload = strtolower(substr(  strrchr($avatar['name'], '.')  ,1));
     $name = time();
     $nomavatar = str_replace(' ','',$name).".".$extension_upload;
-    $name = "images/avatars/".str_replace(' ','',$name).".".$extension_upload;
+    $name = "./images/avatars/".str_replace(' ','',$name).".".$extension_upload;
     move_uploaded_file($avatar['tmp_name'],$name);
     return $nomavatar;
 }
-
-include("includes/footer.php");
-
 ?>
+
+
+</div>
+</body>
+</html>
