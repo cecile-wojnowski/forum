@@ -1,5 +1,6 @@
 <?php
 # Permettra de définir l'id droit des membres
+define('BANNI', 0);
 define('VISITEUR',1);
 define('INSCRIT',2);
 define('MODO',3);
