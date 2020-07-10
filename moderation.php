@@ -64,7 +64,8 @@ include("includes/header.php");
           </tbody>
         <?php } ?>
       </table>
-    <?php } ?>
+      <?php
+    } ?>
 
   </body>
 </html>
