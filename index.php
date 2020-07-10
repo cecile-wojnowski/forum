@@ -1,5 +1,7 @@
 <?php
 # Afficher les dernières conversations/messages
+$titre = "Index du forum";
+include("includes/debut.php");
 include("includes/identifiant.php");
 include("includes/header.php");
  ?>
