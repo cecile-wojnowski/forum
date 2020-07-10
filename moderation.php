@@ -2,6 +2,8 @@
 #include identifiant
 include("includes/identifiant.php");
 include("includes/header.php");
+include("includes/functions.php");
+include("includes/constant.php");
 
 #
   /* Admin : affichage de certaines parties du code uniquement si l'admin est connecté
@@ -29,7 +31,12 @@ include("includes/header.php");
     <?php
     # Gestion des utilisateurs réservée à l'admin
     /* Mettre admin dans une condition : if isset session admin, echo include admin */
-    include("includes/admin.php");
+
+    if(verif_auth(ADMIN))
+    {
+      //Afficher la partie admin
+      include("includes/admin.php");
+    }
 
     include("includes/moderation_topics.php");
     include("includes/moderation_messages.php");
