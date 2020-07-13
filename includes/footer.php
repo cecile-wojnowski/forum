@@ -13,7 +13,7 @@ $totaldesmessages = $db->query('SELECT COUNT(*) FROM messages')->fetchColumn();
 
 <html lang="en" dir="ltr">
   <head>
-<link rel="stylesheet" href="footer.css">
+    <link rel="stylesheet" href="../css/footer.css">
   </head>
   <body>
 
