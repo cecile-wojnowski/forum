@@ -176,14 +176,14 @@ else //On est dans le cas traitement
         $query=$db->prepare('INSERT INTO `utilisateurs`( `login`, `email`, `password`, `date_inscription`, `id_droits`, `localisation`, `website`, `signature`, `avatar`)
         VALUES (:login, :email, :password,:temps, :id_droits, :localisation, :website, :signature, :avatar)');
 	$query->bindValue(':login', $pseudo, PDO::PARAM_STR);
-	$query->bindValue(':email', $email, PDO::PARAM_INT);
+	$query->bindValue(':email', $email, PDO::PARAM_STR);
 	$query->bindValue(':password', $pass, PDO::PARAM_STR);
 	$query->bindValue(':temps', $temps, PDO::PARAM_STR);
 	$query->bindValue(':id_droits', $id_droits, PDO::PARAM_STR);
 	$query->bindValue(':localisation', $localisation, PDO::PARAM_STR);
 	$query->bindValue(':website', $website, PDO::PARAM_STR);
-	$query->bindValue(':signature', $signature, PDO::PARAM_INT);
-	$query->bindValue(':avatar', $nomavatar, PDO::PARAM_INT);
+	$query->bindValue(':signature', $signature, PDO::PARAM_STR);
+	$query->bindValue(':avatar', $nomavatar, PDO::PARAM_INT); # à corriger ?
 	$query->execute();
 
 	//Et on définit les variables de sessions
