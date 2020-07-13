@@ -47,7 +47,7 @@ include("includes/constant.php");
     # Afficher les messages signalés
     $sql = 'SELECT * FROM messages INNER JOIN signaler ON messages.id = signaler.id_message ';
     $params = [];
-    $resultats = $bdd->prepare($sql);
+    $resultats = $db->prepare($sql);
     $resultats->execute($params);
 
     if ($resultats->rowCount() > 0)

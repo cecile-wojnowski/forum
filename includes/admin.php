@@ -5,7 +5,7 @@
   # Modification des droits
   if(isset($_GET['modifier_droits']))
   {
-    $pdoselect = $bdd->prepare('SELECT * FROM utilisateurs WHERE id = :id');
+    $pdoselect = $db->prepare('SELECT * FROM utilisateurs WHERE id = :id');
     $pdoselect ->bindValue(':id', $_GET['modifier_droits'], PDO::PARAM_INT);
     $executepdo= $pdoselect->execute();
 
@@ -88,7 +88,7 @@
 <?php # Affiche la liste des utilisateurs
   $sql = 'SELECT * FROM utilisateurs';
   $params = [];
-  $resultats = $bdd->prepare($sql);
+  $resultats = $db->prepare($sql);
   $resultats->execute($params);
 
   if ($resultats->rowCount() > 0)
@@ -131,7 +131,7 @@
     try
     {
       $id = $_GET["supprimer_user"];
-      $req = $bdd->prepare("DELETE FROM utilisateurs WHERE id = $id");
+      $req = $db->prepare("DELETE FROM utilisateurs WHERE id = $id");
       $req->execute();
       echo 'Utilisateur supprimé';
       $delai = 1;
@@ -155,7 +155,7 @@
   <?php
   if(isset($_POST['form_bannissement']))
   {
-    $query = $bdd->query('SELECT id, login
+    $query = $db->query('SELECT id, login
         FROM utilisateurs WHERE id_droits = 0');
         if ($query->rowCount() > 0)
         {
