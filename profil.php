@@ -1,110 +1,98 @@
 <?php
 session_start();
 include("includes/header.php");
-
+/*
 if(!isset($_SESSION['login'])){
   header("Location:connexion.php");
+} */
+
+$id=$_SESSION['id'];
+$query=$db->prepare('SELECT * FROM utilisateurs WHERE id=:id');
+$query->bindValue(':id',$id,PDO::PARAM_INT);
+$query->execute();
+$data=$query->fetch();
+?>
+<p><i>Vous êtes ici</i> : <a href="./index.php">Index du forum</a> --> Modification du profil; </p>
+
+<h1>Modifier son profil</h1>
+<form name="modifier_profil" method="post" action="profil.php?action=modifier" enctype="multipart/form-data">
+  <fieldset><legend>Identifiants</legend>
+    Pseudo : <strong><?php stripslashes(htmlspecialchars($data['login'])) ?></strong><br />
+    <label for="password">Nouveau mot de Passe :</label>
+    <input type="password" name="password" id="password" /><br />
+    <label for="confirm">Confirmer le mot de passe :</label>
+    <input type="password" name="confirm" id="confirm"  />
+  </fieldset>
+
+  <fieldset><legend>Contacts</legend>
+    <label for="email">Votre adresse E_Mail :</label>
+    <input type="text" name="email" id="email"value="<?php stripslashes($data['email']) ?>" /><br />
+
+    <label for="website">Votre site web :</label>
+    <input type="text" name="website" id="website" value="<?php stripslashes($data['website']) ?>" /><br />
+  </fieldset>
+
+  <fieldset><legend>Informations supplémentaires</legend>
+    <label for="localisation">Localisation :</label>
+    <input type="text" name="localisation" id="localisation" value="<?php stripslashes($data['localisation']) ?>" /><br />
+  </fieldset>
+
+  <fieldset><legend>Profil sur le forum</legend>
+    <label for="avatar">Changer votre avatar :</label>
+    <input type="file" name="avatar" id="avatar" />
+    (Taille max : 10 ko)<br /><br />
+    <label><input type="checkbox" name="delete" value="Delete" />
+    Supprimer l avatar</label>
+    Avatar actuel :
+    <img src="./images/avatars/ <?php $data['avatar'] ?>"
+    alt="pas d avatar" /> <br />
+    <label for="signature">Signature :</label>
+    <textarea cols="40" rows="4" name="signature" id="signature"> <?php stripslashes($data['signature']) ?></textarea>
+  </fieldset>
+
+  <div class="button">
+  <input type="submit" value="Modifier son profil"/></div>
+  <input type="hidden" id="sent" name="sent" value="1" />
+</form>
+
+<?php
+
+ if(isset($_POST['modifier_profil'])){
+
+  $temps = time();
+
+  $signature = $_POST['signature'];
+  $email = $_POST['email'];
+  $website = $_POST['website'];
+  $localisation = $_POST['localisation'];
+  $pass = md5($_POST['password']);
+  $confirm = md5($_POST['confirm']);
+
+  if ($pass != $confirm || empty($confirm) || empty($pass))
+  {
+       $mdp_erreur = "Votre mot de passe et votre confirmation diffèrent ou sont vides";
+       $i++;
+  }
 }
 
-if (isset($_SESSION['id'])){
+$i = 0;
+$mdp_erreur = NULL;
+$email_erreur1 = NULL;
+$email_erreur2 = NULL;
+$msn_erreur = NULL;
+$signature_erreur = NULL;
+$avatar_erreur = NULL;
+$avatar_erreur1 = NULL;
+$avatar_erreur2 = NULL;
+$avatar_erreur3 = NULL;
 
+# Stockage des données de la table dans des variables
+$pass=$data["password"];
+$email=$data["email"];
+$signature=$data["signature"];
+$localisation=$data["localisation"];
+$website=$data["website"];
 
-  $id=$_SESSION['id'];
-
-
-        $query=$db->prepare('SELECT *
-        FROM utilisateurs WHERE id=:id');
-        $query->bindValue(':id',$id,PDO::PARAM_INT);
-        $query->execute();
-        $data=$query->fetch();
-        echo '<p><i>Vous êtes ici</i> : <a href="./index.php">Index du forum</a> --> Modification du profil';
-        echo '<h1>Modifier son profil</h1>';
-
-        echo '<form method="post" action="profil.php?action=modifier" enctype="multipart/form-data">
-
-
-        <fieldset><legend>Identifiants</legend>
-        Pseudo : <strong>'.stripslashes(htmlspecialchars($data['login'])).'</strong><br />
-        <label for="password">Nouveau mot de Passe :</label>
-        <input type="password" name="password" id="password" /><br />
-        <label for="confirm">Confirmer le mot de passe :</label>
-        <input type="password" name="confirm" id="confirm"  />
-        </fieldset>
-
-        <fieldset><legend>Contacts</legend>
-        <label for="email">Votre adresse E_Mail :</label>
-        <input type="text" name="email" id="email"
-        value="'.stripslashes($data['email']).'" /><br />
-
-        <label for="website">Votre site web :</label>
-        <input type="text" name="website" id="website"
-        value="'.stripslashes($data['website']).'" /><br />
-        </fieldset>
-
-        <fieldset><legend>Informations supplémentaires</legend>
-        <label for="localisation">Localisation :</label>
-        <input type="text" name="localisation" id="localisation"
-        value="'.stripslashes($data['localisation']).'" /><br />
-        </fieldset>
-
-        <fieldset><legend>Profil sur le forum</legend>
-        <label for="avatar">Changer votre avatar :</label>
-        <input type="file" name="avatar" id="avatar" />
-        (Taille max : 10 ko)<br /><br />
-        <label><input type="checkbox" name="delete" value="Delete" />
-        Supprimer l avatar</label>
-        Avatar actuel :
-        <img src="./images/avatars/'.$data['avatar'].'"
-        alt="pas d avatar" />
-
-        <br /><br />
-        <label for="signature">Signature :</label>
-        <textarea cols="40" rows="4" name="signature" id="signature">
-        '.stripslashes($data['signature']).'</textarea>
-
-
-        </fieldset>
-        <p><div class="button">
-        <input type="submit" value="Modifier son profil" /></div>
-        <input type="hidden" id="sent" name="sent" value="1" />
-        </p></form>';
-        $query->CloseCursor();
-    }
-    else{ //Sinon on est dans la page de traitement
-
-
-echo 'impossible de charger la page pour vous, <a href="connexion.php"> connectez-vous </a>';
-    }
-
-
-     //On déclare les variables
-
-    $mdp_erreur = NULL;
-    $email_erreur1 = NULL;
-    $email_erreur2 = NULL;
-    $msn_erreur = NULL;
-    $signature_erreur = NULL;
-    $avatar_erreur = NULL;
-    $avatar_erreur1 = NULL;
-    $avatar_erreur2 = NULL;
-    $avatar_erreur3 = NULL;
-
-    $i = 0;
-    $temps = time();
-    $signature = $_POST['signature'];
-    $email = $_POST['email'];
-    $website = $_POST['website'];
-    $localisation = $_POST['localisation'];
-    $pass = md5($_POST['password']);
-    $confirm = md5($_POST['confirm']);
-
-
-    //Vérification du mdp
-    if ($pass != $confirm || empty($confirm) || empty($pass))
-    {
-         $mdp_erreur = "Votre mot de passe et votre confirmation diffèrent ou sont vides";
-         $i++;
-    }
 
     //Vérification de l'adresse email
     //Il faut que l'adresse email n'ait jamais été utilisée (sauf si elle n'a pas été modifiée)
