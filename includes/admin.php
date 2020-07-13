@@ -14,7 +14,7 @@
     {
       $id_droits=$_POST['id_droits'];
       $id= $_GET['modifier_droits'];
-      $req = $bdd->prepare('UPDATE utilisateurs
+      $req = $db->prepare('UPDATE utilisateurs
         SET login = :login,
         password = :password,
         email = :email,

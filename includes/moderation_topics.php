@@ -7,7 +7,7 @@ if (isset($_POST['creer_topic'])) {
   $nom_topic = $_POST['nom_topic'];
   $statut = $_POST['statut'];
 
-  $bdd->exec("INSERT INTO `topics`(`id`, `nom`, 'statut') VALUES ( '$id_topic','$nom_topic', '$statut')");
+  $db->exec("INSERT INTO `topics`(`id`, `nom`, 'statut') VALUES ( '$id_topic','$nom_topic', '$statut')");
   echo 'Le topic a été créé.';
 }
 ?>
@@ -39,7 +39,7 @@ if (isset($_POST['creer_topic'])) {
        <?php
         $sql = 'SELECT * FROM topics';
         $params = [];
-        $resultats = $bdd->prepare($sql);
+        $resultats = $db->prepare($sql);
         $resultats->execute($params);
         if ($resultats->rowCount() > 0)
         {
@@ -61,7 +61,7 @@ if (isset($_POST['creer_topic'])) {
    <?php # Modification des topics
    if (isset($_GET['modifier_topic']))
    {
-       $pdoselect2 = $bdd->prepare('SELECT * FROM topics WHERE id= :id');
+       $pdoselect2 = $db->prepare('SELECT * FROM topics WHERE id= :id');
        $pdoselect2 ->bindValue(':id', $_GET['modifier_topic'], PDO::PARAM_INT);
        $executepdo2= $pdoselect2->execute();
        $info2= $pdoselect2->fetch();
@@ -113,7 +113,7 @@ if (isset($_POST['creer_topic'])) {
     if (isset($_GET['supprimer_topic'])) {
                       try {
                           $id = $_GET["supprimer_topic"];
-                          $req = $bdd->prepare("DELETE FROM topics WHERE id = $id");
+                          $req = $db->prepare("DELETE FROM topics WHERE id = $id");
                           $req->execute();
                           echo 'Topic supprimé.';
                           $delai = 1;

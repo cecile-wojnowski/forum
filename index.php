@@ -1,4 +1,5 @@
 <?php
+session_start();
 # Afficher les dernières conversations/messages
 $titre = "Index du forum";
 include("includes/debut.php");
@@ -20,7 +21,7 @@ include("includes/header.php");
      # Afficher les messages
      $sql = 'SELECT * FROM messages ORDER BY date DESC';
      $params = [];
-     $resultats = $bdd->prepare($sql);
+     $resultats = $db->prepare($sql);
      $resultats->execute($params);
 
      if ($resultats->rowCount() > 0)

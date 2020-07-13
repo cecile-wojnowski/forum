@@ -15,7 +15,7 @@
      <?php
        $sql = 'SELECT * FROM messages';
        $params = [];
-       $resultats = $bdd->prepare($sql);
+       $resultats = $db->prepare($sql);
        $resultats->execute($params);
        if ($resultats->rowCount() > 0)
        {
@@ -38,7 +38,7 @@
   <?php # Modification des messages
   if (isset($_GET['modifier_message']))
   {
-      $pdoselect2 = $bdd->prepare('SELECT * FROM messages WHERE id= :id');
+      $pdoselect2 = $db->prepare('SELECT * FROM messages WHERE id= :id');
       $pdoselect2 ->bindValue(':id', $_GET['modifier_message'], PDO::PARAM_INT);
       $executepdo2= $pdoselect2->execute();
       $info2= $pdoselect2->fetch();
@@ -96,7 +96,7 @@
    if (isset($_GET['supprimer_message'])) {
                      try {
                          $id = $_GET["supprimer_message"];
-                         $req = $bdd->prepare("DELETE FROM messages WHERE id = $id");
+                         $req = $db->prepare("DELETE FROM messages WHERE id = $id");
                          $req->execute();
                          echo 'Message supprimé.';
                          $delai = 1;
