@@ -15,3 +15,6 @@ include("includes/header.php");
 $totaldesmessages = 0;
 $categorie = NULL;
 ?>
+
+
+<?php include("includes/footer.php") ?>

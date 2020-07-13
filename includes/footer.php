@@ -26,8 +26,10 @@ $heure = date("H:i");
 echo("Nous sommes le $date et il est $heure");
 echo'<p>Le total des messages du forum est <strong>'.$totaldesmessages.'</strong>.<br />';
 echo'Le site et le forum comptent <strong>'.$TotalDesUtilisateurs.'</strong> utilisateurs.<br />';
-echo'Le dernier membre inscrit est <a href="./voirprofil.php?m='.$data['id'].'&amp;action=consulter">'.$dernierutilisateur.'</a>.</p>';
+echo'Le dernier membre inscrit est <a href="./voirprofil.php?'.'m='.$data['id'].'">'.$dernierutilisateur.'</a>.</p>';
 echo '<a href="regles.php"> Accéder aux CGU du forum </a>';
+
+
 
 $query->CloseCursor();
 ?>

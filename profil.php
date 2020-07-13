@@ -61,8 +61,8 @@ if (isset($_SESSION['id'])){
 
 
         </fieldset>
-        <p>
-        <input type="submit" value="Modifier son profil" />
+        <p><div class="button">
+        <input type="submit" value="Modifier son profil" /></div>
         <input type="hidden" id="sent" name="sent" value="1" />
         </p></form>';
         $query->CloseCursor();

@@ -13,7 +13,7 @@ echo (!empty($titre))?'<title>'.$titre.'</title>':'<title> Forum </title>';
 //Attribution des variables de session
 $lvl=(isset($_SESSION['level']))?(int) $_SESSION['level']:1;
 $id=(isset($_SESSION['id']))?(int) $_SESSION['id']:0;
-$pseudo=(isset($_SESSION['pseudo']))?$_SESSION['pseudo']:'';
+$pseudo=(isset($_SESSION['login']))?$_SESSION['login']:'';
 
 //On inclue les 2 pages restantes
 include("./includes/functions.php");
