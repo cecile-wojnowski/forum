@@ -11,92 +11,84 @@
 		<link rel="stylesheet" href="form.css">
 	</head>
 	<body>
+		<?php
+			if (empty($_POST['pseudo'])) // S	i on la variable est vide, on peut considérer qu'on est sur la page de formulaire
+			{
+				echo '<h1>Inscription</h1>';
+				echo '<div class="container"><form method="post" action="inscription.php" enctype="multipart/form-data">
+				<fieldset><legend>Identifiants</legend>
+				<label for="pseudo">* Pseudo :</label>  <input name="pseudo" type="text" id="pseudo" /> (le pseudo doit contenir entre 3 et 15 caractères)<br />
+				<label for="password">* Mot de Passe :</label><input type="password" name="password" id="password" /><br />
+				<label for="confirm">* Confirmer le mot de passe :</label><input type="password" name="confirm" id="confirm" />
+				</fieldset>
+				<fieldset><legend>Contacts</legend>
+				<label for="email">* Votre adresse Mail :</label><input type="text" name="email" id="email" /><br />
+				<label for="website">Votre site web :</label><input type="text" name="website" id="website" />
+				</fieldset>
+				<fieldset><legend>Informations supplémentaires</legend>
+				<label for="localisation">Localisation :</label><input type="text" name="localisation" id="localisation" />
+				</fieldset>
+				<fieldset><legend>Profil sur le forum</legend>
+				<label for="avatar">Choisissez votre avatar :</label><input type="file" name="avatar" id="avatar" />(Taille max : 10Ko<br />
+				<label for="signature">Signature :</label><textarea cols="40" rows="4" name="signature" id="signature">La signature est limitée à 200 caractères</textarea>
+				</fieldset>
+				<p>Les champs précédés d\'un * sont obligatoires.</p>
+				<p><input type="submit" value="S\'inscrire" /></p></form>
+				</div>
+				</body>
+				</html>';
+		?>
+		<?php
+			} //Fin de la partie formulaire
+			else //On est dans le cas traitement
+			{
+		    $pseudo_erreur1 = NULL;
+		    $pseudo_erreur2 = NULL;
+		    $mdp_erreur = NULL;
+		    $email_erreur1 = NULL;
+		    $email_erreur2 = NULL;
+		    $signature_erreur = NULL;
+		    $avatar_erreur = NULL;
+		    $avatar_erreur1 = NULL;
+		    $avatar_erreur2 = NULL;
+		    $avatar_erreur3 = NULL;
 
+    		//On récupère les variables
+		    $i = 0;
+		    $temps = time();
+		    $pseudo = $_POST['pseudo'];
+		    $signature = $_POST['signature'];
+		    $email = $_POST['email'];
+		    $website = $_POST['website'];
+		    $localisation = $_POST['localisation'];
+		    $pass = md5($_POST['password']);
+		    $confirm = md5($_POST['confirm']);
+				$id_droits=1;
 
+		    //Vérification du pseudo
+		    $query=$db->prepare('SELECT COUNT(*) AS nbr FROM utilisateurs WHERE login =:login');
+		    $query->bindValue(':login',$pseudo, PDO::PARAM_STR);
+		    $query->execute();
+		    $pseudo_free=($query->fetchColumn()==0)?1:0;
+		    $query->CloseCursor();
+		    if(!$pseudo_free)
+    		{
+	        $pseudo_erreur1 = "Votre pseudo est déjà utilisé par un membre";
+	        $i++;
+    		}
 
-<?php
-if (empty($_POST['pseudo'])) // S	i on la variable est vide, on peut considérer qu'on est sur la page de formulaire
-{
-	echo '<h1>Inscription</h1>';
-	echo '<div class="container"><form method="post" action="inscription.php" enctype="multipart/form-data">
-	<fieldset><legend>Identifiants</legend>
-	<label for="pseudo">* Pseudo :</label>  <input name="pseudo" type="text" id="pseudo" /> (le pseudo doit contenir entre 3 et 15 caractères)<br />
-	<label for="password">* Mot de Passe :</label><input type="password" name="password" id="password" /><br />
-	<label for="confirm">* Confirmer le mot de passe :</label><input type="password" name="confirm" id="confirm" />
-	</fieldset>
-	<fieldset><legend>Contacts</legend>
-	<label for="email">* Votre adresse Mail :</label><input type="text" name="email" id="email" /><br />
-	<label for="website">Votre site web :</label><input type="text" name="website" id="website" />
-	</fieldset>
-	<fieldset><legend>Informations supplémentaires</legend>
-	<label for="localisation">Localisation :</label><input type="text" name="localisation" id="localisation" />
-	</fieldset>
-	<fieldset><legend>Profil sur le forum</legend>
-	<label for="avatar">Choisissez votre avatar :</label><input type="file" name="avatar" id="avatar" />(Taille max : 10Ko<br />
-	<label for="signature">Signature :</label><textarea cols="40" rows="4" name="signature" id="signature">La signature est limitée à 200 caractères</textarea>
-	</fieldset>
-	<p>Les champs précédés d un * sont obligatoires</p>
-	<p><input type="submit" value="S\'inscrire" /></p></form>
-	</div>
-	</body>
-	</html>';
-?>
+		    if (strlen($pseudo) < 3 || strlen($pseudo) > 15)
+		    {
+		        $pseudo_erreur2 = "Votre pseudo est soit trop grand, soit trop petit";
+		        $i++;
+		    }
 
-
-<?php
-} //Fin de la partie formulaire
-
-else //On est dans le cas traitement
-{
-    $pseudo_erreur1 = NULL;
-    $pseudo_erreur2 = NULL;
-    $mdp_erreur = NULL;
-    $email_erreur1 = NULL;
-    $email_erreur2 = NULL;
-    $signature_erreur = NULL;
-    $avatar_erreur = NULL;
-    $avatar_erreur1 = NULL;
-    $avatar_erreur2 = NULL;
-    $avatar_erreur3 = NULL;
-?>
-<?php
-
-    //On récupère les variables
-    $i = 0;
-    $temps = time();
-    $pseudo=$_POST['pseudo'];
-    $signature = $_POST['signature'];
-    $email = $_POST['email'];
-    $website = $_POST['website'];
-    $localisation = $_POST['localisation'];
-    $pass = md5($_POST['password']);
-    $confirm = md5($_POST['confirm']);
-		$id_droits=1;
-
-    //Vérification du pseudo
-    $query=$db->prepare('SELECT COUNT(*) AS nbr FROM utilisateurs WHERE login =:login');
-    $query->bindValue(':login',$pseudo, PDO::PARAM_STR);
-    $query->execute();
-    $pseudo_free=($query->fetchColumn()==0)?1:0;
-    $query->CloseCursor();
-    if(!$pseudo_free)
-    {
-        $pseudo_erreur1 = "Votre pseudo est déjà utilisé par un membre";
-        $i++;
-    }
-
-    if (strlen($pseudo) < 3 || strlen($pseudo) > 15)
-    {
-        $pseudo_erreur2 = "Votre pseudo est soit trop grand, soit trop petit";
-        $i++;
-    }
-
-    //Vérification du mdp
-    if ($pass != $confirm || empty($confirm) || empty($pass))
-    {
-        $mdp_erreur = "Votre mot de passe et votre confirmation diffèrent, ou sont vides";
-        $i++;
-    }
+		    //Vérification du mdp
+		    if ($pass != $confirm || empty($confirm) || empty($pass))
+		    {
+		        $mdp_erreur = "Votre mot de passe et votre confirmation diffèrent, ou sont vides";
+		        $i++;
+		    }
 ?>
 <?php
     //Vérification de l'adresse email
