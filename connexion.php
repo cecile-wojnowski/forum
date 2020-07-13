@@ -1,15 +1,10 @@
 <?php
-$titre="Connexion";
-include("includes/identifiant.php");
-include("includes/header.php");
-echo '<p><i>Vous êtes ici</i> : <a href="./index.php">Index du forum</a> --> Connexion';
-
-?>
-
-
-<?php
-
-echo '<h1>Connexion</h1>';
+  $titre="Connexion";
+  include("includes/identifiant.php");
+  include("includes/header.php");
+  include("includes/functions.php");
+  echo '<p><i>Vous êtes ici</i> : <a href="./index.php">Index du forum</a> --> Connexion';
+  echo '<h1>Connexion</h1>';
 
 ?>
 
@@ -19,20 +14,19 @@ echo '<h1>Connexion</h1>';
     <meta charset="utf-8">
     <link rel="stylesheet" href="form.css">
     <link rel="stylesheet" href="style.css">
-
     <title></title>
   </head>
   <body>
 
-  </body>
-</html>
+
 
 <?php
-if (isset($_SESSION['id'])) {
-echo "vous êtes déjà connecté, <a href='deconnexion.php' me déconnecter </a> ou <a href='profil.php'> voir mon profil </a> ";
-} else{
-if (!isset($_POST['login'])) { //On est dans la page de formulaire
-?>  '<form method="post" action="connexion.php">
+  if (isset($_SESSION['id'])) {
+  echo "vous êtes déjà connecté, <a href='deconnexion.php' me déconnecter </a> ou <a href='profil.php'> voir mon profil </a> ";
+  } else{
+  if (!isset($_POST['login'])) { //On est dans la page de formulaire
+?>
+<form method="post" action="connexion.php">
 
   <div class="container">
         <h2 >Bon retour parmi nous !</h2>
@@ -83,3 +77,5 @@ if (!isset($_POST['login'])) { //On est dans la page de formulaire
 
 <?php include("includes/footer.php");
  ?>
+</body>
+</html>
