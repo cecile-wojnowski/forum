@@ -1,9 +1,7 @@
 <?php
 session_start();
 # Afficher les dernières conversations/messages
-$titre = "Index du forum";
-include("includes/debut.php");
-include("includes/identifiant.php");
+$titre = "Accueil";
 include("includes/header.php");
  ?>
  <!DOCTYPE html>
@@ -17,34 +15,65 @@ include("includes/header.php");
    </head>
 
    <body>
-     <?php
-     # Afficher les messages
-     $sql = 'SELECT * FROM messages ORDER BY date DESC';
-     $params = [];
-     $resultats = $db->prepare($sql);
-     $resultats->execute($params);
+     <div class="grid">
+       <div class= "last_messages">
+           <?php
+           # Afficher les messages
+           $sql = 'SELECT * FROM messages ORDER BY date DESC';
+           $params = [];
+           $resultats = $db->prepare($sql);
+           $resultats->execute($params);
 
-     if ($resultats->rowCount() > 0)
-     {
-       ?>
-       <table>
-         <thead>
-           <tr>
-             <th> Message </th>
-           </tr>
-         </thead>
-         <?php
-         while ($d = $resultats->fetch(PDO::FETCH_ASSOC))
-         {
-           ?>
-           <tbody>
-             <tr>
-               <td><?=$d['message'] ?></td>
-             </tr>
-           </tbody>
-         <?php } ?>
-       </table>
-       <?php
-     } ?>
+           if ($resultats->rowCount() > 0)
+           {
+             ?>
+             <table>
+               <thead>
+                 <tr>
+                   <th> Message </th>
+                 </tr>
+               </thead>
+               <?php
+               while ($d = $resultats->fetch(PDO::FETCH_ASSOC))
+               {
+                 ?>
+                 <tbody>
+                   <tr>
+                     <td><?=$d['message'] ?></td>
+                   </tr>
+                 </tbody>
+               <?php } ?>
+             </table>
+             <?php
+           } ?>
+         </div>
+
+        <div class="index_topics">
+          <?php
+          # Afficher les messages
+          $sql = 'SELECT * FROM topics';
+          $params = [];
+          $resultats = $db->prepare($sql);
+          $resultats->execute($params);
+
+          if ($resultats->rowCount() > 0)
+          { ?>
+            <ul class="index_list">
+              <?php while ($d = $resultats->fetch(PDO::FETCH_ASSOC))
+              {
+                echo '<li>' . $d['topic'] .'</li> <br>';
+               } ?>
+            </ul>
+          <?php } ?>
+         </div>
+
+        <div class="stats">
+          <p> Ici s'afficheront les statistiques. </p>
+        </div>
+
+        <div class="index_links">
+          <p>- Lien 1 <br>
+          - Lien 2 </p>
+        </div>
    </body>
   </html>
