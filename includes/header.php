@@ -6,7 +6,7 @@
 <html lang="fr" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>header</title>
+    <title><?php echo $titre; ?></title>
     <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="header.css">
   </head>
