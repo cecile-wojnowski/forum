@@ -1,18 +1,18 @@
 <?php
-session_start();
-$titre="Enregistrement";
-include("includes/identifiant.php");
-include("includes/header.php");
-include("./includes/function.php");
+	session_start();
+	$titre="Enregistrement";
+	include("includes/identifiant.php");
+	include("includes/header.php");
+	include("includes/functions.php");
 ?>
-
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
 	<head>
-<link rel="stylesheet" href="form.css">
+		<link rel="stylesheet" href="form.css">
 	</head>
 	<body>
 
-	</body>
-</html>
+
 
 <?php
 if (empty($_POST['pseudo'])) // S	i on la variable est vide, on peut considérer qu'on est sur la page de formulaire
@@ -229,5 +229,6 @@ function move_avatar($avatar)
 }
 
 include("includes/footer.php");
-
 ?>
+</body>
+</html>
