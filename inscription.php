@@ -63,7 +63,7 @@
 		    $pass = md5($_POST['password']);
 		    $confirm = md5($_POST['confirm']);
 
-				$id_droits=1; # Toute inscription donne les droits "utilisateur"
+				$id_droits=2; # Toute inscription donne les droits "inscrit"
 
 		    //Vérification du pseudo
 		    $query=$db->prepare('SELECT COUNT(*) AS nbr FROM utilisateurs WHERE login =:login');
