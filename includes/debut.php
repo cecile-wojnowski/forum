@@ -17,8 +17,8 @@ echo (!empty($titre))?'<title>'.$titre.'</title>':'<title> Forum </title>';
 $id=(isset($_SESSION['id']))?(int) $_SESSION['id']:0;
 $pseudo=(isset($_SESSION['login']))?$_SESSION['login']:'';
 $lvl=(isset($_SESSION['level']))?(int) $_SESSION['level']:1;
-  
+
 //On inclut les 2 pages restantes
-include("./includes/functions.php");
-include("./includes/constant.php");
+include("functions.php");
+include("constant.php");
 ?>
