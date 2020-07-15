@@ -30,7 +30,7 @@ include("includes/header.php");
              <table>
                <thead>
                  <tr>
-                   <th> Message </th>
+                   <th> Derniers messages postés </th>
                  </tr>
                </thead>
                <?php
