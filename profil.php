@@ -1,10 +1,10 @@
 <?php
 session_start();
 include("includes/header.php");
-/*
+
 if(!isset($_SESSION['login'])){
   header("Location:connexion.php");
-} */
+}
 
 $id=$_SESSION['id'];
 $query=$db->prepare('SELECT * FROM utilisateurs WHERE id=:id');
