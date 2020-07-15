@@ -17,9 +17,12 @@ html {
 
 /**** Index *****/
 .grid{
+  margin-top:5%;
   display: grid;
   grid-template-columns: 2fr 1fr;
   grid-column-gap: 20px;
+  grid-row-gap:20px;
+  text-align: center;
 }
 .last_messages{
   border: solid 1px #D8D8D4;
@@ -27,8 +30,9 @@ html {
 .index_topics{
   background-color: white;
   border: solid 1px #D8D8D4;
-  border-radius: 3px;
+  border-radius: 2px;
   grid-column-start: 2;
+  padding:5%;
 }
 .index_list{
   background-color: white;
@@ -37,11 +41,11 @@ html {
   grid-column-start: 2;
   background-color: white;
   border: solid 1px #D8D8D4;
-  border-radius: 3px;
+  border-radius: 2px;
 }
 .index_links{
   grid-column-start: 2;
   background-color: white;
   border: solid 1px #D8D8D4;
-  border-radius: 3px;
+  border-radius: 2px;
 }
