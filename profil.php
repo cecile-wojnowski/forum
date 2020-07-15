@@ -67,9 +67,12 @@ $website=$data["website"];
 
 <?php
 
- if(isset($_POST['modifier_profil'])){
-   $temps = time();
+$temps = time();
 
+$erreur = null;
+
+ if(isset($_POST['modifier_profil']) AND ($pass != $confirm || empty($confirm) || empty($pass)))
+ {
    $pseudo = $_POST['pseudo'];
    $signature = $_POST['signature'];
    $email = $_POST['email'];
@@ -77,6 +80,18 @@ $website=$data["website"];
    $localisation = $_POST['localisation'];
    $pass = md5($_POST['password']);
    $confirm = md5($_POST['confirm']);
+
+   $erreur = "Votre mot de passe et votre confirmation diffèrent ou sont vides.";
+ }elseif(strtolower($data['email']) != strtolower($email))
+ {
+   $erreur = "Votre adresse email est déjà utilisé par un membre.";
+ }elseif (isset($_POST['modifier_profil']) AND !preg_match("#^[a-z0-9A-Z._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#", $email))
+ {
+     $erreur = "Votre nouvelle adresse E-Mail n'a pas un format valide.";
+ }elseif (strlen($signature) > 200)
+ {
+   $erreur = "Votre nouvelle signature est trop longue.";
+ }else{
 
   $query=$db->prepare('UPDATE utilisateurs
   SET login = :pseudo, password = :password, email=:email, website=:website,
@@ -92,21 +107,6 @@ $website=$data["website"];
   $query->execute();
 
   # $query->CloseCursor();
-
-  # Gestion des erreurs
-  if ($pass != $confirm || empty($confirm) || empty($pass))
-  {
-    echo "Votre mot de passe et votre confirmation diffèrent ou sont vides.";
-  }elseif(strtolower($data['email']) != strtolower($email))
-  {
-    echo "Votre adresse email est déjà utilisé par un membre.";
-  }elseif (!preg_match("#^[a-z0-9A-Z._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#", $email) || empty($email))
-  {
-      echo "Votre nouvelle adresse E-Mail n'a pas un format valide.";
-  }elseif (strlen($signature) > 200)
-  {
-    echo "Votre nouvelle signature est trop longue.";
-  }
 
     //Vérification de l'avatar
 
