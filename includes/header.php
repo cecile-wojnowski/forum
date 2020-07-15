@@ -1,5 +1,6 @@
 <?php
     include("identifiant.php");
+    include("debut.php");
 ?>
 
 <!DOCTYPE html>
@@ -23,7 +24,7 @@
 
       if (isset($_SESSION['login'])) {
         if ($_SESSION['id_droits']== 1) {
-          ?> '<ul> <a href="index.php"><center>Accueil</center></a>
+          ?> <ul> <a href="index.php"><center>Accueil</center></a>
           <li><a href="profil.php">  Votre profil <i> <?php $_SESSION['login'] ?></i></a></li>
           <li><a href="topics.php"> Topics  </a></li>
           <li><a href="index.php?deconnexion">déconnexion</a></li></ul>
