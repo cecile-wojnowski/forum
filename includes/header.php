@@ -1,6 +1,7 @@
 <?php
   include("identifiant.php");
   include("debut.php");
+  session_start();
 ?>
 
 <!DOCTYPE html>
@@ -11,11 +12,10 @@
     <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="header.css">
   </head>
-
   <body>
     <div class="top">
       <div class="top_text">
-        <h2> Titre du forum</center> </h2>
+        <h2> Titre du forum </h2>
       </div>
 
     </div>
@@ -39,7 +39,7 @@
             <?php  } elseif ($_SESSION['id_droits']== 4) { ?>
             <ul> <li><a href="index.php"><center> Accueil</center></a></li>
             <li><a href="profil.php">  Votre profil    <i><?php $_SESSION['login'] ?></i></a></li>
-            <li><a href="admin.php"> Espace modération </a></li>
+            <li><a href="moderation.php"> Espace modération </a></li>
             <li><a href="topics.php"> Topics  </a></li>
 
             <a href="index.php?deconnexion">
@@ -57,18 +57,3 @@
           <li style="float:right"><a class="active" href="recherche.php">faire une recherche</li></a>
           </ul>
 <?php  }   ?>
-
-
-        <?php  if (isset($_GET['deconnexion'])) {
-          session_destroy();
-          //au bout de 2 secondes redirection vers la page d'accueil
-          header("Refresh: 1; url=index.php");
-
-          echo "<p>Vous avez été déconnecté</p><br><p>Redirection vers la page d'accueil...</p>";
-}
-
-        $message = "";
- ?>
-
-  </body>
-</html>
