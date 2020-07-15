@@ -11,6 +11,13 @@ $query=$db->prepare('SELECT * FROM utilisateurs WHERE id=:id');
 $query->bindValue(':id',$id,PDO::PARAM_INT);
 $query->execute();
 $data=$query->fetch();
+
+# Stockage des données de la table dans des variables
+$pass=$data["password"];
+$email=$data["email"];
+$signature=$data["signature"];
+$localisation=$data["localisation"];
+$website=$data["website"];
 ?>
 <p><i>Vous êtes ici</i> : <a href="./index.php">Index du forum</a> --> Modification du profil; </p>
 
@@ -84,91 +91,26 @@ $data=$query->fetch();
   $query->bindValue(':id',$id,PDO::PARAM_INT);
   $query->execute();
 
-  var_dump($pseudo);
+  # $query->CloseCursor();
 
-  $query->CloseCursor();
-
-
+  # Gestion des erreurs
   if ($pass != $confirm || empty($confirm) || empty($pass))
   {
-       $mdp_erreur = "Votre mot de passe et votre confirmation diffèrent ou sont vides";
-       $i++;
-     }
-}
-
-/*else{
-    echo'<h1>Modification interrompue</h1>';
-    echo'<p>Une ou plusieurs erreurs se sont produites pendant la modification du profil</p>';
-    echo'<p>'.$i.' erreur(s)</p>';
-    echo'<p>'.$mdp_erreur.'</p>';
-    echo'<p>'.$email_erreur1.'</p>';
-    echo'<p>'.$email_erreur2.'</p>';
-    echo'<p>'.$signature_erreur.'</p>';
-    echo'<p>'.$avatar_erreur.'</p>';
-    echo'<p>'.$avatar_erreur1.'</p>';
-    echo'<p>'.$avatar_erreur2.'</p>';
-    echo'<p>'.$avatar_erreur3.'</p>';
-    echo'<p> Cliquez <a href="./profil.php?action=modifier">ici</a> pour recommencer</p>';
-}*/
-
-/*
-# Stockage des données de la table dans des variables
-$pass=$data["password"];
-$email=$data["email"];
-$signature=$data["signature"];
-$localisation=$data["localisation"];
-$website=$data["website"];
-
-$i = 0;
-$mdp_erreur = NULL;
-$email_erreur1 = NULL;
-$email_erreur2 = NULL;
-$msn_erreur = NULL;
-$signature_erreur = NULL;
-$avatar_erreur = NULL;
-$avatar_erreur1 = NULL;
-$avatar_erreur2 = NULL;
-$avatar_erreur3 = NULL;
-    //Vérification de l'adresse email
-    //Il faut que l'adresse email n'ait jamais été utilisée (sauf si elle n'a pas été modifiée)
-
-    //On commence donc par récupérer le mail
-    $query=$db->prepare('SELECT email FROM utilisateurs WHERE id =:id');
-    $query->bindValue(':id',$id,PDO::PARAM_INT);
-    $query->execute();
-    $data=$query->fetch();
-    if (strtolower($data['email']) != strtolower($email))
-    {
-        //Il faut que l'adresse email n'ait jamais été utilisée
-        $query=$db->prepare('SELECT COUNT(*) AS nbr FROM utilisateurs WHERE email =:email');
-        $query->bindValue(':email',$email,PDO::PARAM_STR);
-        $query->execute();
-        $mail_free=($query->fetchColumn()==0)?1:0;
-        $query->CloseCursor();
-        if(!$mail_free)
-        {
-            $email_erreur1 = "Votre adresse email est déjà utilisé par un membre";
-            $i++;
-        }
-
-        //On vérifie la forme maintenant
-        if (!preg_match("#^[a-z0-9A-Z._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#", $email) || empty($email))
-        {
-            $email_erreur2 = "Votre nouvelle adresse E-Mail n'a pas un format valide";
-            $i++;
-        }
-    }
-
-    //Vérification de la signature
-    if (strlen($signature) > 200)
-    {
-        $signature_erreur = "Votre nouvelle signature est trop longue";
-        $i++;
-    }
+    echo "Votre mot de passe et votre confirmation diffèrent ou sont vides.";
+  }elseif(strtolower($data['email']) != strtolower($email))
+  {
+    echo "Votre adresse email est déjà utilisé par un membre.";
+  }elseif (!preg_match("#^[a-z0-9A-Z._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#", $email) || empty($email))
+  {
+      echo "Votre nouvelle adresse E-Mail n'a pas un format valide.";
+  }elseif (strlen($signature) > 200)
+  {
+    echo "Votre nouvelle signature est trop longue.";
+  }
 
     //Vérification de l'avatar
 
-    if (!empty($_FILES['avatar']['size']))
+    /*if (!empty($_FILES['avatar']['size']))
     {
         //On définit les variables :
         $maxsize = 30072; //Poid de l'image
@@ -204,10 +146,12 @@ $avatar_erreur3 = NULL;
           $i++;
           $avatar_erreur3 = "Extension de l'avatar incorrecte";
         }
-    }
+    } */
+}
 ?>
 
 <?php
+/*
     echo '<p><i>Vous êtes ici</i> : <a href="./index.php">Index du forum</a> --> Modification du profil';
     echo '<h1>Modification d\'un profil</h1>';
 
@@ -236,7 +180,7 @@ $avatar_erreur3 = NULL;
   }
     echo'<p>Cliquez <a href="./index.php">ici</a>
     pour revenir à la page d accueil</p>';
-    */
+  */
 ?>
 </div>
 </body>
