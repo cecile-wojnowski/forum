@@ -1,11 +1,7 @@
 <?php
-#include identifiant
-include("includes/identifiant.php");
+session_start();
 include("includes/header.php");
-include("includes/functions.php");
-include("includes/constant.php");
 
-#
   /* Admin : affichage de certaines parties du code uniquement si l'admin est connecté
    - change les droits utilisateurs, peut supprimer les utilisateurs
    gérer les messages signalés = afficher liste messages signalés, possibilité de supprimer
@@ -21,7 +17,7 @@ include("includes/constant.php");
 <html lang="fr" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Modération</title>
+    <title></title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/table.css">
@@ -32,11 +28,11 @@ include("includes/constant.php");
     # Gestion des utilisateurs réservée à l'admin
     /* Mettre admin dans une condition : if isset session admin, echo include admin */
 
-    if(verif_auth(ADMIN))
-    {
+    /*if(verif_auth(ADMIN))
+    {*/
       //Afficher la partie admin
       include("includes/admin.php");
-    }
+    /*}*/
 
     include("includes/moderation_topics.php");
     include("includes/moderation_messages.php");
