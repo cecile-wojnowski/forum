@@ -63,7 +63,7 @@
 		    $pass = md5($_POST['password']);
 		    $confirm = md5($_POST['confirm']);
 
-				$id_droits=2; # Toute inscription donne les droits "inscrit"
+				$id_droits= 2; # Toute inscription donne les droits "inscrit"
 
 		    //Vérification du pseudo
 		    $query=$db->prepare('SELECT COUNT(*) AS nbr FROM utilisateurs WHERE login =:login');
@@ -176,8 +176,8 @@
 			//Et on définit les variables de sessions
 		        $_SESSION['login'] = $pseudo;
 		        $_SESSION['id'] = $db->lastInsertId(); ;
-		        $_SESSION['level'] = 2;
-						$_SESSION['id_droits'] = 1;
+		        $_SESSION['level'] = 2; # Inutile ?
+						$_SESSION['id_droits'] = $id_droits;
 
 		        $query->CloseCursor();
 		    }
