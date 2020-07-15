@@ -1,5 +1,4 @@
 <?php
-session_start();
 include("includes/header.php");
 
   /* Admin : affichage de certaines parties du code uniquement si l'admin est connecté

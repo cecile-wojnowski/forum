@@ -1,5 +1,4 @@
 <?php
-session_start();
 # Afficher les dernières conversations/messages
 $titre = "Accueil";
 include("includes/header.php");
