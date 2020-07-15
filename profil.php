@@ -1,10 +1,17 @@
 <?php
-session_start();
 include("includes/header.php");
 
 if(!isset($_SESSION['login'])){
   header("Location:connexion.php");
 }
+
+# Affichage du message d'erreur
+if (isset($_SESSION['message'])) : ?>
+<div id="alert" class="<?php echo $_SESSION['message']['type']?>">
+  <p><?php echo $_SESSION['message']["message"]?></p>
+</div>
+<?php unset($_SESSION["message"])?>
+<?php endif;
 
 $id=$_SESSION['id'];
 $query=$db->prepare('SELECT * FROM utilisateurs WHERE id=:id');
@@ -18,11 +25,15 @@ $email=$data["email"];
 $signature=$data["signature"];
 $localisation=$data["localisation"];
 $website=$data["website"];
+
 ?>
 <p><i>Vous êtes ici</i> : <a href="./index.php">Index du forum</a> --> Modification du profil; </p>
 
 <h1>Modifier son profil</h1>
-<form name="modifier_profil" method="post" action="profil.php" enctype="multipart/form-data">
+<form name="modifier_profil" method="post" action="includes/form.php" enctype="multipart/form-data">
+  <?php if(isset($_SESSION["message"]["message"])) {
+    echo $_SESSION["message"]["message"];
+  } ?>
   <fieldset><legend>Identifiants</legend>
     <label for="pseudo"> Pseudo : </label>
     <input type ="text" name="pseudo" id="pseudo" value="<?php echo stripslashes(htmlspecialchars($data['login']))?>">
@@ -68,30 +79,8 @@ $website=$data["website"];
 
 # $temps = time();
 
-/*erreur_profil() = false AND*/
- if(isset($_POST['modifier_profil'])){
-   $pseudo = $_POST['pseudo'];
-   $signature = $_POST['signature'];
-   $email = $_POST['email'];
-   $website = $_POST['website'];
-   $localisation = $_POST['localisation'];
-   $pass = md5($_POST['password']);
-   $confirm = md5($_POST['confirm']);
 
-  $query=$db->prepare('UPDATE utilisateurs
-  SET login = :pseudo, password = :password, email=:email, website=:website,
-  signature=:signature, localisation=:localisation
-  WHERE id=:id');
-  $query->bindValue(':pseudo',$pseudo,PDO::PARAM_STR);
-  $query->bindValue(':password',$pass,PDO::PARAM_STR);
-  $query->bindValue(':email',$email,PDO::PARAM_STR);
-  $query->bindValue(':website',$website,PDO::PARAM_STR);
-  $query->bindValue(':signature',$signature,PDO::PARAM_STR);
-  $query->bindValue(':localisation',$localisation,PDO::PARAM_STR);
-  $query->bindValue(':id',$id,PDO::PARAM_INT);
-  $query->execute();
-  header("Refresh");
-}
+
 
   # $query->CloseCursor();
 
