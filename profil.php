@@ -25,9 +25,9 @@ $website=$data["website"];
 <form name="modifier_profil" method="post" action="profil.php" enctype="multipart/form-data">
   <fieldset><legend>Identifiants</legend>
     <label for="pseudo"> Pseudo : </label>
-    <input type ="text" name="pseudo" id="pseudo">
-      <strong><?php stripslashes(htmlspecialchars($data['login'])) ?></strong>
-    </input>
+    <input type ="text" name="pseudo" id="pseudo" value="
+      <?php echo stripslashes(htmlspecialchars($data['login'])) ?>">
+
     <label for="password">Nouveau mot de Passe :</label>
     <input type="password" name="password" id="password" /><br />
     <label for="confirm">Confirmer le mot de passe :</label>
@@ -35,16 +35,16 @@ $website=$data["website"];
   </fieldset>
 
   <fieldset><legend>Contacts</legend>
-    <label for="email">Votre adresse E_Mail :</label>
-    <input type="text" name="email" id="email"value="<?php stripslashes($data['email']) ?>" /><br />
+    <label for="email">Votre adresse e-mail :</label>
+    <input type="text" name="email" id="email" value="<?php echo stripslashes(htmlspecialchars($data['email'])) ?>" /><br />
 
     <label for="website">Votre site web :</label>
-    <input type="text" name="website" id="website" value="<?php stripslashes($data['website']) ?>" /><br />
+    <input type="text" name="website" id="website" value="<?php echo stripslashes(htmlspecialchars($data['website'])) ?>" /><br />
   </fieldset>
 
   <fieldset><legend>Informations supplémentaires</legend>
     <label for="localisation">Localisation :</label>
-    <input type="text" name="localisation" id="localisation" value="<?php stripslashes($data['localisation']) ?>" /><br />
+    <input type="text" name="localisation" id="localisation" value="<?php echo stripslashes(htmlspecialchars($data['localisation'])) ?>" /><br />
   </fieldset>
 
   <fieldset><legend>Profil sur le forum</legend>
@@ -57,7 +57,7 @@ $website=$data["website"];
     <img src="./images/avatars/ <?php $data['avatar'] ?>"
     alt="pas d avatar" /> <br />
     <label for="signature">Signature :</label>
-    <textarea cols="40" rows="4" name="signature" id="signature"> <?php stripslashes($data['signature']) ?></textarea>
+    <textarea cols="40" rows="4" name="signature" id="signature"> <?php stripslashes(htmlspecialchars($data['signature'])) ?></textarea>
   </fieldset>
 
   <div class="button">
@@ -71,7 +71,7 @@ $temps = time();
 
 $erreur = null;
 
- if(isset($_POST['modifier_profil']) AND ($pass != $confirm || empty($confirm) || empty($pass)))
+ if(isset($_POST['modifier_profil']) AND ($_POST['password'] != $_POST['confirm']))
  {
    $pseudo = $_POST['pseudo'];
    $signature = $_POST['signature'];
@@ -105,6 +105,7 @@ $erreur = null;
   $query->bindValue(':localisation',$localisation,PDO::PARAM_STR);
   $query->bindValue(':id',$id,PDO::PARAM_INT);
   $query->execute();
+
 
   # $query->CloseCursor();
 
