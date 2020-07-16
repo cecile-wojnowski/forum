@@ -1,4 +1,8 @@
 <?php
+if(isset($_GET['deconnexion'])){
+  session_start();
+  session_destroy();
+}
 # Afficher les dernières conversations/messages
 $titre = "Accueil";
 include("includes/header.php");
