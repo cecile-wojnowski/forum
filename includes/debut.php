@@ -1,4 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<meta charset = "utf-8">
+
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" >
 <head>
 <?php
@@ -11,10 +13,12 @@ echo (!empty($titre))?'<title>'.$titre.'</title>':'<title> Forum </title>';
 <?php
 
 //Attribution des variables de session
+
 $id=(isset($_SESSION['id']))?(int) $_SESSION['id']:0;
 $pseudo=(isset($_SESSION['login']))?$_SESSION['login']:'';
+$lvl=(isset($_SESSION['level']))?(int) $_SESSION['level']:1;
 
-//On inclue les 2 pages restantes
-include("./includes/function.php");
-include("./includes/constant.php");
+//On inclut les 2 pages restantes
+include("functions.php");
+include("constant.php");
 ?>

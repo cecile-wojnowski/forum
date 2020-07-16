@@ -24,6 +24,11 @@ foreach($req->fetchAll() as $post):
 
 <?php endforeach;
 
+if(isset($_GET['conversations'])){
+
+}
+
+
 ?>
 
     </main>

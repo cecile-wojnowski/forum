@@ -2,9 +2,28 @@
 <?php
 include("includes/identifiant.php");
 include("includes/header.php");
-include("./includes/function.php");
+include("includes/function.php");
+
 
 ?>
+
+
+<?php
+$sql = 'SELECT * FROM messages';
+  $params = [];
+  if (isset($_POST['recherche_valeur'])) {
+      $sql .= ' where message like :message';
+      $params[':message'] = "%" . addcslashes($_POST['recherche_valeur'], '_') . "%";
+  }
+  $resultats = $db->prepare($sql);
+  $resultats->execute($params);
+  if ($resultats->rowCount() > 0) {
+      while ($d = $resultats->fetch(PDO::FETCH_ASSOC)) {
+          ?>
+
+<tr><td><?=$d['message'] ?>
+
+<?php }} ?>
 
 <!DOCTYPE html>
 <html>
@@ -25,7 +44,7 @@ include("./includes/function.php");
 </center>
 
 <p><center>Tapez le titre d'un article</center></p>
-<form class="example" action="/action_page.php" style="margin:auto;max-width:500px">
+<form class="example" name="recherche_valeur" action="" style="margin:auto;max-width:500px">
   <input type="text" placeholder="rechercher.." name="search2">
   <button type="submit"><i class="fa fa-search"></i></button>
 </form>
@@ -34,7 +53,7 @@ include("./includes/function.php");
 
 <button type="button" class="collapsible">Topic 1</button>
 <div class="content">
-  <a href="topics.php">Description du topic 1... </a>
+  <a href="topics.php?id=1">Description du topic 1... </a>
 </div>
 <button type="button" class="collapsible">Topic 2</button>
 <div class="content">
