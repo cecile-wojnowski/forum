@@ -55,7 +55,7 @@
           $_SESSION['login'] = $data['login'];
           $_SESSION['id_droits'] = $data['id_droits'];
           $_SESSION['id'] = $data['id'];
-          $message = '<p>Bienvenue '.$data['login'].'votre id_droits est'.$data['id_droits'].',
+          $message = '<p>Bienvenue '.$data['login'].'votre id_droits est '.$data['id_droits'].',
     			vous êtes maintenant connecté!</p>
     			<p>Cliquez <a href="./index.php">ici</a>
     			pour revenir à la page d accueil</p> et ici pour <a href="profil.php"> voir votre profil </a>';
