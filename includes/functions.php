@@ -1,10 +1,12 @@
 <?php
+# Inutile ?
 function verif_auth($auth_necessaire)
 {
   $level=(isset($_SESSION['level']))?$_SESSION['level']:1;
   return ($auth_necessaire <= intval($level));
 }
 
+# Permet d'afficher des messages d'erreur spécifiques sur Profil
 function erreur_profil($db)
 {
   $erreur = null;
