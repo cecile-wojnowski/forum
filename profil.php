@@ -30,7 +30,7 @@ $website=$data["website"];
 <p><i>Vous êtes ici</i> : <a href="./index.php">Index du forum</a> --> Modification du profil; </p>
 
 <h1>Modifier son profil</h1>
-<form name="modifier_profil" method="post" action="includes/form.php" enctype="multipart/form-data">
+<form name="modifier_profil" method="post" action="includes/profil_update.php" enctype="multipart/form-data">
   <?php if(isset($_SESSION["message"]["message"])) {
     echo $_SESSION["message"]["message"];
   } ?>
