@@ -31,19 +31,19 @@ function erreur_profil($db)
    }elseif(strtolower($data['email']) != strtolower($email))
    {
      $_SESSION["message"] =  "Votre adresse email est déjà utilisé par un membre.";
-      $_SESSION["message"]['type']="danger";
+     $_SESSION["message"]['type']="danger";
      return true;
 
    }elseif (isset($_POST['modifier_profil']) AND !preg_match("#^[a-z0-9A-Z._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#", $email))
    {
-       $_SESSION["message"]['message']= "Votre nouvelle adresse E-Mail n'a pas un format valide.";
-        $_SESSION["message"]['type']="danger";
+      $_SESSION["message"]['message']= "Votre nouvelle adresse E-Mail n'a pas un format valide.";
+      $_SESSION["message"]['type']="danger";
        return true;
 
    }elseif (strlen($signature) > 200)
    {
       $_SESSION["message"]["message"]= "Votre nouvelle signature est trop longue.";
-       $_SESSION["message"]['type']="danger";
+      $_SESSION["message"]['type']="danger";
      return true;
    }else{
      return false;
