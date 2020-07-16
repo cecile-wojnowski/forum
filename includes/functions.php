@@ -6,12 +6,13 @@ function verif_auth($auth_necessaire)
   return ($auth_necessaire <= intval($level));
 }
 
+# Upload un fichier d'avatar et renvoie son nom
 function move_avatar($avatar)
 {
     $extension_upload = strtolower(substr(  strrchr($avatar['name'], '.')  ,1));
     $name = time();
     $nomavatar = str_replace(' ','',$name).".".$extension_upload;
-    $name = "images/avatars/".str_replace(' ','',$name).".".$extension_upload;
+    $name = "../images/avatars/".str_replace(' ','',$name).".".$extension_upload;
     move_uploaded_file($avatar['tmp_name'],$name);
     return $nomavatar;
 }
@@ -66,13 +67,8 @@ function erreur_profil($db)
       //Liste des extensions valides
       $extensions_valides = array( 'jpg' , 'jpeg' , 'gif' , 'png', 'bmp' );
 
-      if ($_FILES['avatar']['error'] > 0)
-      {
-        $avatar_erreur = "Erreur lors du tranfsert de l'avatar : ";
-      }
       if ($_FILES['avatar']['size'] > $maxsize)
       {
-        $i++;
         $avatar_erreur1 = "Le fichier est trop gros :
         (<strong>".$_FILES['avatar']['size']." Octets</strong>
         contre <strong>".$maxsize." Octets</strong>)";
@@ -80,7 +76,6 @@ function erreur_profil($db)
        $image_sizes = getimagesize($_FILES['avatar']['tmp_name']);
        if ($image_sizes[0] > $maxwidth OR $image_sizes[1] > $maxheight)
        {
-       $i++;
        $avatar_erreur2 = "Image trop large ou trop longue :
        (<strong>".$image_sizes[0]."x".$image_sizes[1]."</strong> contre
        <strong>".$maxwidth."x".$maxheight."</strong>)";
@@ -89,7 +84,6 @@ function erreur_profil($db)
        $extension_upload = strtolower(substr(  strrchr($_FILES['avatar']['name'], '.')  ,1));
        if (!in_array($extension_upload,$extensions_valides) )
        {
-         $i++;
          $avatar_erreur3 = "Extension de l'avatar incorrecte";
        }
     }else{
