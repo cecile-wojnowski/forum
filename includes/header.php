@@ -28,7 +28,7 @@
           ?> <ul> <a href="index.php"><center>Accueil</center></a>
           <li><a href="profil.php">  Votre profil <i> <?php $_SESSION['login'] ?></i></a></li>
           <li><a href="topics.php"> Topics  </a></li>
-          <li><a href="conversations.php"> Créer une conversation  </a></li>
+          <li><a href="creer_conversation.php"> Créer une conversation  </a></li>
           <li><a href="index.php?deconnexion"> Déconnexion</a></li>
           <li style="float:right"><a class="active" href="recherche.php">faire une recherche</li></a>
 
@@ -39,7 +39,7 @@
             <ul> <li><a href="index.php"> Accueil </a></li>
             <li><a href="profil.php">  Votre profil    <i><?php $_SESSION['login']?></i></a></li>
             <li><a href="topics.php"> Les topics  </a> </li>
-            <li><a href="conversations.php"> Créer une conversation  </a></li>
+            <li><a href="creer_conversation.php"> Créer une conversation  </a></li>
             <li><a href="index.php?deconnexion"><img src="https://img.icons8.com/fluent/48/000000/shutdown.png"/></a></li></ul>
             <?php  } elseif ($_SESSION['id_droits']== 4) { ?>
             <ul> <li><a href="index.php"><center> Accueil</center></a></li>
