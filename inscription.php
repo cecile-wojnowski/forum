@@ -3,7 +3,7 @@ if(isset($_SESSION['login'])){
 	header("Location:profil.php");
 }
 	$titre="Enregistrement";
-
+	include("functions.php");
 	include("includes/header.php");
 ?>
 <!DOCTYPE html>
@@ -159,7 +159,7 @@ if(isset($_SESSION['login'])){
 		      echo'<p>Bienvenue '.stripslashes(htmlspecialchars($_POST['pseudo'])).' vous êtes maintenant inscrit sur le forum</p>
 					<p>Cliquez <a href="./index.php">ici</a> pour revenir à la page d accueil</p>';
 
-		        //La ligne suivante sera commentée plus bas
+
 					$nomavatar=(!empty($_FILES['avatar']['size']))?move_avatar($_FILES['avatar']):'';
 
 		      $query=$db->prepare('INSERT INTO utilisateurs( `login`, `email`, `password`, `date_inscription`, `id_droits`, `localisation`, `website`, `signature`, `avatar`)
@@ -178,7 +178,6 @@ if(isset($_SESSION['login'])){
 			//Et on définit les variables de sessions
 		        $_SESSION['login'] = $pseudo;
 		        $_SESSION['id'] = $db->lastInsertId(); ;
-		        $_SESSION['level'] = 2; # Inutile ?
 						$_SESSION['id_droits'] = $id_droits;
 
 		        $query->CloseCursor();
@@ -204,19 +203,8 @@ if(isset($_SESSION['login'])){
 			}
 ?>
 </div>
-</body>
-</html>
-<?php
-function move_avatar($avatar)
-{
-    $extension_upload = strtolower(substr(  strrchr($avatar['name'], '.')  ,1));
-    $name = time();
-    $nomavatar = str_replace(' ','',$name).".".$extension_upload;
-    $name = "images/avatars/".str_replace(' ','',$name).".".$extension_upload;
-    move_uploaded_file($avatar['tmp_name'],$name);
-    return $nomavatar;
-}
 
+<?php
 include("includes/footer.php");
 ?>
 </body>
