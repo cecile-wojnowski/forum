@@ -30,6 +30,23 @@ if(erreur_profil($db) == false) {
    $query->bindValue(':id',$id,PDO::PARAM_INT);
    $query->execute();
  }
+ if(!empty($_FILES['avatar']['size']))
+ {
+    $nomavatar=move_avatar($_FILES['avatar']);
+    $query=$db->prepare('UPDATE forum_membres SET membre_avatar = :avatar
+      WHERE membre_id = :id');
+    $query->bindValue(':avatar',$nomavatar,PDO::PARAM_STR);
+    $query->bindValue(':id',$id,PDO::PARAM_INT);
+    $query->execute();
+    $query->CloseCursor();
+
+    if (isset($_POST['delete']))
+    {
+      $query=$db->prepare('UPDATE forum_membres SET membre_avatar=0 WHERE membre_id = :id');
+      $query->bindValue(':id',$id,PDO::PARAM_INT);
+      $query->execute();
+      $query->CloseCursor();
+    }
 }
 
 header("Location:../profil.php");
