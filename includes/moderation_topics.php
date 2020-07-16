@@ -21,7 +21,7 @@ if (isset($_POST['creation_topic'])) {
     <option value="public"> Public </option>
     <option value="private"> Privé </option>
   </select>
-  <input type="submit" name="creer" value="Créer topic">
+  <input type="submit" name="creation_topic" value="Créer topic">
 </form>
 
 <?php # Affichage des topics
