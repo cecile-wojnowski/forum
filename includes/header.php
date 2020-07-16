@@ -30,7 +30,7 @@
             <li><a href="index.php"><center>Accueil</center></a></li>
             <li><a href="profil.php">  Votre profil <i> <?php $_SESSION['login'] ?></i></a></li>
             <li><a href="topics.php"> Topics  </a></li>
-            <li><a href="index.php?deconnexion"> Déconnexion</a></li>
+            <li><a href="index.php?deconnexion"> Déconnexion </a></li>
           </ul>
           <?php
         } elseif ($_SESSION['id_droits']== 3)
