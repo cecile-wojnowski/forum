@@ -71,93 +71,15 @@ $website=$data["website"];
   </fieldset>
 
   <div class="button">
-  <input type="submit" name="modifier_profil" value="Modifier son profil"/></div>
+    <input type="submit" name="modifier_profil" value="Modifier son profil"/>
+  </div>
   <input type="hidden" id="sent" name="sent" value="1" />
 </form>
 
 <?php
-
-# $temps = time();
-
-
-
-
-  # $query->CloseCursor();
-
-    //Vérification de l'avatar
-
-    /*if (!empty($_FILES['avatar']['size']))
-    {
-        //On définit les variables :
-        $maxsize = 30072; //Poid de l'image
-        $maxwidth = 100; //Largeur de l'image
-        $maxheight = 100; //Longueur de l'image
-        //Liste des extensions valides
-        $extensions_valides = array( 'jpg' , 'jpeg' , 'gif' , 'png', 'bmp' );
-
-        if ($_FILES['avatar']['error'] > 0)
-        {
-        $avatar_erreur = "Erreur lors du tranfsert de l'avatar : ";
-        }
-        if ($_FILES['avatar']['size'] > $maxsize)
-        {
-        $i++;
-        $avatar_erreur1 = "Le fichier est trop gros :
-        (<strong>".$_FILES['avatar']['size']." Octets</strong>
-        contre <strong>".$maxsize." Octets</strong>)";
-        }
-
-        $image_sizes = getimagesize($_FILES['avatar']['tmp_name']);
-        if ($image_sizes[0] > $maxwidth OR $image_sizes[1] > $maxheight)
-        {
-        $i++;
-        $avatar_erreur2 = "Image trop large ou trop longue :
-        (<strong>".$image_sizes[0]."x".$image_sizes[1]."</strong> contre
-        <strong>".$maxwidth."x".$maxheight."</strong>)";
-        }
-
-        $extension_upload = strtolower(substr(  strrchr($_FILES['avatar']['name'], '.')  ,1));
-        if (!in_array($extension_upload,$extensions_valides) )
-        {
-          $i++;
-          $avatar_erreur3 = "Extension de l'avatar incorrecte";
-        }
-    } */
-
+$temps = time();
+  echo '<p><i>Vous êtes ici</i> : <a href="./index.php">Index du forum</a> --> Modification du profil';
+  echo '<h1>Modification d\'un profil</h1>';
 ?>
-
-<?php
-/*
-    echo '<p><i>Vous êtes ici</i> : <a href="./index.php">Index du forum</a> --> Modification du profil';
-    echo '<h1>Modification d\'un profil</h1>';
-
-
-    if ($i == 0) // Si $i est vide, il n'y a pas d'erreur
-    {
-        if (!empty($_FILES['avatar']['size']))
-        {
-                $nomavatar=move_avatar($_FILES['avatar']);
-                $query=$db->prepare('UPDATE forum_membres
-                SET membre_avatar = :avatar
-                WHERE membre_id = :id');
-                $query->bindValue(':avatar',$nomavatar,PDO::PARAM_STR);
-                $query->bindValue(':id',$id,PDO::PARAM_INT);
-                $query->execute();
-                $query->CloseCursor();
-        }
-        if (isset($_POST['delete']))
-        {
-                $query=$db->prepare('UPDATE forum_membres
-		                SET membre_avatar=0 WHERE membre_id = :id');
-                $query->bindValue(':id',$id,PDO::PARAM_INT);
-                $query->execute();
-                $query->CloseCursor();
-        }
-  }
-    echo'<p>Cliquez <a href="./index.php">ici</a>
-    pour revenir à la page d accueil</p>';
-  */
-?>
-</div>
 </body>
 </html>
