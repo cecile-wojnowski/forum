@@ -98,3 +98,46 @@ form.example::after {
   overflow: hidden;
   background-color: #f1f1f1;
 }
+
+/* topics.php */
+
+.topics {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  width: 20%;
+  margin: 1%;
+}
+
+.card a {
+
+  text-decoration: none;
+  color:black;
+}
+
+.card a:hover {
+  color:grey;
+}
+
+.card:hover {stylesheet
+  box-shadow: 0 16px 32px 0 rgba(0,0,0,0.2);
+  background-color: orange;
+}
+
+.container {
+  padding: 2px 16px;
+}
+
+/* conversations.php */
+
+article {
+
+background-color: white;
+padding: 1%;
+margin: 1%;
+
+}

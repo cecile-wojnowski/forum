@@ -8,22 +8,7 @@ include("includes/function.php");
 ?>
 
 
-<?php
-$sql = 'SELECT * FROM messages';
-  $params = [];
-  if (isset($_POST['recherche_valeur'])) {
-      $sql .= ' where message like :message';
-      $params[':message'] = "%" . addcslashes($_POST['recherche_valeur'], '_') . "%";
-  }
-  $resultats = $db->prepare($sql);
-  $resultats->execute($params);
-  if ($resultats->rowCount() > 0) {
-      while ($d = $resultats->fetch(PDO::FETCH_ASSOC)) {
-          ?>
 
-<tr><td><?=$d['message'] ?>
-
-<?php }} ?>
 
 <!DOCTYPE html>
 <html>
@@ -43,13 +28,41 @@ $sql = 'SELECT * FROM messages';
 <h2>Faire une recherche sur le site</h2>
 </center>
 
-<p><center>Tapez le titre d'un article</center></p>
+<?php
+
+  if (isset($_POST['recherche_valeur'])) {
+$sql = 'SELECT * FROM messages';
+  $params = [];
+
+      $sql .= ' where message like :message';
+      $params[':message'] = "%" . addcslashes($_POST['recherche_valeur'], '_') . "%";
+
+  $resultats = $db->prepare($sql);
+  $resultats->execute($params);
+  if ($resultats->rowCount() > 0) {
+      while ($d = $resultats->fetch(PDO::FETCH_ASSOC)) {
+          ?>
+
+          <div class="">
+          	<tr><td><?=$d['message'] ?></td><td><?=$d['id'] ?></td>
+          		<td><?=$d['id_utilisateur'] ?></td>
+          </div>
+
+          				 <?php
+                  }
+                  $resultats->closeCursor();
+              } else {
+                  echo '<tr><td>aucun résultat trouvé</td></tr>' . $connect = null;
+              } }?>
+<?php  ?>
+
+<p><center>Tapez l'expression recherchée dans une conversation </center></p>
 <form class="example" name="recherche_valeur" action="" style="margin:auto;max-width:500px">
-  <input type="text" placeholder="rechercher.." name="search2">
-  <button type="submit"><i class="fa fa-search"></i></button>
+  <input type="text" placeholder="rechercher.." name="recherche_valeur">
+  <button type="submit"><i class="fa fa-search" name=""></i></button>
 </form>
 
-<center><h3>Vous ne savez pas quoi discuter ? Voici quelques idées de topics à visiter, cliquez pour en savoir plus</h3></center>
+<center><h3> Vous ne savez pas quoi discuter ? Voici quelques idées de topics à visiter, cliquez pour en savoir plus</h3></center>
 
 <button type="button" class="collapsible">Topic 1</button>
 <div class="content">
@@ -57,15 +70,16 @@ $sql = 'SELECT * FROM messages';
 </div>
 <button type="button" class="collapsible">Topic 2</button>
 <div class="content">
-  <a href="topics.php">Description du topic 2...</a>
+  <a href="topics.php?id=2">Description du topic 2...</a>
 </div>
 <button type="button" class="collapsible">Topic 3</button>
 <div class="content">
-  <a href="topis.php">Description du topic 3...</a>
+  <a href="topis.php?id=3">Description du topic 3...</a>
 </div>
 
 
 <script>
+
 var coll = document.getElementsByClassName("collapsible");
 var i;
 

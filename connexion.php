@@ -17,7 +17,7 @@
 
 <?php
   if (isset($_SESSION['id'])) {
-  echo "Vous êtes déjà connecté, <a href='index.php?deconnexion' me déconnecter </a> ou <a href='profil.php'> voir mon profil </a> ";
+  echo "Vous êtes déjà connecté, <a href='index.php?deconnexion'> me déconnecter </a> ou <a href='profil.php'> voir mon profil </a> ";
   } else{
   if (!isset($_POST['login']))
   { //On est dans la page de formulaire

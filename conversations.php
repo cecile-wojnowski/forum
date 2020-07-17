@@ -3,11 +3,29 @@
 include("includes/identifiant.php");
 include("includes/header.php");
 include("./includes/function.php");
-require "class/vote.php";
+include("includes/bbcode.php");
+?>
 
-$req = $db->query('SELECT * FROM conversations, messages');
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
 
-foreach($req->fetchAll() as $post):
+  </body>
+</html>
+
+<?php
+if(isset($_GET['id'])){
+
+$req = $db->prepare('SELECT * FROM topics, conversations WHERE topics.id= conversations.id_topic AND conversations.id= ?');
+$req->execute(array($_GET['id']));
+
+while ($post = $req->fetch())
+{
 
    ?>
 
@@ -22,7 +40,9 @@ foreach($req->fetchAll() as $post):
 
     </div>
 
-<?php endforeach;
+<?php
+}
+}
 
 ?>
 

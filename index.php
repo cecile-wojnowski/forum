@@ -5,6 +5,7 @@ include("includes/header.php");
 
 if(isset($_GET['deconnexion'])){
 
+session_destroy();
      unset($_SESSION['login']);
      //au bout de 2 secondes redirection vers la page d'accueil
      header("Refresh: 1; url=index.php");

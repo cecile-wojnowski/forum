@@ -15,8 +15,8 @@
   <body>
     <div class="top">
       <div class="top_text">
-        <h2> Titre du forum </h2>
-      </div>
+        <h2> Forum travail et salariés </h2>
+<h3>Votre entraide vos droits</h3>      </div>
 
     </div>
     <?php
@@ -25,7 +25,7 @@
       if (isset($_SESSION['login'])) {
         if ($_SESSION['id_droits']== 2)
         {
-          ?> <ul> <a href="index.php"><center>Accueil</center></a>
+          ?> <ul> <li><a href="index.php"><center>Accueil</center></li></a>
           <li><a href="profil.php">  Votre profil <i> <?php $_SESSION['login'] ?></i></a></li>
           <li><a href="topics.php"> Topics  </a></li>
           <li><a href="creer_conversation.php"> Créer une conversation  </a></li>
