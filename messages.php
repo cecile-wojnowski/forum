@@ -6,6 +6,7 @@ include("includes/bbcode.php");
 
 ?>
 
+
 <?php
 if(isset($_GET['id'])){
 $req = $db->prepare('SELECT * FROM conversations, messages WHERE conversations.id= messages.id_conversation AND messages.id= ?');
@@ -19,11 +20,18 @@ while ($post = $req->fetch())
    <html>
        <head>
          <meta charset="utf-8" />
-       	<link href="css/style.css" rel="stylesheet" />
+       	<link href="style.css" rel="stylesheet" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="form.css">
        </head>
 <body>
+
+  <article>
+      <h1><?= $post['titre']; ?></h1>
+      <p><?= $post['conversation'] ?></p>
+  <a href="messages.php?signaler">signaler le message</a>
+
+    </article>
 
     <div class="message">
         <article>
@@ -41,6 +49,8 @@ while ($post = $req->fetch())
   <button class="fa fa-thumbs-down like-btn" name="dislike" type="submit"> <?php echo "0";  ?> </button>
 
 </form>
+<a href="#" class="fa fa-facebook"></a>
+
 <?php
 
 /* Pour empêcher l'accès à un article inexistant :
@@ -84,7 +94,7 @@ echo "votre vote a été pris en compte";
 }
 
 ?>
-<h3>poster un message</h3>
+<center><h3>poster un message</h3>
 
   <?php if(isset($_SESSION['login'])){
     ?> <form  action="messages.php?id=<?php echo $_GET['id']; ?>" method="post" name="message">
@@ -97,7 +107,7 @@ echo "votre vote a été pris en compte";
         <input id="bouton_commentaire" name="message" type="submit" value="Envoyer">
       </div>
     </form>
-  </div>
+  </div></center>
   <?php
 
   if(isset($_POST['message'])){
@@ -121,6 +131,6 @@ echo "pour répondre à cette conversation, connectez-vous!";
 
 
       <p><a href="conversations.php">Retour aux conversations</a></p>
-
+<?php include('includes/footer.php') ?>
 </body>
 </html>

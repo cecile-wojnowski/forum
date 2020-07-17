@@ -95,6 +95,6 @@ for (i = 0; i < coll.length; i++) {
   });
 }
 </script>
-
+<?php include('includes/footer.php')?>
 </body>
 </html>

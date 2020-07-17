@@ -27,6 +27,9 @@
  {
    if (isset($_SESSION['login'])){
      ?>
+<center>
+<img style="width:25%"src="https://images.pexels.com/photos/461077/pexels-photo-461077.jpeg?cs=srgb&dl=a-l-interieur-brouiller-bureau-cahier-461077.jpg&fm=jpg" alt="">
+
 <div class="container">
 
       <form method='post' action=''>
@@ -48,7 +51,7 @@
 
          <input type='submit' name='poster_conversation' value='Poster la conversation' />
       </form>
-    </div>
+    </div></center>
 
 
  <?php
@@ -74,4 +77,5 @@ echo "vous devez vous connectez pour créer une conversation";
 
      }
 
+include('includes/footer.php');
  ?>

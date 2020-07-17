@@ -8,11 +8,14 @@
   <head>
     <meta charset="utf-8">
     <title></title>
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
+<center>
+<h1>Règles de bonne conduite sur le forum</h1>
 
-<h1>Règles de bonne conduite sur les forums</h1>
-
+<img src="https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?cs=srgb&dl=mains-gens-personnes-individus-3184418.jpg&fm=jpg" style="width:25%" alt="">
+<div class="regles">
 <p>L'accès et la participation au forum est un privilège. Il y a cependant des règles de conduite importantes et indissociables de la bonne tenue de ces forums.
  Vous devez par conséquent être conscient qu'en cas de non-respect de ces règles, vous vous exposez à des sanctions.
  Cela peut aller du blocage temporaire ou définitif de votre accès au forum, à la fermeture définitive de votre compte utilisateur. <br/>
@@ -49,5 +52,7 @@ il est interdit :<br/>
     D'insulter quelqu'un, peu importe la personne, la raison et le contexte
     D'utiliser un vocabulaire grossier, choquant ou sexuel.
     De publier ou renvoyer vers des images à caractère pornographique.</p>
+  </div></center>
+
   </body>
-</html>
+</html><?php include('includes/footer.php') ?>

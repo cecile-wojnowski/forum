@@ -1,13 +1,13 @@
+<h2 class="h2_moderation"> Gestion des topics : </h2>
 <?php
 # Création/modification/suppression de topics accessible pour l'admin et le modérateur
 
 # Création de topics
-if (isset($_POST['creer_topic'])) {
-  $id_topic = $_POST['id'];
+if (isset($_POST['creation_topic'])) {
   $nom_topic = $_POST['nom_topic'];
   $statut = $_POST['statut'];
 
-  $db->exec("INSERT INTO `topics`(`id`, `nom`, 'statut') VALUES ( '$id_topic','$nom_topic', '$statut')");
+  $db->exec("INSERT INTO topics(topic, statut) VALUES ('$nom_topic', '$statut')");
   echo 'Le topic a été créé.';
 }
 ?>
@@ -19,14 +19,14 @@ if (isset($_POST['creer_topic'])) {
   <label for=""> Statut public ou privé : </label>
   <select name="statut" id="statut">
     <option value="public"> Public </option>
-    <option value="privé"> Privé </option>
+    <option value="private"> Privé </option>
   </select>
-  <input type="submit" name="creer" value="creer_topic">
+  <input type="submit" name="creation_topic" value="Créer topic">
 </form>
 
 <?php # Affichage des topics
  ?>
- <h2 class="h2_moderation"> Gestion des topics : </h2>
+
    <table>
       <thead>
         <tr>
