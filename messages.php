@@ -97,28 +97,36 @@ echo "votre vote a été pris en compte";
 <center><h3>poster un message</h3>
 
   <?php if(isset($_SESSION['login'])){
-    ?> <form  action="messages.php?id=<?php echo $_GET['id']; ?>" method="post" name="message">
+    ?> <form  action="" method="post" name="message">
       <div>
         <label> Poster un message</label>
-        <textarea id = "message" name="message" value=""required ></textarea>
+        <textarea id ="message" name="message" value=""required ></textarea>
       </div>
-
-      <div class="submit_commentaire">
-        <input id="bouton_commentaire" name="message" type="submit" value="Envoyer">
-      </div>
+        <input name="envoyer" type="submit" value="Envoyer">
     </form>
   </div></center>
   <?php
 
-  if(isset($_POST['message'])){
+  if(isset($_POST['envoyer'])){
     $message = $_POST['message'];
-    $date= date("H:i");
-    $req2 = $db->prepare("INSERT INTO messages(message,id_conversation, id_utilisateur, date) VALUES(?, ?, ?, NOW())");
-    $req2->execute(array($message, $_GET['id'], $_SESSION['id'], $date));
-    header('Location: messages.php');
-  }
+    $temps= date("d-m-Y-H:i");
+    $id_utilisateur = $_SESSION['id'];
+    $id_conversation = $_GET['id'];
 
-var_dump($req2);}
+      $data = [
+          'message' => $message,
+          'id_conversation' => $id_conversation,
+          'id_utilisateur'=>$id_utilisateur,
+          'temps' => $temps,
+      ];
+
+      $sql = "INSERT INTO messages (message, id_conversation, id_utilisateur, temps) VALUES (:message, :id_conversation, :id_utilisateur, :temps)";
+      $stmt= $db->prepare($sql);
+      $stmt->execute($data);
+      echo "le message a bien été posté";
+      var_dump($data);
+  }
+}
 
 else {
 

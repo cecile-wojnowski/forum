@@ -23,8 +23,7 @@
 </html>
 
 <?php
- if($_SERVER['REQUEST_METHOD'] != 'POST')
- {
+
    if (isset($_SESSION['login'])){
      ?>
 <center>
@@ -33,7 +32,7 @@
 <div class="container">
 
       <form method='post' action=''>
-         Titre de la conversation: <input type='text' name='cat_name' />
+         Titre de la conversation: <input type='text' name='titre' />
          Contenu de la conversation: <textarea name='conversation' /></textarea>
          <label for="">Topic</label>
          <select name="topic">
@@ -48,7 +47,6 @@
 
             </select>
 
-
          <input type='submit' name='poster_conversation' value='Poster la conversation' />
       </form>
     </div></center>
@@ -57,22 +55,28 @@
  <?php
 
 if (isset($_POST['poster_conversation'])) {
-            $titre=$_POST['titre'];
-            $conversation=$_POST['conversation'];
-            $conversation = str_replace("'", "\'", $article); # Permet l'affichage des guillemets
-            $id_utilisateur=$_SESSION['id'];
-            $id_topic=$_POST['topic'];
 
-            $sql= "INSERT INTO `conversations`( `titre`, `conversation`, `id_topic`, `titre`)
-            VALUES ('$article',$id_utilisateur, $id_categorie,NOW(),'$titre')";
 
-            $resultat = mysqli_query($mysqli, $sql);
-            echo "l'article a été posté.";
+  $titre=$_POST['titre'];
+  $conversation=$_POST['conversation'];
+  $conversation = str_replace("'", "\'", $conversation); # Permet l'affichage des guillemets
+  $id_utilisateur=$_SESSION['id'];
+  $id_topic=$_POST['topic'];
+
+  $data = [
+      'titre' => $titre,
+      'conversation' => $conversation,
+      'id_topic' => $id_topic,
+      'id_utilisateur'=>$id_utilisateur,
+  ];
+  $sql = "INSERT INTO conversations (titre, conversation, id_topic, id_utilisateur) VALUES (:titre, :conversation, :id_topic, :id_utilisateur)";
+  $stmt= $db->prepare($sql);
+  $stmt->execute($data);
+
+echo "<center>votre nouvelle conversation a bien été postée !</center>";
         }
 
-}
-
- }else{
+}else{
 echo "vous devez vous connectez pour créer une conversation";
 
      }

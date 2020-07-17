@@ -10,13 +10,14 @@
     <meta charset="utf-8">
     <title><?php echo $titre; ?></title>
     <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Asap&display=swap" rel="stylesheet">
+
 <link rel="stylesheet" href="header.css">
   </head>
   <body>
     <div class="top">
       <div class="top_text">
-        <h2> Forum travail et salariés </h2>
-<h3>Votre entraide vos droits</h3>      </div>
+<img src="img/forum2.png" alt="">
 
     </div>
     <?php

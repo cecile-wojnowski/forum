@@ -80,6 +80,6 @@ $website=$data["website"];
 $temps = time();
   echo '<p><i>Vous êtes ici</i> : <a href="./index.php">Index du forum</a> --> Modification du profil';
   echo '<h1>Modification d\'un profil</h1>';
-?>
+include('includes/footer.php')?>
 </body>
 </html>
