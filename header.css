@@ -31,6 +31,17 @@ li a:hover:not(.active) {
   color:black;
 }
 
+
+.top_text h2 {
+font-size: 60px;
+color:grey;
+
+}
+
+.top_text h3 {
+font-size: 40px;
+color:orange;
+
 input[type=text] {
  width: 130px;
  box-sizing: border-box;
