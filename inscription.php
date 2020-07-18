@@ -1,9 +1,9 @@
 <?php
+session_start();
 if(isset($_SESSION['login'])){
 	header("Location:profil.php");
 }
 	$titre="Enregistrement";
-	include("functions.php");
 	include("includes/header.php");
 ?>
 <!DOCTYPE html>
