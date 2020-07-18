@@ -16,17 +16,7 @@ $query = $db->query('SELECT login, id FROM utilisateurs ORDER BY id DESC LIMIT 0
 $data = $query->fetch();
 $dernierutilisateur= stripslashes(htmlspecialchars($data['login']));
 $totaldesmessages = $db->query('SELECT COUNT(*) FROM messages')->fetchColumn();
-?>
 
-<html lang="en" dir="ltr">
-  <head>
-    <link rel="stylesheet" href="../css/footer.css">
-  </head>
-  <body>
-
-  </body>
-</html>
-<?php
 
 $date = date("d-m-Y");
 $heure = date("H:i");

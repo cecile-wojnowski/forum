@@ -111,7 +111,7 @@ include("includes/header.php");
           - Lien 2 </p>
         </div>
 
-        <?php include('includes/footer.php') ?>
+        <?php include('includes/footer.php'); ?>
 
-   </body>
+   
   </html>
