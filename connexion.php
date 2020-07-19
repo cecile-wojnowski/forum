@@ -45,13 +45,14 @@
       	<p>Cliquez <a href="./connexion.php">ici</a> pour revenir</p>';
       } else { //On check le mot de passe
         $query=$db->prepare('SELECT password, id, id_droits, login
-        FROM utilisateurs WHERE login = :login');
+        FROM utilisateurs WHERE login = :login AND password = :password');
         $query->bindValue(':login', $_POST['login'], PDO::PARAM_STR);
+        $query->bindValue(':password', md5($_POST['password']), PDO::PARAM_STR);
         $query->execute();
 
-        $data=$query->fetch();
-        if ($data['password'] == md5($_POST['password']))
+        if ($query->rowCount() == 1)
         { // Acces OK !
+          $data=$query->fetch();
           $_SESSION['login'] = $data['login'];
           $_SESSION['id_droits'] = $data['id_droits'];
           $_SESSION['id'] = $data['id'];
