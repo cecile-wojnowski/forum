@@ -60,7 +60,7 @@ $website=$data["website"];
   <fieldset><legend>Profil sur le forum</legend>
     <label for="avatar">Changer votre avatar :</label>
     <input type="file" name="avatar" id="avatar" />
-    (Taille max : 10 ko)<br /><br />
+    (Taille max : 2 Mo)<br />
     <label><input type="checkbox" name="delete" value="Delete" />
     Supprimer l avatar</label>
     Avatar actuel :

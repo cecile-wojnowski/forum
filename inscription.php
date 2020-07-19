@@ -31,7 +31,7 @@ if(isset($_SESSION['login'])){
 				<label for="localisation">Localisation :</label><input type="text" name="localisation" id="localisation" />
 				</fieldset>
 				<fieldset><legend>Profil sur le forum</legend>
-				<label for="avatar">Choisissez votre avatar :</label><input type="file" name="avatar" id="avatar" />(Taille max : 10Ko<br />
+				<label for="avatar">Choisissez votre avatar :</label><input type="file" name="avatar" id="avatar" />(Taille max : 2 Mo<br />
 				<label for="signature">Signature :</label><textarea cols="40" rows="4" name="signature" id="signature">La signature est limitée à 200 caractères</textarea>
 				</fieldset>
 				<p>Les champs précédés d\'un * sont obligatoires.</p>
