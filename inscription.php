@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 if(isset($_SESSION['login'])){
 	header("Location:profil.php");
 }
@@ -122,9 +122,7 @@ if(isset($_SESSION['login'])){
 	    if (!empty($_FILES['avatar']['size']))
 	    {
 	        //On définit les variables :
-	        $maxsize = 10024; //Poid de l'image
-	        $maxwidth = 100; //Largeur de l'image
-	        $maxheight = 100; //Longueur de l'image
+	        $maxsize = 20000000; //Poid de l'image
 	        $extensions_valides = array( 'jpg' , 'jpeg' , 'gif' , 'png', 'bmp' ); //Liste des extensions valides
 
 	        if ($_FILES['avatar']['error'] > 0)
@@ -135,14 +133,6 @@ if(isset($_SESSION['login'])){
 	        {
 	                $i++;
 	                $avatar_erreur1 = "Le fichier est trop gros : (<strong>".$_FILES['avatar']['size']." Octets</strong>    contre <strong>".$maxsize." Octets</strong>)";
-	        }
-
-	        $image_sizes = getimagesize($_FILES['avatar']['tmp_name']);
-	        if ($image_sizes[0] > $maxwidth OR $image_sizes[1] > $maxheight)
-	        {
-	                $i++;
-	                $avatar_erreur2 = "Image trop large ou trop longue :
-	                (<strong>".$image_sizes[0]."x".$image_sizes[1]."</strong> contre <strong>".$maxwidth."x".$maxheight."</strong>)";
 	        }
 
 	        $extension_upload = strtolower(substr(  strrchr($_FILES['avatar']['name'], '.')  ,1));
