@@ -3,101 +3,86 @@ include("includes/identifiant.php");
 include("includes/header.php");
 include("includes/bbcode.php");
 
-?>
-
-
-<?php
-if(isset($_GET['id'])){
-$req = $db->prepare('SELECT * FROM conversations, messages WHERE conversations.id= messages.id_conversation AND messages.id= ?');
-$req->execute(array($_GET['id']));
-
-while ($post = $req->fetch())
+if(isset($_GET['id']))
 {
+  $req = $db->prepare('SELECT * FROM conversations, messages
+    WHERE conversations.id= messages.id_conversation AND messages.id= ?');
+  $req->execute(array($_GET['id']));
 
+  while ($post = $req->fetch())
+  {
    ?>
-
    <html>
-       <head>
-         <meta charset="utf-8" />
+      <head>
+        <meta charset="utf-8" />
        	<link href="style.css" rel="stylesheet" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-<link rel="stylesheet" href="form.css">
-       </head>
-<body>
-
-  <article>
-      <h1><?= $post['titre']; ?></h1>
-      <p><?= $post['conversation'] ?></p>
-  <a href="messages.php?signaler">signaler le message</a>
-
-    </article>
-
-    <div class="message">
+        <link rel="stylesheet" href="form.css">
+      </head>
+      <body>
         <article>
+          <h1><?= $post['titre']; ?></h1>
+          <p><?= $post['conversation'] ?></p>
+          <a href="messages.php?signaler">signaler le message</a>
+        </article>
+
+        <div class="message">
+          <article>
             <h1><?= $post['message']; ?></h1>
             <p><?= $post['id_utilisateur'] ?></p>
-        <a href="messages.php?id=<?= $post['id'];?>&signaler=<?php $post['id']?>">signaler le message</a>
-
+            <a href="messages.php?id=<?= $post['id'];?>&signaler=<?php $post['id']?>">signaler le message</a>
           </article>
-
           <?php
+          if(isset($_POST['id']))
+          {
+            $signalement = true;
+            $id_message = $_GET['signaler'];
 
-if(isset($_POST['id'])){
+            $data = [
+                'id_message' => $id_message,
+                'signalement' => $signalement,
+            ];
 
-$signalement = true;
-$id_message = $_GET['signaler'];
-
-$data = [
-    'id_message' => $id_message,
-    'signalement' => $signalement,
-];
-
-$sql_signaler ="INSERT INTO signaler (id_message, signalement) VALUES (:id_message, :signalement)";
-$stmt_signaler = $db->prepare($sql_signaler);
-$stmt_signaler->execute($data_signalement);
+            $sql_signaler ="INSERT INTO signaler (id_message,) VALUES (:id_message)";
+            $stmt_signaler = $db->prepare($sql_signaler);
+            $stmt_signaler->execute($data_signalement);
 
 
-echo "le message a été signalé aux administrateurs.";
+            echo "Le message a été signalé aux administrateurs.";
+          }
+  }
 }
-        }
-}
-   ?>
-
+?>
 <form method="post" action="">
   <button class="fa fa-thumbs-up like-btn" name="like" type="submit"/> <?php echo "0";  ?> </button>
 </form>
 
 <form class="" action="" method="post">
   <button class="fa fa-thumbs-down like-btn" name="dislike" type="submit"> <?php echo "0";  ?> </button>
-
 </form>
 <a href="#" class="fa fa-facebook"></a>
 
 <?php
+  if (isset($_POST['like']))
+  {
+    if(empty($_SESSION['id']))
+    {
+      echo "vous devez vous connectez pour voter";
+    }else{
+      $id_utilisateur = $_SESSION['id'];
+      $id_message = $_GET['id'];
+      $like_dislike = true;
 
+      $req = $db->prepare('INSERT INTO like_dislike (id_message,id_utilisateur, like_dislike)
+      VALUES(:id_message, :id_utilisateur, :like_dislike)');
+      $req->execute(array(
+            'id_message' => $id_utilisateur,
+            'id_utilisateur' => $id_message,
+            'like_dislike' => $like_dislike));
 
-
-if (isset($_POST['like'])){
-
-  if(empty($_SESSION['id'])){
-
-echo "vous devez vous connectez pour voter";
-
-}else{
-
-$id_utilisateur = $_SESSION['id'];
-$id_message = $_GET['id'];
-$like_dislike = true;
-
-  $req = $db->prepare('INSERT INTO like_dislike (id_message,id_utilisateur, like_dislike) VALUES(:id_message, :id_utilisateur, :like_dislike)');
-  $req->execute(array(
-      'id_message' => $id_utilisateur,
-      'id_utilisateur' => $id_message,
-      'like_dislike' => $like_dislike));
-
-echo "votre vote a été pris en compte";
-}
-}
+            echo "votre vote a été pris en compte";
+        }
+  }
 
 ?></div>
 
