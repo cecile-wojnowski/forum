@@ -62,8 +62,9 @@ if(isset($_SESSION['login'])){
 		    $email = $_POST['email'];
 		    $website = $_POST['website'];
 		    $localisation = $_POST['localisation'];
-		    $pass = md5($_POST['password']);
-		    $confirm = md5($_POST['confirm']);
+		    $pass = $_POST['password'];
+		    $confirm = $_POST['confirm'];
+				$passcrypt = password_hash($pass, PASSWORD_BCRYPT);
 
 				$id_droits= 2; # Toute inscription donne les droits "inscrit"
 
@@ -146,17 +147,18 @@ if(isset($_SESSION['login'])){
    		if ($i==0) # Si aucune erreur n'est rencontrée, un message de confirmation apparaît
    			{
 				 	echo'<h1>Inscription terminée</h1>';
-		      echo'<p>Bienvenue '.stripslashes(htmlspecialchars($_POST['pseudo'])).' vous êtes maintenant inscrit sur le forum</p>
-					<p>Cliquez <a href="./index.php">ici</a> pour revenir à la page d accueil</p>';
+		      echo'<p>Bienvenue '.stripslashes(htmlspecialchars($_POST['pseudo'])).' vous êtes maintenant inscrit sur le forum. </p>
+					<p>Cliquez <a href="./profil.php">ici</a> pour accéder à votre profil, ou <a href="./index.php">ici</a>
+					pour retourner sur la page d\'accueil.';
 
 
 					$nomavatar=(!empty($_FILES['avatar']['size']))?move_avatar($_FILES['avatar']):'';
 
 		      $query=$db->prepare('INSERT INTO utilisateurs( `login`, `email`, `password`, `date_inscription`, `id_droits`, `localisation`, `website`, `signature`, `avatar`)
-		      VALUES (:login, :email, :pass, :temps, :id_droits, :localisation, :website, :signature, :avatar)');
+		      VALUES (:login, :email, :passcrypt, :temps, :id_droits, :localisation, :website, :signature, :avatar)');
 					$query->bindValue(':login', $pseudo, PDO::PARAM_STR);
 					$query->bindValue(':email', $email, PDO::PARAM_STR);
-					$query->bindValue(':pass', $pass, PDO::PARAM_STR);
+					$query->bindValue(':passcrypt', $passcrypt, PDO::PARAM_STR);
 					$query->bindValue(':temps', $temps, PDO::PARAM_INT);
 					$query->bindValue(':id_droits', $id_droits, PDO::PARAM_STR);
 					$query->bindValue(':localisation', $localisation, PDO::PARAM_STR);
