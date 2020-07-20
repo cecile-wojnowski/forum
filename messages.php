@@ -51,13 +51,25 @@ if(isset($_GET['id']))
   }
 }
 
-# Boutons like et dislike : ?>
+# Boutons like et dislike :
+
+# Compte le nombre de like :
+$query =  $db->prepare("SELECT COUNT(*) FROM like_dislike WHERE like_dislike = 1");
+$query->execute();
+$nb_like = $query->fetchColumn();
+
+# Compte le nombre de dislike:
+$query =  $db->prepare("SELECT COUNT(*) FROM like_dislike WHERE like_dislike = 0");
+$query->execute();
+$nb_dislike = $query->fetchColumn();
+
+?>
 <form method="post" action="">
-  <button class="fa fa-thumbs-up like-btn" name="like" type="submit"/> <?php echo "0";  ?> </button>
+  <button class="fa fa-thumbs-up like-btn" name="like" type="submit"/> <?php echo $nb_like;  ?> </button>
 </form>
 
 <form class="" action="" method="post">
-  <button class="fa fa-thumbs-down like-btn" name="dislike" type="submit"> <?php echo "0";  ?> </button>
+  <button class="fa fa-thumbs-down like-btn" name="dislike" type="submit"> <?php echo $nb_dislike;  ?> </button>
 </form>
 <a href="#" class="fa fa-facebook"></a>
 
@@ -82,7 +94,7 @@ if(isset($_GET['id']))
             echo "Votre vote a été pris en compte";
         }
   }
-  
+
   if (isset($_POST['dislike']))
   {
     if(empty($_SESSION['id']))
