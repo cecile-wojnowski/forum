@@ -1,0 +1,51 @@
+/******************/
+/* style général */
+/****************/
+body {
+  background-color: #F5F5F4;
+  font-family: 'Barlow', sans-serif;
+  margin: auto;
+  padding: auto;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  height: 100%;
+}
+
+/**** Index *****/
+.grid{
+  margin-top:5%;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-column-gap: 20px;
+  grid-row-gap:20px;
+  text-align: center;
+}
+.last_messages{
+  border: solid 1px #D8D8D4;
+}
+.index_topics{
+  background-color: white;
+  border: solid 1px #D8D8D4;
+  border-radius: 2px;
+  grid-column-start: 2;
+  padding:5%;
+}
+.index_list{
+  background-color: white;
+}
+.stats{
+  grid-column-start: 2;
+  background-color: white;
+  border: solid 1px #D8D8D4;
+  border-radius: 2px;
+}
+.index_links{
+  grid-column-start: 2;
+  background-color: white;
+  border: solid 1px #D8D8D4;
+  border-radius: 2px;
+}
