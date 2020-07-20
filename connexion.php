@@ -19,8 +19,8 @@
   if (isset($_SESSION['id'])) {
   echo "Vous êtes déjà connecté, <a href='deconnexion.php' me déconnecter </a> ou <a href='profil.php'> voir mon profil </a> ";
   } else{
-  if (!isset($_POST['login']))
-  { //On est dans la page de formulaire
+    if (!isset($_POST['login']))
+    { //On est dans la page de formulaire
     ?>
     <form method="POST" action="connexion.php">
       <div class="container">
@@ -28,7 +28,8 @@
         <div class="form">
           <label for="">Login</label>
           <input type="text" class="form-field animation a3" placeholder="login" name="login" id="pseudo">
-          <label for="">Password</label>  <input type="password" class="form-field animation a4" placeholder="Password" name="password" id="password">
+          <label for="">Password</label>
+          <input type="password" class="form-field animation a4" placeholder="Password" name="password" id="password">
           <p class="animation a5">	<a href="./inscription.php">Pas encore inscrit ?</a></p>
           <div class="button">
             <button type="submit" value="Connexion"> Se connecter </button>
@@ -37,39 +38,43 @@
       </div>
 
     <?php
-    }else{
+  }else{ # Si $_POST['login'] est rempli
       $message='';
-      if (empty($_POST['login']) || empty($_POST['password'])) { //Oublie d'un champ
+      if (empty($_POST['login']) || empty($_POST['password']))
+      { //Oubli d'un champ
         $message = '<p>une erreur s\'est produite pendant votre identification.
-      	Vous devez remplir tous les champs</p>
+      	Vous devez remplir tous les champs. </p>
       	<p>Cliquez <a href="./connexion.php">ici</a> pour revenir</p>';
-      } else { //On check le mot de passe
-        $query=$db->prepare('SELECT password, id, id_droits, login
-        FROM utilisateurs WHERE login = :login AND password = :password');
+      } else { # Si les champs sont remplis
+        $query=$db->prepare('SELECT password, id, id_droits, login FROM utilisateurs WHERE login = :login');
         $query->bindValue(':login', $_POST['login'], PDO::PARAM_STR);
-        $query->bindValue(':password', md5($_POST['password']), PDO::PARAM_STR);
         $query->execute();
 
-        if ($query->rowCount() == 1)
-        { // Acces OK !
+          if ($query->rowCount() == 1 )
+         {
+          $mdp = $_POST['password']; # Hashe le mdp entré par l'user
           $data=$query->fetch();
-          $_SESSION['login'] = $data['login'];
-          $_SESSION['id_droits'] = $data['id_droits'];
-          $_SESSION['id'] = $data['id'];
-          $message = '<p>Bienvenue '.$data['login'].'votre id_droits est '.$data['id_droits'].',
-    			vous êtes maintenant connecté!</p>
-    			<p>Cliquez <a href="./index.php">ici</a>
-    			pour revenir à la page d accueil</p> et ici pour <a href="profil.php"> voir votre profil </a>';
-        } else { // Acces pas OK !
-            $message = '<p>Une erreur s\'est produite
-	    pendant votre identification.<br /> Le mot de passe ou le pseudo
+          $mdpbdd = $data['password']; # Stocke le mdp hashé de la bdd
+            if(password_verify($mdp, $mdpbdd)) { # Ne passe pas par cette condition
+
+              $_SESSION['login'] = $data['login'];
+              $_SESSION['id_droits'] = $data['id_droits'];
+              $_SESSION['id'] = $data['id'];
+              $message = '<p>Bienvenue '.$data['login'].'votre id_droits est '.$data['id_droits'].',
+                    vous êtes maintenant connecté!</p>
+                    <p>Cliquez <a href="./index.php">ici</a>
+                    pour revenir à la page d accueil</p> et ici pour <a href="profil.php"> voir votre profil </a>';
+          } else { // Acces pas OK !
+            $message = '<p>Une erreur s\'est produite pendant votre identification.<br /> Le mot de passe ou le pseudo
             entré n\'est pas correct.</p>';
+          }
         }
+      }
         $query->CloseCursor();
     }
     echo $message.'</div></body></html>';
 }
-}
+
 
  include("includes/footer.php");
  ?>
