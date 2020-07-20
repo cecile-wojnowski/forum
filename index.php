@@ -72,7 +72,6 @@ include("includes/header.php");
 
         <div class="stats">
 
-
         <?php  $TotalDesUtilisateurs = $db->query('SELECT COUNT(*) FROM utilisateurs')->fetchColumn();
           $query = $db->query('SELECT login, id FROM utilisateurs ORDER BY id DESC LIMIT 0, 1');
           $data = $query->fetch();
@@ -103,15 +102,12 @@ include("includes/header.php");
           </div>
 
 
-
         </div>
 
         <div class="index_links">
           <p>- Lien 1 <br>
           - Lien 2 </p>
         </div>
-
         <?php include('includes/footer.php') ?>
-
    </body>
   </html>

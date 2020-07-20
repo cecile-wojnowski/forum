@@ -37,9 +37,32 @@ while ($post = $req->fetch())
         <article>
             <h1><?= $post['message']; ?></h1>
             <p><?= $post['id_utilisateur'] ?></p>
-        <a href="messages.php?signaler">signaler le message</a>
+        <a href="messages.php?id=<?= $post['id'];?>&signaler=<?php $post['id']?>">signaler le message</a>
 
           </article>
+
+          <?php
+
+if(isset($_POST['id'])){
+
+$signalement = true;
+$id_message = $_GET['signaler'];
+
+$data = [
+    'id_message' => $id_message,
+    'signalement' => $signalement,
+];
+
+$sql_signaler ="INSERT INTO signaler (id_message, signalement) VALUES (:id_message, :signalement)";
+$stmt_signaler = $db->prepare($sql_signaler);
+$stmt_signaler->execute($data_signalement);
+
+
+echo "le message a été signalé aux administrateurs.";
+}
+        }
+}
+   ?>
 
 <form method="post" action="">
   <button class="fa fa-thumbs-up like-btn" name="like" type="submit"/> <?php echo "0";  ?> </button>
@@ -53,17 +76,7 @@ while ($post = $req->fetch())
 
 <?php
 
-/* Pour empêcher l'accès à un article inexistant :
-On compte le nombre d'article avec id = $_GET["id"]
-Si il est égal à 0, on redirige */
-$sql = "SELECT count(*) FROM messages WHERE id = ?";
-$result = $db->prepare($sql);
-$result->execute(array($_GET["id"]));
-$nombre_resultats = $result->fetchColumn();
 
-if($nombre_resultats == 0) {
-  header("Location:conversations.php");
-}
 
 if (isset($_POST['like'])){
 
@@ -90,8 +103,6 @@ echo "votre vote a été pris en compte";
 ?></div>
 
 <?php
-}
-}
 
 ?>
 <center><h3>poster un message</h3>
