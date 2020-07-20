@@ -50,7 +50,8 @@ if(isset($_GET['id']))
           }
   }
 }
-?>
+
+# Boutons like et dislike : ?>
 <form method="post" action="">
   <button class="fa fa-thumbs-up like-btn" name="like" type="submit"/> <?php echo "0";  ?> </button>
 </form>
@@ -65,20 +66,41 @@ if(isset($_GET['id']))
   {
     if(empty($_SESSION['id']))
     {
-      echo "vous devez vous connectez pour voter";
+      echo "vous devez vous connectez pour voter.";
     }else{
       $id_utilisateur = $_SESSION['id'];
       $id_message = $_GET['id'];
       $like_dislike = true;
 
-      $req = $db->prepare('INSERT INTO like_dislike (id_message,id_utilisateur, like_dislike)
-      VALUES(:id_message, :id_utilisateur, :like_dislike)');
+      $req = $db->prepare("INSERT INTO like_dislike (id_message, id_utilisateur, like_dislike)
+      VALUES('$id_message', '$id_utilisateur', '$like_dislike')");
       $req->execute(array(
-            'id_message' => $id_utilisateur,
-            'id_utilisateur' => $id_message,
+            'id_message' => $id_message,
+            'id_utilisateur' => $id_utilisateur,
             'like_dislike' => $like_dislike));
 
-            echo "votre vote a été pris en compte";
+            echo "Votre vote a été pris en compte";
+        }
+  }
+  
+  if (isset($_POST['dislike']))
+  {
+    if(empty($_SESSION['id']))
+    {
+      echo "vous devez vous connectez pour voter.";
+    }else{
+      $id_utilisateur = $_SESSION['id'];
+      $id_message = $_GET['id'];
+      $like_dislike = false;
+
+      $req = $db->prepare("INSERT INTO like_dislike (id_message, id_utilisateur, like_dislike)
+      VALUES('$id_message', '$id_utilisateur', '$like_dislike')");
+      $req->execute(array(
+            'id_message' => $id_message,
+            'id_utilisateur' => $id_utilisateur,
+            'like_dislike' => $like_dislike));
+
+            echo "Votre vote a été pris en compte";
         }
   }
 
