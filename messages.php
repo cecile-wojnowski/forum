@@ -5,9 +5,10 @@ include("includes/bbcode.php");
 
 if(isset($_GET['id']))
 {
+  # Permet d'afficher les messages appartenant à une conversation
   $req = $db->prepare('SELECT * FROM conversations, messages
     WHERE conversations.id= messages.id_conversation AND messages.id= ?');
-  $req->execute(array($_GET['id']));
+  $req->execute(array($_GET['id'])); 
 
   while ($post = $req->fetch())
   {
@@ -21,9 +22,7 @@ if(isset($_GET['id']))
       </head>
       <body>
         <article>
-          <h1><?= $post['titre']; ?></h1>
-          <p><?= $post['conversation'] ?></p>
-          <a href="messages.php?signaler">signaler le message</a>
+          <h1><?= $post['conversation']; ?></h1>
         </article>
 
         <div class="message">
@@ -33,17 +32,17 @@ if(isset($_GET['id']))
             <a href="messages.php?id=<?= $post['id'];?>&signaler=<?php $post['id']?>">signaler le message</a>
           </article>
           <?php
-          if(isset($_POST['id']))
+          if(isset($_GET['signaler']))
           {
             $signalement = true;
-            $id_message = $_GET['signaler'];
+            $id_message = $post['id'];
 
-            $data = [
+            $data_signalement = [
                 'id_message' => $id_message,
-                'signalement' => $signalement,
+                #'signalement' => $signalement,
             ];
 
-            $sql_signaler ="INSERT INTO signaler (id_message,) VALUES (:id_message)";
+            $sql_signaler ="INSERT INTO signaler (id_message) VALUES ('$id_message')";
             $stmt_signaler = $db->prepare($sql_signaler);
             $stmt_signaler->execute($data_signalement);
 
