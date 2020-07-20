@@ -8,7 +8,7 @@ if(isset($_GET['id']))
   # Permet d'afficher les messages appartenant à une conversation
   $req = $db->prepare('SELECT * FROM conversations, messages
     WHERE conversations.id= messages.id_conversation AND messages.id= ?');
-  $req->execute(array($_GET['id'])); 
+  $req->execute(array($_GET['id']));
 
   while ($post = $req->fetch())
   {
@@ -45,7 +45,6 @@ if(isset($_GET['id']))
             $sql_signaler ="INSERT INTO signaler (id_message) VALUES ('$id_message')";
             $stmt_signaler = $db->prepare($sql_signaler);
             $stmt_signaler->execute($data_signalement);
-
 
             echo "Le message a été signalé aux administrateurs.";
           }
