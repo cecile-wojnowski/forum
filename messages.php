@@ -65,11 +65,11 @@ $nb_dislike = $query->fetchColumn();
 
 ?>
 <form method="post" action="">
-  <button class="fa fa-thumbs-up like-btn" name="like" type="submit"/> <?php echo $nb_like;  ?> </button>
+  <button class="fa fa-thumbs-up like-btn" name="like" type="submit" style="font-size:20px"/> <?php echo $nb_like;  ?> </button>
 </form>
 
 <form class="" action="" method="post">
-  <button class="fa fa-thumbs-down like-btn" name="dislike" type="submit"> <?php echo $nb_dislike;  ?> </button>
+  <button class="like-btn" name="dislike" type="submit" style="font-size:20px"/> <?php echo $nb_dislike;  ?> <i class="fa fa-thumbs-down"></i></button>
 </form>
 <a href="#" class="fa fa-facebook"></a>
 
