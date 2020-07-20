@@ -1,7 +1,7 @@
 <?php
 session_start();
-include("identifiant.php");
-include("functions.php");
+include("includes/identifiant.php");
+include("includes/functions.php");
 
 if(erreur_profil($db) == false) {
   if(isset($_POST['modifier_profil'])){
@@ -11,8 +11,9 @@ if(erreur_profil($db) == false) {
     $email = $_POST['email'];
     $website = $_POST['website'];
     $localisation = $_POST['localisation'];
-    $pass = md5($_POST['password']);
-    $confirm = md5($_POST['confirm']);
+    $pass = $_POST['password'];
+    $confirm = $_POST['confirm'];
+    $passcrypt = password_hash($pass, PASSWORD_BCRYPT);
 
     $nomavatar = $_POST['avatar'];
 
@@ -24,7 +25,7 @@ if(erreur_profil($db) == false) {
    signature=:signature, localisation=:localisation, avatar =:avatar
    WHERE id=:id');
    $query->bindValue(':pseudo',$pseudo,PDO::PARAM_STR);
-   $query->bindValue(':password',$pass,PDO::PARAM_STR);
+   $query->bindValue(':password',$passcrypt,PDO::PARAM_STR);
    $query->bindValue(':email',$email,PDO::PARAM_STR);
    $query->bindValue(':website',$website,PDO::PARAM_STR);
    $query->bindValue(':signature',$signature,PDO::PARAM_STR);
@@ -53,5 +54,5 @@ if(erreur_profil($db) == false) {
     }
   }
 }
-header("Location:../profil.php");
+header("Location:profil.php");
 ?>
