@@ -12,7 +12,7 @@ function move_avatar($avatar)
     $extension_upload = strtolower(substr(  strrchr($avatar['name'], '.')  ,1));
     $name = time();
     $nomavatar = str_replace(' ','',$name).".".$extension_upload;
-    $name = "images/avatars/".str_replace(' ','',$name).".".$extension_upload;
+    $name = "img/avatars/".str_replace(' ','',$name).".".$extension_upload;
     move_uploaded_file($avatar['tmp_name'],$name);
     return $nomavatar;
 }
@@ -32,31 +32,27 @@ function erreur_profil($db)
   $email = $_POST['email'];
   $website = $_POST['website'];
   $localisation = $_POST['localisation'];
-  $pass = md5($_POST['password']);
-  $confirm = md5($_POST['confirm']);
+  $pass = $_POST['password'];
+  $confirm = $_POST['confirm'];
 
    if(isset($_POST['modifier_profil']) AND ($_POST['password'] != $_POST['confirm']))
    {
      $_SESSION["message"]["message"]="Votre mot de passe et votre confirmation diffèrent ou sont vides.";
-     $_SESSION["message"]['type']="danger";
      return true;
 
    }elseif(strtolower($data['email']) != strtolower($email))
    {
      $_SESSION["message"] =  "Votre adresse email est déjà utilisé par un membre.";
-     $_SESSION["message"]['type']="danger";
      return true;
 
    }elseif (isset($_POST['modifier_profil']) AND !preg_match("#^[a-z0-9A-Z._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#", $email))
    {
       $_SESSION["message"]['message']= "Votre nouvelle adresse E-Mail n'a pas un format valide.";
-      $_SESSION["message"]['type']="danger";
        return true;
 
    }elseif (strlen($signature) > 200)
    {
       $_SESSION["message"]["message"]= "Votre nouvelle signature est trop longue.";
-      $_SESSION["message"]['type']="danger";
      return true;
    }elseif (!empty($_FILES['avatar']['size']))
    {
