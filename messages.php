@@ -53,12 +53,12 @@ if(isset($_GET['id']))
 
 # Boutons like et dislike :
 
-# Compte le nombre de like :
+# Permettra l'affichage du nombre de like :
 $query =  $db->prepare("SELECT COUNT(*) FROM like_dislike WHERE like_dislike = 1");
 $query->execute();
 $nb_like = $query->fetchColumn();
 
-# Compte le nombre de dislike:
+# Permettra l'affichage du nombre de dislike :
 $query =  $db->prepare("SELECT COUNT(*) FROM like_dislike WHERE like_dislike = 0");
 $query->execute();
 $nb_dislike = $query->fetchColumn();
@@ -74,46 +74,76 @@ $nb_dislike = $query->fetchColumn();
 <a href="#" class="fa fa-facebook"></a>
 
 <?php
+
+  # Insertion d'un like si l'utilisateur n'a pas déjà voté
   if (isset($_POST['like']))
   {
-    if(empty($_SESSION['id']))
+    $id_utilisateur = $_SESSION['id'];
+    $query = $db->prepare("SELECT COUNT(*) FROM like_dislike
+    WHERE id_utilisateur = '$id_utilisateur' AND like_dislike = 1");
+    $query->execute();
+    $result = $query->fetchColumn();
+
+
+    if($result == 0)
     {
-      echo "vous devez vous connectez pour voter.";
-    }else{
-      $id_utilisateur = $_SESSION['id'];
-      $id_message = $_GET['id'];
-      $like_dislike = true;
+      if(empty($_SESSION['id']))
+      {
+        echo "vous devez vous connectez pour voter.";
+      }else
+      {
+        $id_utilisateur = $_SESSION['id'];
+        $id_message = $_GET['id'];
+        $like_dislike = true;
 
-      $req = $db->prepare("INSERT INTO like_dislike (id_message, id_utilisateur, like_dislike)
-      VALUES('$id_message', '$id_utilisateur', '$like_dislike')");
-      $req->execute(array(
-            'id_message' => $id_message,
-            'id_utilisateur' => $id_utilisateur,
-            'like_dislike' => $like_dislike));
+        $req = $db->prepare("INSERT INTO like_dislike (id_message, id_utilisateur, like_dislike)
+        VALUES('$id_message', '$id_utilisateur', '$like_dislike')");
+        $req->execute(array(
+              'id_message' => $id_message,
+              'id_utilisateur' => $id_utilisateur,
+              'like_dislike' => $like_dislike));
 
-            echo "Votre vote a été pris en compte";
-        }
+        echo "Votre vote a été pris en compte";
+      }
+    } else{
+      echo "Vous avez déjà voté.";
+    }
   }
 
+  # Insertion d'un dislike si l'utilisateur n'a pas déjà voté
   if (isset($_POST['dislike']))
   {
-    if(empty($_SESSION['id']))
+    $id_utilisateur = $_SESSION['id'];
+    $query = $db->prepare("SELECT COUNT(*) FROM like_dislike
+    WHERE id_utilisateur = '$id_utilisateur' AND like_dislike = 0");
+    $query->execute();
+    $result = $query->fetchColumn();
+
+    var_dump($result);
+
+    if($result == 0)
     {
-      echo "vous devez vous connectez pour voter.";
+      if(empty($_SESSION['id']))
+      {
+        echo "vous devez vous connectez pour voter.";
+      }else
+      {
+        $id_utilisateur = $_SESSION['id'];
+        $id_message = $_GET['id'];
+        $like_dislike = false;
+
+        $req = $db->prepare("INSERT INTO like_dislike (id_message, id_utilisateur, like_dislike)
+        VALUES('$id_message', '$id_utilisateur', '$like_dislike')");
+        $req->execute(array(
+              'id_message' => $id_message,
+              'id_utilisateur' => $id_utilisateur,
+              'like_dislike' => $like_dislike));
+
+        echo "Votre vote a été pris en compte";
+      }
     }else{
-      $id_utilisateur = $_SESSION['id'];
-      $id_message = $_GET['id'];
-      $like_dislike = false;
-
-      $req = $db->prepare("INSERT INTO like_dislike (id_message, id_utilisateur, like_dislike)
-      VALUES('$id_message', '$id_utilisateur', '$like_dislike')");
-      $req->execute(array(
-            'id_message' => $id_message,
-            'id_utilisateur' => $id_utilisateur,
-            'like_dislike' => $like_dislike));
-
-            echo "Votre vote a été pris en compte";
-        }
+      echo "Vous avez déjà voté.";
+    }
   }
 
 ?></div>
