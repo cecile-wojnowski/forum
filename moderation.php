@@ -1,15 +1,5 @@
 <?php
 include("includes/header.php");
-
-  /* Admin : affichage de certaines parties du code uniquement si l'admin est connecté
-   - change les droits utilisateurs, peut supprimer les utilisateurs
-   gérer les messages signalés = afficher liste messages signalés, possibilité de supprimer
-    ajouter/ supprimer les topics = afficher liste des topics + requête d'ajout et de suppression
-
-   Modérateur :
-   - gère les messages signalés, ajoute/supprime les topics */
-
-   # include footer
  ?>
 
 <!DOCTYPE html>
