@@ -1,9 +1,10 @@
 <?php
 include("includes/identifiant.php");
 include("includes/header.php");
-include("includes/bbcode.php");
 
-if(isset($_GET['id']))
+if(!isset($_GET['id'])){
+  header("Location:topics.php");
+}else
 {
   # Permet d'afficher les messages appartenant à une conversation
   $req = $db->prepare('SELECT * FROM conversations, messages
@@ -119,13 +120,11 @@ $nb_dislike = $query->fetchColumn();
     $query->execute();
     $result = $query->fetchColumn();
 
-    var_dump($result);
-
     if($result == 0)
     {
       if(empty($_SESSION['id']))
       {
-        echo "vous devez vous connectez pour voter.";
+        echo "Vous devez vous connectez pour voter.";
       }else
       {
         $id_utilisateur = $_SESSION['id'];
@@ -148,12 +147,12 @@ $nb_dislike = $query->fetchColumn();
 
 ?></div>
 
-<?php
-
-?>
 <center><h3>poster un message</h3>
 
-  <?php if(isset($_SESSION['login'])){
+  <?php
+  include("includes/bbcode.php"); # Permet d'ajouter des smileys
+
+   if(isset($_SESSION['login'])){
     ?> <form  action="" method="post" name="message">
       <div>
         <label> Poster un message</label>
@@ -190,8 +189,6 @@ else {
 echo "pour répondre à cette conversation, connectez-vous!";
 
 }
-
-
   ?>
 
 
