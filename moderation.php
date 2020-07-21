@@ -17,11 +17,11 @@ include("includes/header.php");
     # Gestion des utilisateurs réservée à l'admin
     /* Mettre admin dans une condition : if isset session admin, echo include admin */
 
-    /*if(verif_auth(ADMIN))
-    {*/
+    if($_SESSION['id_droits'] == 4)
+    {
       //Afficher la partie admin
       include("includes/admin.php");
-    /*}*/
+    }
 
     include("includes/moderation_topics.php");
     include("includes/moderation_messages.php");
