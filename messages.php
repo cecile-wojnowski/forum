@@ -147,20 +147,42 @@ $nb_dislike = $query->fetchColumn();
 
 ?></div>
 
-<center><h3>poster un message</h3>
+<center>
 
   <?php
-  include("includes/bbcode.php"); # Permet d'ajouter des smileys
+  include("includes/bbcode.php"); # Permet d'ajouter des smileys ?>
+  <center>
 
-   if(isset($_SESSION['login'])){
-    ?> <form  action="" method="post" name="message">
-      <div>
-        <label> Poster un message</label>
-        <textarea id ="message" name="message" value=""required ></textarea>
-      </div>
-        <input name="envoyer" type="submit" value="Envoyer">
-    </form>
+  <?php if(isset($_SESSION['login'])){
+    ?>   <h1>Poster une réponse</h1>
+
+      <form method="post" action="" name="formulaire">
+      <fieldset><legend>Mise en forme</legend>
+      <input type="button" id="gras" name="gras" value="Gras" onClick="javascript:bbcode('[g]', '[/g]');return(false)" />
+      <input type="button" id="italic" name="italic" value="Italic" onClick="javascript:bbcode('[i]', '[/i]');return(false)" />
+      <input type="button" id="souligné" name="souligné" value="Souligné" onClick="javascript:bbcode('[s]', '[/s]');return(false)" />
+      <input type="button" id="lien" name="lien" value="Lien" onClick="javascript:bbcode('[url]', '[/url]');return(false)" />
+      <br /><br />
+      <img  src="https://img.icons8.com/officexs/16/000000/lol.png" title="heureux" alt="heureux" onClick="javascript:smilies(' :D ');return(false)" />
+      <img src="https://img.icons8.com/officexs/16/000000/tongue-out.png" title="lol" alt="lol" onClick="javascript:smilies(' :lol: ');return(false)" />
+      <img src="https://img.icons8.com/officexs/16/000000/sad.png" title="triste" alt="triste" onClick="javascript:smilies(' :triste: ');return(false)" />
+      <img src="https://img.icons8.com/officexs/16/000000/in-love.png" title="cool" alt="cool" onClick="javascript:smilies(' :frime: ');return(false)" />
+      <img src="https://img.icons8.com/officexs/16/000000/cool.png" title="rire" alt="rire" onClick="javascript:smilies(' XD ');return(false)" />
+      <img src="https://img.icons8.com/officexs/16/000000/confused.png" title="confus" alt="confus" onClick="javascript:smilies(' :s ');return(false)" />
+      <img  src="https://img.icons8.com/officexs/16/000000/surprised.png" title="choc" alt="choc" onClick="javascript:smilies(' :o ');return(false)" />
+      <img src="https://img.icons8.com/officexs/16/000000/question.png" title="?" alt="?" onClick="javascript:smilies(' :interrogation: ');return(false)" />
+      <img src="https://img.icons8.com/officexs/16/000000/warning-shield.png" title="!" alt="!" onClick="javascript:smilies(' :exclamation: ');return(false)" />
+      </fieldset>
+
+      <fieldset><legend>Message</legend><textarea cols="80" rows="8" id="message" name="message"></textarea></fieldset>
+
+      <input type="reset" name = "Effacer" value = "Effacer"/>
+      <input type="submit" name="envoyer" value="Envoyer" />
+
+      </p></form>
+
   </div></center>
+
   <?php
 
   if(isset($_POST['envoyer'])){
@@ -182,6 +204,7 @@ $nb_dislike = $query->fetchColumn();
       echo "le message a bien été posté";
       var_dump($data);
   }
+  var_dump($message);
 }
 
 else {
@@ -189,6 +212,8 @@ else {
 echo "pour répondre à cette conversation, connectez-vous!";
 
 }
+
+
   ?>
 
 
