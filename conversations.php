@@ -30,7 +30,6 @@ while ($post = $req->fetch())
 
     <div>
         <article>
-            <h1><?= $post['titre']; ?></h1>
             <p><?= $post['conversation'] ?></p>
             <p>
                 <a href="messages.php?id=<?= $post['id']; ?>">Lire la suite</a>
