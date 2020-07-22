@@ -30,17 +30,19 @@ include("includes/function.php");
 
 <?php
 
-  if (isset($_POST['recherche_valeur'])) {
+
+  if (isset($_POST['submit'])) {
 $sql = 'SELECT * FROM messages';
   $params = [];
 
-      $sql .= ' where message like :message';
+      $sql .= ' where messages like :message';
       $params[':message'] = "%" . addcslashes($_POST['recherche_valeur'], '_') . "%";
 
   $resultats = $db->prepare($sql);
   $resultats->execute($params);
   if ($resultats->rowCount() > 0) {
       while ($d = $resultats->fetch(PDO::FETCH_ASSOC)) {
+
           ?>
 
           <div class="">
@@ -50,16 +52,18 @@ $sql = 'SELECT * FROM messages';
 
           				 <?php
                   }
-                  $resultats->closeCursor();
-              } else {
+
+              }
+            } else {
                   echo '<tr><td>aucun résultat trouvé</td></tr>' . $connect = null;
-              } }?>
+              } ?>
 <?php  ?>
 
 <p><center>Tapez l'expression recherchée dans une conversation </center></p>
 <form class="example" name="recherche_valeur" action="" style="margin:auto;max-width:500px">
   <input type="text" placeholder="rechercher.." name="recherche_valeur">
-  <button type="submit"><i class="fa fa-search" name=""></i></button>
+
+  <button type="submit"><i class="fa fa-search" name="submit"></i></button>
 </form>
 
 <center><h3> Vous ne savez pas quoi discuter ? Voici quelques idées de topics à visiter, cliquez pour en savoir plus</h3></center>

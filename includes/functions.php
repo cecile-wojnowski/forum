@@ -1,4 +1,12 @@
 <?php
+
+# Inutile ?
+function verif_auth($auth_necessaire)
+{
+  $level=(isset($_SESSION['level']))?$_SESSION['level']:1;
+  return ($auth_necessaire <= intval($level));
+}
+
 # Upload un fichier d'avatar et renvoie son nom
 function move_avatar($avatar)
 {
@@ -6,6 +14,7 @@ function move_avatar($avatar)
     $name = time();
     $nomavatar = str_replace(' ','',$name).".".$extension_upload;
     $name = "img/avatars/".str_replace(' ','',$name).".".$extension_upload;
+
     move_uploaded_file($avatar['tmp_name'],$name);
     return $nomavatar;
 }
@@ -31,21 +40,26 @@ function erreur_profil($db)
    if(isset($_POST['modifier_profil']) AND ($_POST['password'] != $_POST['confirm']))
    {
      $_SESSION["message"]["message"]="Votre mot de passe et votre confirmation diffèrent ou sont vides.";
+     $_SESSION["message"]['type']="danger";
      return true;
 
    }elseif(strtolower($data['email']) != strtolower($email))
    {
      $_SESSION["message"] =  "Votre adresse email est déjà utilisé par un membre.";
+     $_SESSION["message"]['type']="danger";
      return true;
 
    }elseif (isset($_POST['modifier_profil']) AND !preg_match("#^[a-z0-9A-Z._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#", $email))
    {
       $_SESSION["message"]['message']= "Votre nouvelle adresse E-Mail n'a pas un format valide.";
+
+      $_SESSION["message"]['type']="danger";
        return true;
 
    }elseif (strlen($signature) > 200)
    {
       $_SESSION["message"]["message"]= "Votre nouvelle signature est trop longue.";
+      $_SESSION["message"]['type']="danger";
      return true;
    }elseif (!empty($_FILES['avatar']['size']))
    {

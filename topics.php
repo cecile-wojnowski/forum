@@ -1,7 +1,10 @@
 
+
 <?php
+
 include("includes/identifiant.php");
 include("includes/header.php");
+include("./includes/function.php");
 include("includes/bbcode.php");
 ?>
 
@@ -48,11 +51,10 @@ if(isset($_SESSION['id_droits'])){
   </div>
   <?php endforeach;
 }
+
 ?>
 
 </div>
-
-
     </main>
 
     <?php include("includes/footer.php"); ?>

@@ -11,7 +11,9 @@ if (isset($_POST['creation_topic'])) {
   echo 'Le topic a été créé.';
 }
 ?>
+
 <h3> Créer un nouveau topic : </h3>
+
 <form name="creation_topic" class="" action="moderation.php" method="post">
   <label for="">Nom du topic</label>
    <input type="text" name="nom_topic" value="">
@@ -79,6 +81,7 @@ if (isset($_POST['creation_topic'])) {
           {
             echo 'Modification enregistrée.';
           }
+
         }
         ?>
         <form name="modification_topic" action="" method="POST">

@@ -9,10 +9,12 @@ if(!isset($_GET['id'])){
   # Permet d'afficher les messages appartenant à une conversation
   $req = $db->prepare('SELECT * FROM conversations, messages
     WHERE conversations.id= messages.id_conversation AND messages.id= ?');
+
   $req->execute(array($_GET['id']));
 
   while ($post = $req->fetch())
   {
+
    ?>
    <html>
       <head>
@@ -36,6 +38,7 @@ if(!isset($_GET['id'])){
           if(isset($_GET['signaler']))
           {
             $signalement = true;
+
             $id_message = $post['id'];
 
             $data_signalement = [
@@ -71,6 +74,7 @@ $nb_dislike = $query->fetchColumn();
 
 <form class="" action="" method="post">
   <button class="like-btn" name="dislike" type="submit" style="font-size:20px"/> <?php echo $nb_dislike;  ?> <i class="fa fa-thumbs-down"></i></button>
+
 </form>
 <a href="#" class="fa fa-facebook"></a>
 
@@ -143,6 +147,7 @@ $nb_dislike = $query->fetchColumn();
     }else{
       echo "Vous avez déjà voté.";
     }
+
   }
 
 ?></div>
@@ -152,6 +157,7 @@ $nb_dislike = $query->fetchColumn();
   <?php
   include("includes/bbcode.php"); # Permet d'ajouter des smileys ?>
   <center>
+
 
   <?php if(isset($_SESSION['login'])){
     ?>   <h1>Poster une réponse</h1>
@@ -215,8 +221,6 @@ echo "pour répondre à cette conversation, connectez-vous!";
 
 
   ?>
-
-
       <p><a href="conversations.php">Retour aux conversations</a></p>
 <?php include('includes/footer.php') ?>
 </body>

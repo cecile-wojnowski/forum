@@ -30,6 +30,7 @@ $website=$data["website"];
 <p><i>Vous êtes ici</i> : <a href="./index.php">Index du forum</a> --> Modification du profil; </p>
 
 <h1>Modifier son profil</h1>
+
 <form name="modifier_profil" method="post" action="profil_update.php" enctype="multipart/form-data">
   <?php if(isset($_SESSION["message"]["message"])) {
     echo $_SESSION["message"]["message"];
@@ -60,7 +61,7 @@ $website=$data["website"];
   <fieldset><legend>Profil sur le forum</legend>
     <label for="avatar">Changer votre avatar :</label>
     <input type="file" name="avatar" id="avatar" />
-    (Taille max : 2 Mo)<br />
+    <p>(Taille max : 2 Mo)</p><br />
     <label><input type="checkbox" name="delete" value="Delete" />
     Supprimer l avatar</label>
     Avatar actuel :

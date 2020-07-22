@@ -22,15 +22,17 @@
   } else{
     if (!isset($_POST['login']))
     {
+
     ?>
     <form method="POST" action="connexion.php">
       <div class="container">
         <h2>Connectez-vous avec votre login et mot de passe</h2>
         <div class="form">
-          <label for="">Login</label>
+          <label forb="">Login</label>
           <input type="text" class="form-field animation a3" placeholder="login" name="login" id="pseudo">
           <label for="">Password</label>
           <input type="password" class="form-field animation a4" placeholder="Password" name="password" id="password">
+
           <p class="animation a5">	<a href="./inscription.php">Pas encore inscrit ?</a></p>
           <div class="button">
             <button type="submit" value="Connexion"> Se connecter </button>
@@ -39,6 +41,7 @@
       </div>
 
     <?php
+
   }else{ # Si $_POST['login'] est rempli
       $message='';
       if (empty($_POST['login']) || empty($_POST['password']))
@@ -84,7 +87,6 @@
     }
     echo $message.'</div></body></html>';
 }
-
 
  include("includes/footer.php");
  ?>

@@ -11,17 +11,13 @@
     <title><?php echo $titre; ?></title>
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Asap&display=swap" rel="stylesheet">
+
 <link rel="stylesheet" href="header.css">
   </head>
   <body>
     <div class="top">
       <div class="top_text">
-
 <img src="img/forum2.png" alt="">
-
-        <h2> Titre du forum </h2>
-      </div>
-
 
     </div>
     <?php
@@ -36,6 +32,7 @@
           <li><a href="topics.php"> Topics </a></li>
           <li><a href="creer_conversation.php"> Créer une conversation </a></li>
           <li><a href="index.php?deconnexion"> Déconnexion </a></li>
+
           <li style="float:right"><a class="active" href="recherche.php">faire une recherche</li></a>
 
         </ul>
@@ -46,6 +43,7 @@
             <li><a href="profil.php">  Votre profil    <i><?php echo $_SESSION['login']; ?></i></a></li>
             <li><a href="topics.php"> Les topics  </a> </li>
             <li><a href="moderation.php"> Espace modération </a></li>
+
             <li><a href="creer_conversation.php"> Créer une conversation  </a></li>
             <li><a href="index.php?deconnexion"><img src="https://img.icons8.com/fluent/48/000000/shutdown.png"/></a></li></ul>
             <?php  } elseif ($_SESSION['id_droits']== 4) { ?>
@@ -54,6 +52,7 @@
             <li><a href="topics.php"> Les topics  </a></li>
             <li><a href="moderation.php"> Espace modération </a></li>
             <li><a href="creer_conversation.php"> Créer une conversation  </a></li>
+
 
 
             <a href="index.php?deconnexion">

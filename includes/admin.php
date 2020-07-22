@@ -8,11 +8,13 @@
     $pdoselect = $db->prepare('SELECT * FROM utilisateurs WHERE id = :id');
     $pdoselect ->bindValue(':id', $_GET['modifier_droits'], PDO::PARAM_INT);
     $executepdo= $pdoselect->execute();
+
     $info= $pdoselect->fetch();
 
     $id = $_GET['modifier_droits'];
       ?>
       <form name="modification_droits" action="moderation.php?modifier_droits=<?php echo $id ?>" method="POST">
+
         <table border="0" align="center" cellspacing="2" cellpadding="2">
 					<tr align="center">
 						<td> Login </td>
@@ -57,6 +59,7 @@
 						<td> Avatar </td>
 						<td><input type="image" name="avatar" value="<?php echo $info['avatar'] ?>"></td>
 					</tr>
+
           <td><input name="modification_droits" type="submit" value="Modifier les droits"></td>
         </table>
       </form>

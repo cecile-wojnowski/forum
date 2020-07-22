@@ -15,8 +15,6 @@ include("includes/header.php");
   <body>
     <?php
     # Gestion des utilisateurs réservée à l'admin
-    /* Mettre admin dans une condition : if isset session admin, echo include admin */
-
     if($_SESSION['id_droits'] == 4)
     {
       //Afficher la partie admin

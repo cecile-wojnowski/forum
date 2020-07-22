@@ -1,9 +1,9 @@
 <?php
-
 if(isset($_SESSION['login'])){
 	header("Location:profil.php");
 }
 	$titre="Enregistrement";
+
 	include("includes/header.php");
 ?>
 <!DOCTYPE html>
@@ -151,10 +151,10 @@ if(isset($_SESSION['login'])){
 					<p>Cliquez <a href="./profil.php">ici</a> pour accéder à votre profil, ou <a href="./index.php">ici</a>
 					pour retourner sur la page d\'accueil.';
 
-
 					$nomavatar=(!empty($_FILES['avatar']['size']))?move_avatar($_FILES['avatar']):'';
 
 		      $query=$db->prepare('INSERT INTO utilisateurs( `login`, `email`, `password`, `date_inscription`, `id_droits`, `localisation`, `website`, `signature`, `avatar`)
+
 		      VALUES (:login, :email, :passcrypt, :temps, :id_droits, :localisation, :website, :signature, :avatar)');
 					$query->bindValue(':login', $pseudo, PDO::PARAM_STR);
 					$query->bindValue(':email', $email, PDO::PARAM_STR);
