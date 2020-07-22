@@ -14,8 +14,7 @@ include("includes/bbcode.php");
   </head>
   <body>
 
-  </body>
-</html>
+
 
 <?php
 if(isset($_GET['id'])){
@@ -50,3 +49,5 @@ while ($post = $req->fetch())
 
 <?php  include("includes/footer.php");
 ?>
+</body>
+</html>
