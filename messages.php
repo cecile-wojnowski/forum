@@ -1,7 +1,6 @@
 <?php
 include("includes/identifiant.php");
 include("includes/header.php");
-
 if(!isset($_GET['id'])){
   header("Location:topics.php");
 }else
@@ -20,27 +19,36 @@ if(!isset($_GET['id'])){
         WHERE conversations.id= messages.id_conversation');
       $req->execute(array($_GET['id'])); ?>
 <div class="message">
+
       <?php while ($post = $req->fetch())
       {
-        $id_message = $post['id'];
-        include("includes/like_dislike.php");?>
-
+         ?>
           <article>
+            <?php $id_message = $post['id'];
+            # Permettra l'affichage du nombre de like :
+            $query =  $db->prepare("SELECT COUNT(*) FROM like_dislike
+              WHERE like_dislike = 1 AND id_message = '$id_message'");
+            $query->execute();
+            $nb_like = $query->fetchColumn();
+            # Permettra l'affichage du nombre de dislike :
+            $query =  $db->prepare("SELECT COUNT(*) FROM like_dislike
+              WHERE like_dislike = 0 AND id_message = '$id_message'");
+            $query->execute();
+            $nb_dislike = $query->fetchColumn();
+            ?>
+
             <h1><?= $post['message']; ?></h1>
             <p><?= $post['id_utilisateur'] ?></p>
             <a href="messages.php?id=<?= $post['id'];?>&signaler=<?php $post['id']?>"> Signaler le message</a>
+            <form method="post" action="like_dislike.php?id_message=<?php echo $id_message;?>">
+              <button class="fa fa-thumbs-up like-btn" name="like" type="submit" style="font-size:20px"/> <?php echo $nb_like;  ?> </button>
+            </form>
+
+            <form class="" action="like_dislike.php?id_message=<?php echo $id_message;?>" method="post">
+              <button class="like-btn" name="dislike" type="submit" style="font-size:20px"/> <?php echo $nb_dislike;  ?> <i class="fa fa-thumbs-down"></i></button>
+            </form>
+            <a href="#" class="fa fa-facebook"></a>
           </article>
-
-          <?php ?>
-
-          <form method="post" action="">
-            <button class="fa fa-thumbs-up like-btn" name="like" type="submit" style="font-size:20px"/> <?php echo $nb_like;  ?> </button>
-          </form>
-
-          <form class="" action="" method="post">
-            <button class="like-btn" name="dislike" type="submit" style="font-size:20px"/> <?php echo $nb_dislike;  ?> <i class="fa fa-thumbs-down"></i></button>
-          </form>
-          <a href="#" class="fa fa-facebook"></a>
 
           <?php
           if(isset($_GET['signaler']))
@@ -107,7 +115,7 @@ if(!isset($_GET['id'])){
     $id_conversation = $_GET['id'];
 
     $sql = "INSERT INTO messages (message, id_conversation, id_utilisateur, date_message)
-      VALUES ('$message', '$id_conversation', '$id_utilisateur', NOW() )";
+      VALUES ('$message', '$id_conversation', '$id_utilisateur', NOW())";
     $stmt= $db->prepare($sql);
     $stmt->execute();
     echo "Le message a bien été posté.";
