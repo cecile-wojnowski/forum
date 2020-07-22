@@ -13,6 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Asap&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
+
 <link rel="stylesheet" href="header.css">
   </head>
   <body>
@@ -28,10 +29,11 @@
         if ($_SESSION['id_droits']== 2)
         {
           ?> <ul> <li><a href="index.php"><center>Accueil</center></li></a>
-          <li><a href="profil.php">  Votre profil <i> <?php $_SESSION['login'] ?></i></a></li>
-          <li><a href="topics.php"> Topics  </a></li>
-          <li><a href="creer_conversation.php"> Créer une conversation  </a></li>
-          <li><a href="index.php?deconnexion"> Déconnexion</a></li>
+          <li><a href="profil.php">  Votre profil <i> <?php echo $_SESSION['login']; ?></i></a></li>
+          <li><a href="topics.php"> Topics </a></li>
+          <li><a href="creer_conversation.php"> Créer une conversation </a></li>
+          <li><a href="index.php?deconnexion"> Déconnexion </a></li>
+
           <li style="float:right"><a class="active" href="recherche.php">faire une recherche</li></a>
 
         </ul>
@@ -39,15 +41,20 @@
         } elseif ($_SESSION['id_droits']== 3)
           { ?>
             <ul> <li><a href="index.php"> Accueil </a></li>
-            <li><a href="profil.php">  Votre profil    <i><?php $_SESSION['login']?></i></a></li>
+            <li><a href="profil.php">  Votre profil    <i><?php echo $_SESSION['login']; ?></i></a></li>
             <li><a href="topics.php"> Les topics  </a> </li>
+            <li><a href="moderation.php"> Espace modération </a></li>
+
             <li><a href="creer_conversation.php"> Créer une conversation  </a></li>
             <li><a href="index.php?deconnexion"><img src="https://img.icons8.com/fluent/48/000000/shutdown.png"/></a></li></ul>
             <?php  } elseif ($_SESSION['id_droits']== 4) { ?>
             <ul> <li><a href="index.php"><center> Accueil</center></a></li>
-            <li><a href="profil.php">  Votre profil    <i><?php $_SESSION['login'] ?></i></a></li>
+            <li><a href="profil.php">  Votre profil    <i><?php echo $_SESSION['login']; ?></i></a></li>
+            <li><a href="topics.php"> Les topics  </a></li>
             <li><a href="moderation.php"> Espace modération </a></li>
-            <li><a href="topics.php"> Topics  </a></li>
+            <li><a href="creer_conversation.php"> Créer une conversation  </a></li>
+
+
 
             <a href="index.php?deconnexion">
             <img src="https://img.icons8.com/fluent/48/000000/shutdown.png"/></a>

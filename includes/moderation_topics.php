@@ -11,6 +11,9 @@ if (isset($_POST['creation_topic'])) {
   echo 'Le topic a été créé.';
 }
 ?>
+
+<h3> Créer un nouveau topic : </h3>
+
 <form name="creation_topic" class="" action="moderation.php" method="post">
   <label for="">Nom du topic</label>
    <input type="text" name="nom_topic" value="">
@@ -68,23 +71,17 @@ if (isset($_POST['creation_topic'])) {
 
        if (isset($_POST['modifier_topic']))
        {
-           $topic= $_POST['topic'];
-           $statut= $_POST['statut'];
+          $id = $_GET['modifier_topic'];
+          $topic= $_POST['topic'];
+          $statut= $_POST['statut'];
 
-           $req2 = $bdd->prepare('UPDATE topics
-             SET topic = :topic,
-             statut = :statut
-             WHERE id = :id');
+          $req2 = $db->prepare("UPDATE topics SET topic = '$topic', statut = '$statut' WHERE id = '$id'");
+          $req2->execute();
+          if ($req2)
+          {
+            echo 'Modification enregistrée.';
+          }
 
-           $req2->execute(array(
-           'topic' => $topic,
-           'statut' => $statut,
-           ));
-           if ($req2)
-           {
-               echo 'Modification enregistrée';
-               header("location: moderation.php?topics");
-           }
         }
         ?>
         <form name="modification_topic" action="" method="POST">
