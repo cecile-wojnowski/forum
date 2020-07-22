@@ -20,5 +20,4 @@ $lvl=(isset($_SESSION['level']))?(int) $_SESSION['level']:1;
 
 //On inclut les 2 pages restantes
 include("functions.php");
-include("constant.php");
 ?>
