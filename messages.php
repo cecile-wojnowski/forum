@@ -21,20 +21,17 @@ if(!isset($_GET['id'])){
       $req->execute(array($_GET['id'])); ?>
 <div class="message">
       <?php while ($post = $req->fetch())
-      { ?>
+      {
+        $id_message = $post['id'];
+        include("includes/like_dislike.php");?>
+
           <article>
             <h1><?= $post['message']; ?></h1>
             <p><?= $post['id_utilisateur'] ?></p>
             <a href="messages.php?id=<?= $post['id'];?>&signaler=<?php $post['id']?>"> Signaler le message</a>
           </article>
-          <?php
-          # Permettra l'affichage du nombre de like :
-          $query =  $db->prepare("SELECT COUNT(*) FROM like_dislike WHERE like_dislike = 1");
-          $query->execute();
-          $nb_like = $query->fetchColumn();
 
-          include("includes/like_dislike.php");?>
-
+          <?php ?>
 
           <form method="post" action="">
             <button class="fa fa-thumbs-up like-btn" name="like" type="submit" style="font-size:20px"/> <?php echo $nb_like;  ?> </button>
@@ -42,7 +39,6 @@ if(!isset($_GET['id'])){
 
           <form class="" action="" method="post">
             <button class="like-btn" name="dislike" type="submit" style="font-size:20px"/> <?php echo $nb_dislike;  ?> <i class="fa fa-thumbs-down"></i></button>
-
           </form>
           <a href="#" class="fa fa-facebook"></a>
 
