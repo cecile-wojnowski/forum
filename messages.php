@@ -189,24 +189,15 @@ $nb_dislike = $query->fetchColumn();
 
   if(isset($_POST['envoyer'])){
     $message = $_POST['message'];
-    $temps= date("d-m-Y-H:i");
     $id_utilisateur = $_SESSION['id'];
     $id_conversation = $_GET['id'];
 
-      $data = [
-          'message' => $message,
-          'id_conversation' => $id_conversation,
-          'id_utilisateur'=>$id_utilisateur,
-          'temps' => $temps,
-      ];
-
-      $sql = "INSERT INTO messages (message, id_conversation, id_utilisateur, temps) VALUES (:message, :id_conversation, :id_utilisateur, :temps)";
-      $stmt= $db->prepare($sql);
-      $stmt->execute($data);
-      echo "le message a bien été posté";
-      var_dump($data);
+    $sql = "INSERT INTO messages (message, id_conversation, id_utilisateur, date_message)
+      VALUES ('$message', '$id_conversation', '$id_utilisateur', NOW() )";
+    $stmt= $db->prepare($sql);
+    $stmt->execute();
+    echo "Le message a bien été posté.";
   }
-  var_dump($message);
 }
 
 else {
@@ -215,9 +206,8 @@ echo "pour répondre à cette conversation, connectez-vous!";
 
 }
 
-
   ?>
-      <p><a href="conversations.php">Retour aux conversations</a></p>
+  <p><a href="conversations.php">Retour aux conversations</a></p>
 <?php include('includes/footer.php') ?>
 </body>
 </html>
