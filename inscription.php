@@ -1,9 +1,9 @@
 <?php
+
 if(isset($_SESSION['login'])){
 	header("Location:profil.php");
 }
 	$titre="Enregistrement";
-	include("functions.php");
 	include("includes/header.php");
 ?>
 <!DOCTYPE html>
@@ -31,7 +31,7 @@ if(isset($_SESSION['login'])){
 				<label for="localisation">Localisation :</label><input type="text" name="localisation" id="localisation" />
 				</fieldset>
 				<fieldset><legend>Profil sur le forum</legend>
-				<label for="avatar">Choisissez votre avatar :</label><input type="file" name="avatar" id="avatar" />(Taille max : 10Ko<br />
+				<label for="avatar">Choisissez votre avatar :</label><input type="file" name="avatar" id="avatar" />(Taille max : 2 Mo<br />
 				<label for="signature">Signature :</label><textarea cols="40" rows="4" name="signature" id="signature">La signature est limitée à 200 caractères</textarea>
 				</fieldset>
 				<p>Les champs précédés d\'un * sont obligatoires.</p>
@@ -62,8 +62,9 @@ if(isset($_SESSION['login'])){
 		    $email = $_POST['email'];
 		    $website = $_POST['website'];
 		    $localisation = $_POST['localisation'];
-		    $pass = md5($_POST['password']);
-		    $confirm = md5($_POST['confirm']);
+		    $pass = $_POST['password'];
+		    $confirm = $_POST['confirm'];
+				$passcrypt = password_hash($pass, PASSWORD_BCRYPT);
 
 				$id_droits= 2; # Toute inscription donne les droits "inscrit"
 
@@ -122,9 +123,7 @@ if(isset($_SESSION['login'])){
 	    if (!empty($_FILES['avatar']['size']))
 	    {
 	        //On définit les variables :
-	        $maxsize = 10024; //Poid de l'image
-	        $maxwidth = 100; //Largeur de l'image
-	        $maxheight = 100; //Longueur de l'image
+	        $maxsize = 20000000; //Poid de l'image
 	        $extensions_valides = array( 'jpg' , 'jpeg' , 'gif' , 'png', 'bmp' ); //Liste des extensions valides
 
 	        if ($_FILES['avatar']['error'] > 0)
@@ -135,14 +134,6 @@ if(isset($_SESSION['login'])){
 	        {
 	                $i++;
 	                $avatar_erreur1 = "Le fichier est trop gros : (<strong>".$_FILES['avatar']['size']." Octets</strong>    contre <strong>".$maxsize." Octets</strong>)";
-	        }
-
-	        $image_sizes = getimagesize($_FILES['avatar']['tmp_name']);
-	        if ($image_sizes[0] > $maxwidth OR $image_sizes[1] > $maxheight)
-	        {
-	                $i++;
-	                $avatar_erreur2 = "Image trop large ou trop longue :
-	                (<strong>".$image_sizes[0]."x".$image_sizes[1]."</strong> contre <strong>".$maxwidth."x".$maxheight."</strong>)";
 	        }
 
 	        $extension_upload = strtolower(substr(  strrchr($_FILES['avatar']['name'], '.')  ,1));
@@ -156,17 +147,18 @@ if(isset($_SESSION['login'])){
    		if ($i==0) # Si aucune erreur n'est rencontrée, un message de confirmation apparaît
    			{
 				 	echo'<h1>Inscription terminée</h1>';
-		      echo'<p>Bienvenue '.stripslashes(htmlspecialchars($_POST['pseudo'])).' vous êtes maintenant inscrit sur le forum</p>
-					<p>Cliquez <a href="./index.php">ici</a> pour revenir à la page d accueil</p>';
+		      echo'<p>Bienvenue '.stripslashes(htmlspecialchars($_POST['pseudo'])).' vous êtes maintenant inscrit sur le forum. </p>
+					<p>Cliquez <a href="./profil.php">ici</a> pour accéder à votre profil, ou <a href="./index.php">ici</a>
+					pour retourner sur la page d\'accueil.';
 
 
 					$nomavatar=(!empty($_FILES['avatar']['size']))?move_avatar($_FILES['avatar']):'';
 
 		      $query=$db->prepare('INSERT INTO utilisateurs( `login`, `email`, `password`, `date_inscription`, `id_droits`, `localisation`, `website`, `signature`, `avatar`)
-		      VALUES (:login, :email, :pass, :temps, :id_droits, :localisation, :website, :signature, :avatar)');
+		      VALUES (:login, :email, :passcrypt, :temps, :id_droits, :localisation, :website, :signature, :avatar)');
 					$query->bindValue(':login', $pseudo, PDO::PARAM_STR);
 					$query->bindValue(':email', $email, PDO::PARAM_STR);
-					$query->bindValue(':pass', $pass, PDO::PARAM_STR);
+					$query->bindValue(':passcrypt', $passcrypt, PDO::PARAM_STR);
 					$query->bindValue(':temps', $temps, PDO::PARAM_INT);
 					$query->bindValue(':id_droits', $id_droits, PDO::PARAM_STR);
 					$query->bindValue(':localisation', $localisation, PDO::PARAM_STR);

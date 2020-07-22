@@ -9,13 +9,56 @@
     <meta charset="utf-8">
     <title></title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="form.css">
   </head>
   <body>
-
-
+<center>
+<img src="https://images.pexels.com/photos/1591062/pexels-photo-1591062.jpeg?cs=srgb&dl=cubes-e-mail-gros-plan-mot-1591062.jpg&fm=jpg" alt="" style="width:20%">
+<div class="container">
+<p>Envoyez-nous un message</p>
+<?php if(isset($_SESSION['login'])){ ?>
 <form class="" action="" method="post">
-<input type="text" name="" value="">
+  <label for="">Titre</label>
+<input type="text" name="titre" value="">
+<label for="">Message</label>
+<input type="textarea" name="message_contact" value="">
+<input type="submit" name="submit" value="Envoyer">
+</center>
 </form>
+</div>
+
+<?php
+
+if (isset($_POST['submit'])) {
+
+ $titre_contact=$_POST['titre'];
+ $message_contact=$_POST['message_contact'];
+ $message_contact = str_replace("'", "\'", $message_contact); # Permet l'affichage des guillemets
+ $id_utilisateur=$_SESSION['id'];
+
+ $data = [
+     'titre_contact' => $titre_contact,
+     'message_contact' => $message_contact,
+     'id_utilisateur'=>$id_utilisateur,
+ ];
+ $sql = "INSERT INTO contact (titre_contact, message_contact, id_utilisateur) VALUES (:titre_contact, :message_contact, :id_utilisateur)";
+ $stmt= $db->prepare($sql);
+ $stmt->execute($data);
+
+echo "<center>votre message a bien été envoyé !</center>";
+}
+
+}else{
+echo "vous devez vous connectez pour envoyer un message";
+
+    }
+
+include('includes/footer.php');
+?>
+
+
+
+
 
   </body>
 </html><?php include('includes/footer.php') ?>

@@ -25,47 +25,43 @@ include("includes/function.php");
 <body>
 
 <center>
-<h2>Faire une recherche sur le site</h2>
+<h2>Chercher une conversation par son titre ou son contenu, tapez un mot !</h2>
 </center>
 
-<?php
+   <form method="POST" action="">
+   Recherche <input type="text" name="recherche">
+   <button type="submit"><i class="fa fa-search" name="submit"></i></button>
+   </form>
 
-  if (isset($_POST['submit'])) {
-$sql = 'SELECT * FROM messages';
-  $params = [];
+   <?php
 
-      $sql .= ' where messages like :message';
-      $params[':message'] = "%" . addcslashes($_POST['recherche_valeur'], '_') . "%";
+  $db_server = 'localhost';
+  $db_name = 'forum';
+  $db_user_login = 'root';
+  $db_user_pass = '';
 
-  $resultats = $db->prepare($sql);
-  $resultats->execute($params);
-  if ($resultats->rowCount() > 0) {
-      while ($d = $resultats->fetch(PDO::FETCH_ASSOC)) {
+  // Ouvre une connexion au serveur MySQL
+  $conn = mysqli_connect($db_server,$db_user_login, $db_user_pass, $db_name);
 
-        var_dump($sql);
+   // Récupère la recherche
+   $recherche = isset($_POST['recherche']) ? $_POST['recherche'] : '';
 
-          ?>
+   // la requete mysql
+   $q = $conn->query(
+   "SELECT * FROM conversations
+    WHERE titre LIKE '%$recherche%'
+    OR conversation LIKE '%$recherche%'
+    LIMIT 10");
 
-          <div class="">
-          	<tr><td><?=$d['message'] ?></td><td><?=$d['id'] ?></td>
-          		<td><?=$d['id_utilisateur'] ?></td>
-          </div>
+   // affichage du résultat
+   while( $r = mysqli_fetch_array($q)){
+   echo 'Résultat de la recherche: '.$r['titre'].', '.$r['conversation'].' <br />'
+;
+   }
+?>
 
-          				 <?php
-                  }
-              }
-            } else {
-                  echo '<tr><td>aucun résultat trouvé</td></tr>' . $connect = null;
-              } ?>
-<?php  ?>
 
-<p><center>Tapez l'expression recherchée dans une conversation </center></p>
-<form class="example" name="recherche_valeur" action="" style="margin:auto;max-width:500px">
-  <input type="text" placeholder="rechercher.." name="recherche_valeur">
-  <button type="submit"><i class="fa fa-search" name="submit"></i></button>
-</form>
-
-<center><h3> Vous ne savez pas quoi discuter ? Voici quelques idées de topics à visiter, cliquez pour en savoir plus</h3></center>
+<center><h3> Vous ne savez pas quoi discuter ? Voici quelques topics populaires chez nos membres, cliquez pour en savoir plus</h3></center>
 
 <button type="button" class="collapsible">Topic 1</button>
 <div class="content">

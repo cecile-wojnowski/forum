@@ -2,11 +2,13 @@
 
 include("includes/identifiant.php");
 include("includes/header.php");
-$membre = isset($_GET['m'])?(int) $_GET['m']:'';
+$membre = $_GET['m'];
+
 
 //On récupère les infos du membre
     $query=$db->prepare('SELECT *
     FROM utilisateurs WHERE id=:id');
+   $query->bindValue(':id',$membre, PDO::PARAM_INT);
     $query->execute();
     while($data=$query->fetch()){
     //On affiche les infos sur le membre
@@ -14,25 +16,28 @@ $membre = isset($_GET['m'])?(int) $_GET['m']:'';
     profil de '.stripslashes(htmlspecialchars($data['login']));
     echo'<h1>Profil de '.stripslashes(htmlspecialchars($data['login'])).'</h1>';
 
-    echo'<img src="./images/avatars/'.$data['membre_avatar'].'"
-    alt="Ce membre n a pas d avatar" />';
+    echo'<img src="img/avatars/'.$data['avatar'].'"
+    alt="Ce membre n a pas d avatar" style="width:15%"/>';
 
     echo'<p><strong>Adresse E-Mail : </strong>
-    <a href="mailto:'.stripslashes($data['membre_email']).'">
-    '.stripslashes(htmlspecialchars($data['membre_email'])).'</a><br />';
-
-    echo'<strong>MSN Messenger : </strong>'.stripslashes(htmlspecialchars($data['membre_msn'])).'<br />';
+    <a href="mailto:'.stripslashes($data['email']).'">
+    '.stripslashes(htmlspecialchars($data['email'])).'</a><br />';
 
     echo'<strong>Site Web : </strong>
-    <a href="'.stripslashes($data['membre_siteweb']).'">'.stripslashes(htmlspecialchars($data['membre_siteweb'])).'</a>
+    <a href="'.stripslashes($data['website']).'">'.stripslashes(htmlspecialchars($data['website'])).'</a>
     <br /><br />';
 
     echo'Ce membre est inscrit depuis le
-    <strong>'.date('d/m/Y',$data['membre_inscrit']).'</strong>
-    et a posté <strong>'.$data['membre_post'].'</strong> messages
+    <strong>'.date('d/m/Y',$data['date_inscription']).'</strong>
+    et sa signature est : <strong>'.$data['signature'].'</strong>
     <br /><br />';
-    echo'<strong>Localisation : </strong>'.stripslashes(htmlspecialchars($data['membre_localisation'])).'
+    echo'<strong>Localisation : </strong>'.stripslashes(htmlspecialchars($data['localisation'])).'
     </p>';
   }
 
 ?>
+
+<a href="annuaire.php">Voir tout les utilisateurs du site</a>
+
+
+<?php include('includes/footer.php') ?>
