@@ -1,15 +1,5 @@
 <?php
 include("includes/header.php");
-
-  /* Admin : affichage de certaines parties du code uniquement si l'admin est connecté
-   - change les droits utilisateurs, peut supprimer les utilisateurs
-   gérer les messages signalés = afficher liste messages signalés, possibilité de supprimer
-    ajouter/ supprimer les topics = afficher liste des topics + requête d'ajout et de suppression
-
-   Modérateur :
-   - gère les messages signalés, ajoute/supprime les topics */
-
-   # include footer
  ?>
 
 <!DOCTYPE html>
@@ -25,13 +15,11 @@ include("includes/header.php");
   <body>
     <?php
     # Gestion des utilisateurs réservée à l'admin
-    /* Mettre admin dans une condition : if isset session admin, echo include admin */
-
-    /*if(verif_auth(ADMIN))
-    {*/
+    if($_SESSION['id_droits'] == 4)
+    {
       //Afficher la partie admin
       include("includes/admin.php");
-    /*}*/
+    }
 
     include("includes/moderation_topics.php");
     include("includes/moderation_messages.php");

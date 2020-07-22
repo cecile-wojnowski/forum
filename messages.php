@@ -1,19 +1,20 @@
 <?php
 include("includes/identifiant.php");
 include("includes/header.php");
-include("includes/bbcode.php");
 
-if(isset($_GET['id']))
+if(!isset($_GET['id'])){
+  header("Location:topics.php");
+}else
 {
   # Permet d'afficher les messages appartenant à une conversation
   $req = $db->prepare('SELECT * FROM conversations, messages
-    WHERE conversations.id= messages.id_conversation');
+    WHERE conversations.id= messages.id_conversation AND messages.id= ?');
+
   $req->execute(array($_GET['id']));
 
   while ($post = $req->fetch())
   {
-    var_dump($post);
-    var_dump($req);
+
    ?>
    <html>
       <head>
@@ -36,6 +37,8 @@ if(isset($_GET['id']))
           <?php
           if(isset($_GET['signaler']))
           {
+            $signalement = true;
+
             $id_message = $post['id'];
 
             $data_signalement = [
@@ -51,44 +54,110 @@ if(isset($_GET['id']))
           }
   }
 }
+
+# Boutons like et dislike :
+
+# Permettra l'affichage du nombre de like :
+$query =  $db->prepare("SELECT COUNT(*) FROM like_dislike WHERE like_dislike = 1");
+$query->execute();
+$nb_like = $query->fetchColumn();
+
+# Permettra l'affichage du nombre de dislike :
+$query =  $db->prepare("SELECT COUNT(*) FROM like_dislike WHERE like_dislike = 0");
+$query->execute();
+$nb_dislike = $query->fetchColumn();
+
 ?>
 <form method="post" action="">
-  <button class="fa fa-thumbs-up like-btn" name="like" type="submit"/> <?php echo "0";  ?> </button>
+  <button class="fa fa-thumbs-up like-btn" name="like" type="submit" style="font-size:20px"/> <?php echo $nb_like;  ?> </button>
 </form>
 
 <form class="" action="" method="post">
-  <button class="fa fa-thumbs-down like-btn" name="dislike" type="submit"> <?php echo "0";  ?> </button>
+  <button class="like-btn" name="dislike" type="submit" style="font-size:20px"/> <?php echo $nb_dislike;  ?> <i class="fa fa-thumbs-down"></i></button>
+
 </form>
 <a href="#" class="fa fa-facebook"></a>
 
 <?php
+
+  # Insertion d'un like si l'utilisateur n'a pas déjà voté
   if (isset($_POST['like']))
   {
-    if(empty($_SESSION['id']))
+    $id_utilisateur = $_SESSION['id'];
+    $query = $db->prepare("SELECT COUNT(*) FROM like_dislike
+    WHERE id_utilisateur = '$id_utilisateur' AND like_dislike = 1");
+    $query->execute();
+    $result = $query->fetchColumn();
+
+
+    if($result == 0)
     {
-      echo "vous devez vous connectez pour voter";
+      if(empty($_SESSION['id']))
+      {
+        echo "vous devez vous connectez pour voter.";
+      }else
+      {
+        $id_utilisateur = $_SESSION['id'];
+        $id_message = $_GET['id'];
+        $like_dislike = true;
+
+        $req = $db->prepare("INSERT INTO like_dislike (id_message, id_utilisateur, like_dislike)
+        VALUES('$id_message', '$id_utilisateur', '$like_dislike')");
+        $req->execute(array(
+              'id_message' => $id_message,
+              'id_utilisateur' => $id_utilisateur,
+              'like_dislike' => $like_dislike));
+
+        echo "Votre vote a été pris en compte";
+      }
+    } else{
+      echo "Vous avez déjà voté.";
+    }
+  }
+
+  # Insertion d'un dislike si l'utilisateur n'a pas déjà voté
+  if (isset($_POST['dislike']))
+  {
+    $id_utilisateur = $_SESSION['id'];
+    $query = $db->prepare("SELECT COUNT(*) FROM like_dislike
+    WHERE id_utilisateur = '$id_utilisateur' AND like_dislike = 0");
+    $query->execute();
+    $result = $query->fetchColumn();
+
+    if($result == 0)
+    {
+      if(empty($_SESSION['id']))
+      {
+        echo "Vous devez vous connectez pour voter.";
+      }else
+      {
+        $id_utilisateur = $_SESSION['id'];
+        $id_message = $_GET['id'];
+        $like_dislike = false;
+
+        $req = $db->prepare("INSERT INTO like_dislike (id_message, id_utilisateur, like_dislike)
+        VALUES('$id_message', '$id_utilisateur', '$like_dislike')");
+        $req->execute(array(
+              'id_message' => $id_message,
+              'id_utilisateur' => $id_utilisateur,
+              'like_dislike' => $like_dislike));
+
+        echo "Votre vote a été pris en compte";
+      }
     }else{
-      $id_utilisateur = $_SESSION['id'];
-      $id_message = $_GET['id'];
-      $like_dislike = true;
+      echo "Vous avez déjà voté.";
+    }
 
-      $req = $db->prepare('INSERT INTO like_dislike (id_message,id_utilisateur, like_dislike)
-      VALUES(:id_message, :id_utilisateur, :like_dislike)');
-      $req->execute(array(
-            'id_message' => $id_utilisateur,
-            'id_utilisateur' => $id_message,
-            'like_dislike' => $like_dislike));
-
-            echo "votre vote a été pris en compte";
-        }
   }
 
 ?></div>
 
-<?php
-
-?>
 <center>
+
+  <?php
+  include("includes/bbcode.php"); # Permet d'ajouter des smileys ?>
+  <center>
+
 
   <?php if(isset($_SESSION['login'])){
     ?>   <h1>Poster une réponse</h1>
@@ -110,7 +179,6 @@ if(isset($_GET['id']))
       <img src="https://img.icons8.com/officexs/16/000000/question.png" title="?" alt="?" onClick="javascript:smilies(' :interrogation: ');return(false)" />
       <img src="https://img.icons8.com/officexs/16/000000/warning-shield.png" title="!" alt="!" onClick="javascript:smilies(' :exclamation: ');return(false)" />
       </fieldset>
-
 
       <fieldset><legend>Message</legend><textarea cols="80" rows="8" id="message" name="message"></textarea></fieldset>
 
@@ -153,11 +221,6 @@ echo "pour répondre à cette conversation, connectez-vous!";
 
 
   ?>
-
-
-
-
-
       <p><a href="conversations.php">Retour aux conversations</a></p>
 <?php include('includes/footer.php') ?>
 </body>

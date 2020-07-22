@@ -30,7 +30,8 @@ $website=$data["website"];
 <p><i>Vous êtes ici</i> : <a href="./index.php">Index du forum</a> --> Modification du profil; </p>
 
 <h1>Modifier son profil</h1>
-<form name="modifier_profil" method="post" action="includes/profil_update.php" enctype="multipart/form-data">
+
+<form name="modifier_profil" method="post" action="profil_update.php" enctype="multipart/form-data">
   <?php if(isset($_SESSION["message"]["message"])) {
     echo $_SESSION["message"]["message"];
   } ?>
@@ -60,11 +61,11 @@ $website=$data["website"];
   <fieldset><legend>Profil sur le forum</legend>
     <label for="avatar">Changer votre avatar :</label>
     <input type="file" name="avatar" id="avatar" />
-    (Taille max : 10 ko)<br /><br />
+    <p>(Taille max : 2 Mo)</p><br />
     <label><input type="checkbox" name="delete" value="Delete" />
     Supprimer l avatar</label>
     Avatar actuel :
-    <img src="images/avatars/<?php echo $data['avatar']; ?>"
+    <img src="img/avatars/<?php echo $data['avatar']; ?>"
   alt="pas d avatar" height = "100px" width = "100px"/> <br />
     <label for="signature">Signature :</label>
     <textarea cols="40" rows="4" name="signature" id="signature"> <?php stripslashes(htmlspecialchars($data['signature'])) ?></textarea>
@@ -81,5 +82,6 @@ $temps = time();
   echo '<p><i>Vous êtes ici</i> : <a href="./index.php">Index du forum</a> --> Modification du profil';
   echo '<h1>Modification d\'un profil</h1>';
 include('includes/footer.php')?>
+
 </body>
 </html>

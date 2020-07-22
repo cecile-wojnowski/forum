@@ -3,9 +3,7 @@
 
  include("includes/identifiant.php");
  include("includes/header.php");
- include("./includes/function.php");
-
-
+ include("./includes/functions.php");
 
 
 ?>

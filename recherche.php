@@ -30,6 +30,7 @@ include("includes/function.php");
 
 <?php
 
+
   if (isset($_POST['submit'])) {
 $sql = 'SELECT * FROM messages';
   $params = [];
@@ -42,8 +43,6 @@ $sql = 'SELECT * FROM messages';
   if ($resultats->rowCount() > 0) {
       while ($d = $resultats->fetch(PDO::FETCH_ASSOC)) {
 
-        var_dump($sql);
-
           ?>
 
           <div class="">
@@ -53,6 +52,7 @@ $sql = 'SELECT * FROM messages';
 
           				 <?php
                   }
+
               }
             } else {
                   echo '<tr><td>aucun résultat trouvé</td></tr>' . $connect = null;
@@ -62,6 +62,7 @@ $sql = 'SELECT * FROM messages';
 <p><center>Tapez l'expression recherchée dans une conversation </center></p>
 <form class="example" name="recherche_valeur" action="" style="margin:auto;max-width:500px">
   <input type="text" placeholder="rechercher.." name="recherche_valeur">
+
   <button type="submit"><i class="fa fa-search" name="submit"></i></button>
 </form>
 

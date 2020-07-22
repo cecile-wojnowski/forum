@@ -10,31 +10,11 @@
     $executepdo= $pdoselect->execute();
 
     $info= $pdoselect->fetch();
-    if (isset($_POST['modifier_droits']))
-    {
-      $id_droits=$_POST['id_droits'];
-      $id= $_GET['modifier_droits'];
-      $req = $db->prepare('UPDATE utilisateurs
-        SET login = :login,
-        password = :password,
-        email = :email,
-        id_droits = :id_droits,
-        date_inscription = :date_inscription,
-        localisation = :localisation,
-        website = :website,
-        signature = :signature,
-        avatar = :avatar
-        WHERE id = :id');
-      $req->execute(array('id_droits' => $id_droits,'id' => $id));
 
-      if ($req)
-      {
-        echo 'Modification enregistrée';
-        header("location: moderation.php?modification");
-      }
-    }
+    $id = $_GET['modifier_droits'];
       ?>
-      <form name="modifier_droits" action="moderation.php" method="POST">
+      <form name="modification_droits" action="moderation.php?modifier_droits=<?php echo $id ?>" method="POST">
+
         <table border="0" align="center" cellspacing="2" cellpadding="2">
 					<tr align="center">
 						<td> Login </td>
@@ -56,9 +36,10 @@
 						<td> Id_droits </td>
 						<td>
               <select name="id_droits" id="id_droits">
-                <option value="1"> Utilisateur </option>
-                <option value="2"> Modérateur </option>
-                <option value="3"> Admin </option>
+                <option value="2"> Utilisateur </option>
+                <option value="3"> Modérateur </option>
+                <option value="4"> Admin </option>
+                <option value="5"> Banni </option>
               </select>
             </td>
           </tr>
@@ -78,11 +59,23 @@
 						<td> Avatar </td>
 						<td><input type="image" name="avatar" value="<?php echo $info['avatar'] ?>"></td>
 					</tr>
-          <td><input name="modifier_droits" type="submit" value="Modifier les droits"></td>
+
+          <td><input name="modification_droits" type="submit" value="Modifier les droits"></td>
         </table>
       </form>
       <?php
 
+      if (isset($_POST['modification_droits']))
+      {
+        $id_droits = $_POST['id_droits'];
+
+        $req = $db->prepare('UPDATE utilisateurs SET id_droits = :id_droits WHERE id = :id');
+        $req->execute(array(
+          'id_droits' => $id_droits,
+          'id' => $id));
+
+        echo 'Modification enregistrée';
+      }
   } ?>
 
 <?php # Affiche la liste des utilisateurs
@@ -143,7 +136,7 @@
     }
   }
 
-  # Bannissement
+  # Bannissement :
   ?>
   <h2 class="h2_moderation"> Bannissement :</h2>
   <p class="p_admin"> Quel membre voulez-vous bannir ?</p>
