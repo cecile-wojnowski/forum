@@ -19,33 +19,65 @@ html {
 .grid{
   margin-top:5%;
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 4fr 2fr;
   grid-column-gap: 20px;
   grid-row-gap:20px;
   text-align: center;
 }
 .last_messages{
   border: solid 1px #D8D8D4;
+  grid-column-start: 1;
+  margin: 10px;
+
 }
+
+.last_conversation{
+  border: solid 1px #D8D8D4;
+  margin: 10px;
+  grid-column-start: auto;
+
+
+}
+
 .index_topics{
   background-color: white;
   border: solid 1px #D8D8D4;
   border-radius: 2px;
-  grid-column-start: 2;
-  padding:5%;
+  grid-column-start: auto;
+  padding:1%;
+  margin: 5px;
+
 }
-.index_list{
-  background-color: white;
-}
-.stats{
-  grid-column-start: 2;
+
+
+.index_plus{
   background-color: white;
   border: solid 1px #D8D8D4;
   border-radius: 2px;
+  grid-column-start: 2;
+  padding:1%;
+  margin: 5px;
+
+}
+
+.index_list{
+  background-color: white;
+  margin: 5px;
+
+}
+.stats{
+  grid-column-start: auto;
+  background-color: white;
+  border: solid 1px #D8D8D4;
+  border-radius: 2px;
+  margin: 5px;
+
 }
 .index_links{
   grid-column-start: 2;
   background-color: white;
   border: solid 1px #D8D8D4;
   border-radius: 2px;
+  margin: 5px;
+
 }

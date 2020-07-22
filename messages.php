@@ -9,12 +9,11 @@ if(!isset($_GET['id'])){
   # Permet d'afficher les messages appartenant à une conversation
   $req = $db->prepare('SELECT * FROM conversations, messages
     WHERE conversations.id= messages.id_conversation AND messages.id= ?');
-
   $req->execute(array($_GET['id']));
+
 
   while ($post = $req->fetch())
   {
-
    ?>
    <html>
       <head>
@@ -38,12 +37,9 @@ if(!isset($_GET['id'])){
           if(isset($_GET['signaler']))
           {
             $signalement = true;
-
             $id_message = $post['id'];
-
             $data_signalement = [
                 'id_message' => $id_message,
-                #'signalement' => $signalement,
             ];
 
             $sql_signaler ="INSERT INTO signaler (id_message) VALUES ('$id_message')";
@@ -147,12 +143,12 @@ $nb_dislike = $query->fetchColumn();
     }else{
       echo "Vous avez déjà voté.";
     }
-
   }
 
 ?></div>
 
 <center>
+
 
   <?php
   include("includes/bbcode.php"); # Permet d'ajouter des smileys ?>

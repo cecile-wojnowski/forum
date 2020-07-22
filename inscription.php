@@ -1,4 +1,5 @@
 <?php
+
 if(isset($_SESSION['login'])){
 	header("Location:profil.php");
 }
@@ -150,6 +151,7 @@ if(isset($_SESSION['login'])){
 		      echo'<p>Bienvenue '.stripslashes(htmlspecialchars($_POST['pseudo'])).' vous êtes maintenant inscrit sur le forum. </p>
 					<p>Cliquez <a href="./profil.php">ici</a> pour accéder à votre profil, ou <a href="./index.php">ici</a>
 					pour retourner sur la page d\'accueil.';
+
 
 					$nomavatar=(!empty($_FILES['avatar']['size']))?move_avatar($_FILES['avatar']):'';
 

@@ -11,6 +11,8 @@
     <title><?php echo $titre; ?></title>
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Asap&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
 
 <link rel="stylesheet" href="header.css">
   </head>
@@ -26,7 +28,6 @@
       if (isset($_SESSION['login'])) {
         if ($_SESSION['id_droits']== 2)
         {
-
           ?> <ul> <li><a href="index.php"><center>Accueil</center></li></a>
           <li><a href="profil.php">  Votre profil <i> <?php echo $_SESSION['login']; ?></i></a></li>
           <li><a href="topics.php"> Topics </a></li>

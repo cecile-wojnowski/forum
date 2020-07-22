@@ -20,6 +20,7 @@ include("includes/bbcode.php");
 <div class="topics">
 
 <?php
+
 # Si une session est ouverte et que l'id_droit est celui des modérateurs ou des admins...
 # On affiche tous les topics, qu'ils soient publics ou privés
 if(isset($_SESSION['id_droits'])){

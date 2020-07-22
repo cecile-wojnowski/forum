@@ -25,11 +25,43 @@ include("includes/function.php");
 <body>
 
 <center>
-<h2>Faire une recherche sur le site</h2>
+<h2>Chercher une conversation par son titre ou son contenu, tapez un mot !</h2>
 </center>
 
-<?php
+   <form method="POST" action="">
+   Recherche <input type="text" name="recherche">
+   <button type="submit"><i class="fa fa-search" name="submit"></i></button>
+   </form>
 
+   <?php
+
+  $db_server = 'localhost';
+  $db_name = 'forum';
+  $db_user_login = 'root';
+  $db_user_pass = '';
+
+  // Ouvre une connexion au serveur MySQL
+  $conn = mysqli_connect($db_server,$db_user_login, $db_user_pass, $db_name);
+
+   // Récupère la recherche
+   $recherche = isset($_POST['recherche']) ? $_POST['recherche'] : '';
+
+   // la requete mysql
+   $q = $conn->query(
+   "SELECT * FROM conversations
+    WHERE titre LIKE '%$recherche%'
+    OR conversation LIKE '%$recherche%'
+    LIMIT 10");
+
+   // affichage du résultat
+   while( $r = mysqli_fetch_array($q)){
+   echo 'Résultat de la recherche: '.$r['titre'].', '.$r['conversation'].' <br />'
+;
+   }
+?>
+
+
+<center><h3> Vous ne savez pas quoi discuter ? Voici quelques topics populaires chez nos membres, cliquez pour en savoir plus</h3></center>=======
 
   if (isset($_POST['submit'])) {
 $sql = 'SELECT * FROM messages';

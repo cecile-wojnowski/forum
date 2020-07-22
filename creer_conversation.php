@@ -44,6 +44,17 @@
                   <br />
 
             </select>
+            <select name="statut">
+              <?php   $reponse = $db->query('SELECT * FROM topics');
+
+                 // On affiche chaque entrée une à une
+                 while ($donnees = $reponse->fetch()) {
+                     ?>
+                     <strong>Statut</strong> : <?php echo"<option value = '". $donnees[""]."'>". $donnees['statut']."</option>";
+                 } ?>
+                     <br />
+
+               </select>
 
          <input type='submit' name='poster_conversation' value='Poster la conversation' />
       </form>
