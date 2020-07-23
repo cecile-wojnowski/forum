@@ -19,7 +19,8 @@ include("includes/bbcode.php");
 <?php
 if(isset($_GET['id'])){
 
-$req = $db->prepare('SELECT * FROM topics, conversations WHERE topics.id= conversations.id_topic AND conversations.id= ?');
+$req = $db->prepare('SELECT * FROM topics, conversations
+  WHERE topics.id= conversations.id_topic');
 $req->execute(array($_GET['id']));
 
 while ($post = $req->fetch())
