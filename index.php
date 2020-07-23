@@ -45,7 +45,7 @@ include("includes/header.php");
                  <tbody>
                    <tr>
                      <td><?=$data['message'] ?></td>
-                     <td> le   <?=$data['temps'] ?></td>
+                     <td> le   <?=$data['date_message'] ?></td>
 
                    </tr>
                    <?php
