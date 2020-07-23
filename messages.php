@@ -1,68 +1,70 @@
 <?php
 include("includes/identifiant.php");
 include("includes/header.php");
-/*if(!isset($_GET['id'])){ # Redirige vers topics lorsque l'on vient de like_dislike
+if(!isset($_GET['id'])){ # Redirige vers topics lorsque l'on vient de like_dislike
   header("Location:topics.php");
-}else
-{ */
-       # Permet d'afficher les messages appartenant à une conversation
-      $id_conversation = $_GET['id'];
-      $req = $db->prepare("SELECT * FROM conversations, messages
-        WHERE messages.id_conversation = '$id_conversation' AND messages.id_conversation = conversations.id");
-      $req->execute();?>
+} else {
+  $id_conversation = $_GET['id'];
+}
+
+
+       ?>
 
       <div class="messages">
-        <h1 class= "messages_h1"> Titre de la conversation à placer ici </h1>
-        <?php while ($post = $req->fetch())
+        <h1 class= "messages_h1">
+          <?php
+            $req_titre = $db->prepare("SELECT titre FROM conversations WHERE id = ?");
+            $req_titre->execute([$id_conversation]);
+            echo $req_titre->fetch()["titre"];
+          ?>
+        </h1>
+        <p>
+          <?php
+            if(isset($_SESSION["message"])) {
+              echo $_SESSION["message"];
+              unset($_SESSION["message"]);
+            }
+          ?>
+        </p>
+        <?php
+        # Permet d'afficher les messages appartenant à une conversation
+       $req = $db->prepare("SELECT messages.id, login, message
+         FROM conversations
+         JOIN messages ON messages.id_conversation = conversations.id
+         JOIN utilisateurs ON utilisateurs.id = messages.id_utilisateur
+         WHERE messages.id_conversation = '$id_conversation'");
+       $req->execute();
+        while ($post = $req->fetch())
         {
+          # Permettra l'affichage du nombre de like
+          $query =  $db->prepare("SELECT COUNT(*) FROM like_dislike WHERE like_dislike = 1 AND id_message = ?");
+          $query->execute([$post["id"]]);
+          $nb_like = $query->fetch()[0];
+          # Permettra l'affichage du nombre de dislike
+          $query =  $db->prepare("SELECT COUNT(*) FROM like_dislike WHERE like_dislike = 0 AND id_message = ?");
+          $query->execute([$post["id"]]);
+          $nb_dislike = $query->fetch()[0];
           ?>
           <article class="messages_article">
-            <?php $id_message = $post['id'];
-            # Permettra l'affichage du nombre de like :
-            $query =  $db->prepare("SELECT COUNT(*) FROM like_dislike
-              WHERE like_dislike = 1 AND id_message = '$id_message'");
-            $query->execute();
-            $nb_like = $query->fetchColumn();
-            # Permettra l'affichage du nombre de dislike :
-            $query =  $db->prepare("SELECT COUNT(*) FROM like_dislike
-              WHERE like_dislike = 0 AND id_message = '$id_message'");
-            $query->execute();
-            $nb_dislike = $query->fetchColumn();
-            ?>
-            <p class="messages_login"> Posté par <?= $post['id_utilisateur'] ?>.</p>
+            <p class="messages_login"> Posté par <?= $post['login']; ?>.</p>
             <p class="p_messages"><?= $post['message']; ?></p>
-
-
-            <a class="a_signaler" href="messages.php?id=<?= $post['id'];?>&signaler=<?php $post['id']?>"> Signaler le message</a>
-
+            <a class="a_signaler" href="signaler.php?id_message=<?= $post['id'];?>&id_conversation=<?= $id_conversation; ?>"> Signaler le message</a>
             <?php
             if(isset($_SESSION['id']))
             { # Affichage des boutons de vote uniquement si l'user est connecté ?>
-            <div class="alignement_thumbs">
-              <form method="post" action="like_dislike.php?id_message=<?php echo $id_message;?>">
-                <button class="like-btn" name="like" type="submit"><i class=" fa fa-thumbs-up"></i> <?php echo $nb_like;  ?> </button>
-              </form>
-              <form action="like_dislike.php?id_message=<?php echo $id_message;?>" method="post">
-                <button class="like-btn" name="dislike" type="submit"> <?php echo $nb_dislike;  ?> <i class="fa fa-thumbs-down"></i></button>
-              </form>
-            </div>
+              <div class="alignement_thumbs">
+                <form action="like.php?id_message=<?= $post['id'];?>" method="post">
+                  <button class="like-btn" name="like" type="submit"> <?= $nb_like;  ?><i class=" fa fa-thumbs-up"></i> </button>
+                </form>
+                <form action="dislike.php?id_message=<?= $post['id'];?>" method="post">
+                  <button class="like-btn" name="dislike" type="submit"> <?= $nb_dislike;  ?> <i class="fa fa-thumbs-down"></i></button>
+                </form>
+              </div>
 
-              <?php
-            } ?>
+              <?php } ?>
           </article>
 
           <?php
-          if(isset($_GET['signaler']))
-          {
-            $signalement = true;
-            $id_message = $post['id'];
-            $data_signalement = ['id_message' => $id_message];
-
-            $sql_signaler ="INSERT INTO signaler (id_message) VALUES ('$id_message')";
-            $stmt_signaler = $db->prepare($sql_signaler);
-            $stmt_signaler->execute($data_signalement);
-            echo "Le message a été signalé aux administrateurs.";
-          }
         }
         ?>
       </div>

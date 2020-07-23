@@ -18,6 +18,13 @@ include("includes/bbcode.php");
 
 <div class="topics">
 
+  <?php
+    if(isset($_SESSION["message"])) {
+      echo $_SESSION["message"];
+      unset($_SESSION["message"]);
+    }
+  ?>
+
 <?php
 
 # Si une session est ouverte et que l'id_droit est celui des modérateurs ou des admins...
