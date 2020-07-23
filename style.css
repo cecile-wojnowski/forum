@@ -21,9 +21,11 @@ border:none;
 }
 .fa-thumbs-up:hover{
   color:#4CAF50;
+  cursor: pointer;
 }
 .fa-thumbs-down:hover{
   color:#AF504C;
+  cursor: pointer;
 }
 .messages_h1{
   font-size:30px;
