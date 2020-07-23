@@ -19,7 +19,7 @@ if(!isset($_GET['id'])){
       $id_conversation = $_GET['id'];
       $req = $db->prepare("SELECT * FROM conversations, messages
         WHERE messages.id_conversation = '$id_conversation'");
-      $req->execute(array($_GET['id']));?>
+      $req->execute();?>
 
 <div class="message">
       <?php while ($post = $req->fetch())
@@ -42,14 +42,20 @@ if(!isset($_GET['id'])){
             <h1><?= $post['message']; ?></h1>
             <p><?= $post['id_utilisateur'] ?></p>
             <a href="messages.php?id=<?= $post['id'];?>&signaler=<?php $post['id']?>"> Signaler le message</a>
-            <form method="post" action="like_dislike.php?id_message=<?php echo $id_message;?>">
-              <button class="fa fa-thumbs-up like-btn" name="like" type="submit" style="font-size:20px"/> <?php echo $nb_like;  ?> </button>
-            </form>
 
-            <form class="" action="like_dislike.php?id_message=<?php echo $id_message;?>" method="post">
-              <button class="like-btn" name="dislike" type="submit" style="font-size:20px"/> <?php echo $nb_dislike;  ?> <i class="fa fa-thumbs-down"></i></button>
-            </form>
-            <a href="#" class="fa fa-facebook"></a>
+            <?php
+            if(isset($_SESSION['id']))
+            { # Affichage des boutons de vote uniquement si l'user est connecté ?>
+              <form method="post" action="like_dislike.php?id_message=<?php echo $id_message;?>">
+                <button class="fa fa-thumbs-up like-btn" name="like" type="submit" style="font-size:20px"/> <?php echo $nb_like;  ?> </button>
+              </form>
+              <form class="" action="like_dislike.php?id_message=<?php echo $id_message;?>" method="post">
+                <button class="like-btn" name="dislike" type="submit" style="font-size:20px"/> <?php echo $nb_dislike;  ?> <i class="fa fa-thumbs-down"></i></button>
+              </form>
+              <a href="#" class="fa fa-facebook"></a>
+              <?php
+            } ?>
+
           </article>
 
           <?php
