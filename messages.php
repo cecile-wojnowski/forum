@@ -40,9 +40,9 @@ include("includes/header.php");
             { # Affichage des boutons de vote uniquement si l'user est connecté ?>
             <div class="alignement_thumbs">
               <form method="post" action="like_dislike.php?id_message=<?php echo $id_message;?>">
-                <button class="like-btn fa fa-thumbs-up" name="like" type="submit"> <?php echo $nb_like;  ?> </button>
+                <button class="like-btn" name="like" type="submit"><i class=" fa fa-thumbs-up"></i> <?php echo $nb_like;  ?> </button>
               </form>
-              <form class="" action="like_dislike.php?id_message=<?php echo $id_message;?>" method="post">
+              <form action="like_dislike.php?id_message=<?php echo $id_message;?>" method="post">
                 <button class="like-btn" name="dislike" type="submit"> <?php echo $nb_dislike;  ?> <i class="fa fa-thumbs-down"></i></button>
               </form>
             </div>
