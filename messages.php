@@ -24,56 +24,52 @@ if(!isset($_GET['id'])){
 <div class="message">
       <?php while ($post = $req->fetch())
       {
-         ?>
-          <article>
-            <?php $id_message = $post['id'];
-            # Permettra l'affichage du nombre de like :
-            $query =  $db->prepare("SELECT COUNT(*) FROM like_dislike
-              WHERE like_dislike = 1 AND id_message = '$id_message'");
-            $query->execute();
-            $nb_like = $query->fetchColumn();
-            # Permettra l'affichage du nombre de dislike :
-            $query =  $db->prepare("SELECT COUNT(*) FROM like_dislike
-              WHERE like_dislike = 0 AND id_message = '$id_message'");
-            $query->execute();
-            $nb_dislike = $query->fetchColumn();
-            ?>
+        ?>
+        <article>
+          <?php $id_message = $post['id'];
+          # Permettra l'affichage du nombre de like :
+          $query =  $db->prepare("SELECT COUNT(*) FROM like_dislike
+            WHERE like_dislike = 1 AND id_message = '$id_message'");
+          $query->execute();
+          $nb_like = $query->fetchColumn();
+          # Permettra l'affichage du nombre de dislike :
+          $query =  $db->prepare("SELECT COUNT(*) FROM like_dislike
+            WHERE like_dislike = 0 AND id_message = '$id_message'");
+          $query->execute();
+          $nb_dislike = $query->fetchColumn();
+          ?>
 
-            <h1><?= $post['message']; ?></h1>
-            <p><?= $post['id_utilisateur'] ?></p>
-            <a href="messages.php?id=<?= $post['id'];?>&signaler=<?php $post['id']?>"> Signaler le message</a>
-
-            <?php
-            if(isset($_SESSION['id']))
-            { # Affichage des boutons de vote uniquement si l'user est connecté ?>
-              <form method="post" action="like_dislike.php?id_message=<?php echo $id_message;?>">
-                <button class="fa fa-thumbs-up like-btn" name="like" type="submit" style="font-size:20px"/> <?php echo $nb_like;  ?> </button>
-              </form>
-              <form class="" action="like_dislike.php?id_message=<?php echo $id_message;?>" method="post">
-                <button class="like-btn" name="dislike" type="submit" style="font-size:20px"/> <?php echo $nb_dislike;  ?> <i class="fa fa-thumbs-down"></i></button>
-              </form>
-              <a href="#" class="fa fa-facebook"></a>
-              <?php
-            } ?>
-
-          </article>
+          <h1><?= $post['message']; ?></h1>
+          <p><?= $post['id_utilisateur'] ?></p>
+          <a href="messages.php?id=<?= $post['id'];?>&signaler=<?php $post['id']?>"> Signaler le message</a>
 
           <?php
-          if(isset($_GET['signaler']))
-          {
-            $signalement = true;
-            $id_message = $post['id'];
-            $data_signalement = [
-                'id_message' => $id_message,
-            ];
+          if(isset($_SESSION['id']))
+          { # Affichage des boutons de vote uniquement si l'user est connecté ?>
+            <form method="post" action="like_dislike.php?id_message=<?php echo $id_message;?>">
+              <button class="fa fa-thumbs-up like-btn" name="like" type="submit" style="font-size:20px"/> <?php echo $nb_like;  ?> </button>
+            </form>
+            <form class="" action="like_dislike.php?id_message=<?php echo $id_message;?>" method="post">
+              <button class="like-btn" name="dislike" type="submit" style="font-size:20px"/> <?php echo $nb_dislike;  ?> <i class="fa fa-thumbs-down"></i></button>
+            </form>
+            <a href="#" class="fa fa-facebook"></a>
+            <?php
+          } ?>
+        </article>
 
-            $sql_signaler ="INSERT INTO signaler (id_message) VALUES ('$id_message')";
-            $stmt_signaler = $db->prepare($sql_signaler);
-            $stmt_signaler->execute($data_signalement);
+        <?php
+        if(isset($_GET['signaler']))
+        {
+          $signalement = true;
+          $id_message = $post['id'];
+          $data_signalement = ['id_message' => $id_message];
 
-            echo "Le message a été signalé aux administrateurs.";
-          }
+          $sql_signaler ="INSERT INTO signaler (id_message) VALUES ('$id_message')";
+          $stmt_signaler = $db->prepare($sql_signaler);
+          $stmt_signaler->execute($data_signalement);
+          echo "Le message a été signalé aux administrateurs.";
         }
+      }
   }
   ?>
 </div>
