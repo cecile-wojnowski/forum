@@ -2,7 +2,7 @@
 session_start();
 include("includes/identifiant.php");
 
-  $id_message = $_GET['id_message'];
+$id_message = $_GET['id_message'];
   # Insertion d'un like si l'utilisateur n'a pas déjà voté
   if (isset($_POST['like']))
   {
@@ -26,8 +26,7 @@ include("includes/identifiant.php");
         VALUES('$id_message', '$id_utilisateur', '$like_dislike')");
         $req->execute();
 
-        echo "Votre vote a été pris en compte";
-        header("Location:topics.php"); # permettre une redirection vers la page contenant la bonne conversation
+        header("location:".  $_SERVER['HTTP_REFERER']); # permettre une redirection vers la page contenant la bonne conversation
       }
     } else{
       echo "Vous avez déjà voté.";
@@ -39,7 +38,7 @@ include("includes/identifiant.php");
   {
     $id_utilisateur = $_SESSION['id'];
     $query = $db->prepare("SELECT COUNT(*) FROM like_dislike
-    WHERE id_utilisateur = '$id_utilisateur' AND like_dislike = 0 AND id_message='$id_message'");
+    WHERE id_utilisateur = '$id_utilisateur' AND like_dislike = 0 AND id_message='$id_conversation'");
     $query->execute();
     $result = $query->fetchColumn();
 
@@ -57,8 +56,7 @@ include("includes/identifiant.php");
         VALUES('$id_message', '$id_utilisateur', '$like_dislike')");
         $req->execute();
 
-        echo "Votre vote a été pris en compte";
-        header("Location:topics.php"); # permettre une redirection vers la page contenant la bonne conversation
+        header("location:". $_SERVER['HTTP_REFERER']); # permettre une redirection vers la page contenant la bonne conversation
       }
     }else{
       echo "Vous avez déjà voté.";
