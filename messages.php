@@ -18,7 +18,7 @@ if(!isset($_GET['id'])){
 
       $id_conversation = $_GET['id'];
       $req = $db->prepare("SELECT * FROM conversations, messages
-        WHERE messages.id_conversation = '$id_conversation'");
+        WHERE messages.id_conversation = '$id_conversation' AND messages.id_conversation = conversations.id");
       $req->execute();?>
 
 <div class="message">
