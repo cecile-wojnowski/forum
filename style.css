@@ -20,10 +20,10 @@ body{
 border:none;
 }
 .fa-thumbs-up:hover{
-  color:green;
+  color:#4CAF50;
 }
 .fa-thumbs-down:hover{
-  color:red;
+  color:#AF504C;
 }
 .messages_h1{
   font-size:30px;
