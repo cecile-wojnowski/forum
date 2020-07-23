@@ -15,11 +15,13 @@ if(!isset($_GET['id'])){
     <body>
 
       <?php # Permet d'afficher les messages appartenant à une conversation
-      $req = $db->prepare('SELECT * FROM conversations, messages
-        WHERE conversations.id= messages.id_conversation');
-      $req->execute(array($_GET['id'])); ?>
-<div class="message">
 
+      $id_conversation = $_GET['id'];
+      $req = $db->prepare("SELECT * FROM conversations, messages
+        WHERE messages.id_conversation = '$id_conversation'");
+      $req->execute(array($_GET['id']));?>
+
+<div class="message">
       <?php while ($post = $req->fetch())
       {
          ?>
