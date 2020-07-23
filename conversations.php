@@ -2,7 +2,6 @@
 <?php
 include("includes/identifiant.php");
 include("includes/header.php");
-include("./includes/functions.php");
 include("includes/bbcode.php");
 ?>
 
@@ -15,13 +14,13 @@ include("includes/bbcode.php");
   </head>
   <body>
 
-  </body>
-</html>
+
 
 <?php
 if(isset($_GET['id'])){
 
-$req = $db->prepare('SELECT * FROM topics, conversations WHERE topics.id= conversations.id_topic AND conversations.id= ?');
+$req = $db->prepare('SELECT * FROM topics, conversations
+  WHERE topics.id= conversations.id_topic');
 $req->execute(array($_GET['id']));
 
 while ($post = $req->fetch())
@@ -51,3 +50,5 @@ while ($post = $req->fetch())
 
 <?php  include("includes/footer.php");
 ?>
+</body>
+</html>

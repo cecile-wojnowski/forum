@@ -10,6 +10,8 @@
     <meta charset="utf-8">
     <title><?php echo $titre; ?></title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/form.css">
+    <link rel="stylesheet" href="css/header.css">
     <link href="https://fonts.googleapis.com/css2?family=Asap&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
@@ -19,9 +21,11 @@
   <body>
     <div class="top">
       <div class="top_text">
-<img src="img/forum2.png" alt="">
-
+        <h1><img src="https://img.icons8.com/doodle/96/000000/grand-master-key.png"/>
+Travail et salarié</h1>
+<h3>Vos droits, votre entraide</h3>
     </div>
+  </div>
     <?php
       $message = "";
 

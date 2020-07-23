@@ -1,8 +1,6 @@
 <?php
   $titre="Connexion";
   include("includes/header.php");
-  echo '<p><i>Vous êtes ici</i> : <a href="./index.php">Index du forum</a> --> Connexion';
-  echo '<h1>Connexion</h1>';
 ?>
 
 <!DOCTYPE html>
