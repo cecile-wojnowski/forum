@@ -2,97 +2,6 @@
 <div class="container_admin">
   <h2 class="h2_moderation"> Gestion des utilisateurs :</h2>
 
-<?php
-  /* Admin : gestion des utilisateurs */
-
-  # Modification des droits
-  if(isset($_GET['modifier_droits']))
-  {
-    $pdoselect = $db->prepare('SELECT * FROM utilisateurs WHERE id = :id');
-    $pdoselect ->bindValue(':id', $_GET['modifier_droits'], PDO::PARAM_INT);
-    $executepdo= $pdoselect->execute();
-
-    $info= $pdoselect->fetch();
-
-    $id = $_GET['modifier_droits'];
-      ?>
-
-      <form name="modification" action="moderation.php?modifier_droits=<?php echo $id ?>" method="POST">
-
-        <table border="0" align="center" cellspacing="2" cellpadding="2">
-					<tr align="center">
-						<td> Login </td>
-						<td><input type="text" name="login" value="<?php echo $info['login']; ?>"></td>
-					</tr>
-					<tr align="center">
-						<td> E-mail </td>
-						<td><input type="text" name="email"value="<?php echo $info['email'] ; ?>"></td>
-					</tr>
-          <tr align="center">
-						<td> Mot de passe </td>
-						<td><input type="password" name="password" value="<?php echo $info['password'] ?>"></td>
-					</tr>
-          <tr align="center">
-						<td> Date d'inscription </td>
-						<td><input type="date" name="date" value="<?php echo $info['date_inscription'] ?>"></td>
-					</tr>
-          <tr align="center">
-						<td> Id_droits </td>
-						<td>
-              <select name="id_droits" id="id_droits">
-                <option value="2"> Utilisateur </option>
-                <option value="3"> Modérateur </option>
-                <option value="4"> Admin </option>
-                <option value="5"> Banni </option>
-              </select>
-            </td>
-          </tr>
-          <tr align="center">
-						<td> Localisation </td>
-						<td><input type="text" name="localisation" value="<?php echo $info['localisation'] ?>"></td>
-					</tr>
-          <tr align="center">
-						<td> Site web </td>
-						<td><input type="text" name="website" value="<?php echo $info['website'] ?>"></td>
-					</tr>
-          <tr align="center">
-						<td> Signature</td>
-						<td><input type="text" name="signature" value="<?php echo $info['signature'] ?>"></td>
-					</tr>
-
-
-          <td><input name="modification" type="submit" value="Modifier le profil"></td>
-        </table>
-      </form>
-      <?php
-
-      if (isset($_POST['modification']))
-      {
-        $id_droits = $_POST['id_droits'];
-        $login = $_POST['login'];
-        $email = $_POST['email'];
-        $password = $_POST['password'];
-        $localisation = $_POST['localisation'];
-        $site_web = $_POST['website'];
-        $signature = $_POST['signature'];
-
-        $req = $db->prepare('UPDATE utilisateurs
-          SET id_droits = :id_droits, login = :login, email=:email, password=:password,
-          localisation =:localisation, website =:website, signature = :signature
-          WHERE id = :id');
-        $req->execute(array(
-          ':id_droits' => $id_droits,
-          ':id' => $id,
-          ':login' => $login,
-          ':email'=>$email,
-          ':password' =>$password,
-          ':localisation' =>$localisation,
-          ':website' => $site_web,
-          ':signature' => $signature));
-
-        echo 'Modification enregistrée';
-      }
-  } ?>
 
 <?php # Affiche la liste des utilisateurs
   $sql = 'SELECT * FROM utilisateurs';
@@ -124,8 +33,8 @@
             <td><?=$d['email'] ?></td>
             <td><?=$d['date_inscription'] ?></td>
             <td><?=$d['id_droits'] ?></td>
-          <tr>  <td><a href="moderation.php?modifier_droits=<?php echo $d['id'] ?>">Modifier les droits</a></td></tr><br/>
-          <br/>  <td><a href="moderation.php?supprimer_user=<?php echo $d['id'] ?>"> Supprimer l'utilisateur </a></td>
+          <tr>  <td><a href="modifier_utilisateur.php?id=<?= $d['id']; ?>">Modifier l'utilisateur</a></td></tr><br/>
+          <br/>  <td><a href="supprimer_utilisateur.php?id=<?= $d['id']; ?>">Supprimer l'utilisateur </a></td>
           </tr>
         </tbody>
       <?php } ?>
@@ -134,22 +43,5 @@
     $resultats->closeCursor();
   }
 
-  # Suppression d'un utilisateur:
-  if (isset($_GET['supprimer_user']))
-  {
-    try
-    {
-      $id = $_GET["supprimer_user"];
-      $req = $db->prepare("DELETE FROM utilisateurs WHERE id = $id");
-      $req->execute();
-      echo 'Utilisateur supprimé';
-      $delai = 1;
-      $url = 'moderation.php?deleted';
-      header("Refresh: $delai;url=$url");
-    } catch (PDOException $e)
-    {
-      echo "Erreur : " . $e->getMessage();
-    }
-  }
   ?>
 </div>
