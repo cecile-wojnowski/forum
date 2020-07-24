@@ -17,7 +17,7 @@
     $id = $_GET['modifier_droits'];
       ?>
 
-      <form name="modification_droits" action="moderation.php?modifier_droits=<?php echo $id ?>" method="POST">
+      <form name="modification" action="moderation.php?modifier_droits=<?php echo $id ?>" method="POST">
 
         <table border="0" align="center" cellspacing="2" cellpadding="2">
 					<tr align="center">
@@ -61,19 +61,34 @@
 					</tr>
 
 
-          <td><input name="modification_droits" type="submit" value="Modifier les droits"></td>
+          <td><input name="modification" type="submit" value="Modifier le profil"></td>
         </table>
       </form>
       <?php
 
-      if (isset($_POST['modification_droits']))
+      if (isset($_POST['modification']))
       {
         $id_droits = $_POST['id_droits'];
+        $login = $_POST['login'];
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+        $localisation = $_POST['localisation'];
+        $site_web = $_POST['website'];
+        $signature = $_POST['signature'];
 
-        $req = $db->prepare('UPDATE utilisateurs SET id_droits = :id_droits WHERE id = :id');
+        $req = $db->prepare('UPDATE utilisateurs
+          SET id_droits = :id_droits, login = :login, email=:email, password=:password,
+          localisation =:localisation, website =:website, signature = :signature
+          WHERE id = :id');
         $req->execute(array(
-          'id_droits' => $id_droits,
-          'id' => $id));
+          ':id_droits' => $id_droits,
+          ':id' => $id,
+          ':login' => $login,
+          ':email'=>$email,
+          ':password' =>$password,
+          ':localisation' =>$localisation,
+          ':website' => $site_web,
+          ':signature' => $signature));
 
         echo 'Modification enregistrée';
       }
