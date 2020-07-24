@@ -1,96 +1,105 @@
 <?php
-include("includes/identifiant.php");
-include("includes/header.php");
+include ("includes/identifiant.php");
+include ("includes/header.php");
 
-if(!isset($_GET['id'])){ # Redirige vers topics lorsque l'on vient de like_dislike
-  header("Location:topics.php");
-} else {
-  $id_conversation = $_GET['id'];
+if (!isset($_GET['id']))
+{ # Redirige vers topics lorsque l'on vient de like_dislike
+    header("Location:topics.php");
 }
-       ?>
+else
+{
+    $id_conversation = $_GET['id'];
+}
+?>
+<center><a href="topics.php">Retour</a></center>
 
       <div class="messages">
         <h1 class= "messages_h1">
           <?php
-            $req_titre = $db->prepare("SELECT titre FROM conversations WHERE id = ?");
-            $req_titre->execute([$id_conversation]);
-            echo $req_titre->fetch()["titre"];
-          ?>
+$req_titre = $db->prepare("SELECT * FROM conversations WHERE id = ?");
+$req_titre->execute([$id_conversation]);
+$req= $req_titre->fetch();
+echo "<h2>".$req['titre']."</h2><br/>";
+echo $req['conversation'];
+?>
         </h1>
         <p>
           <?php
 
+if (isset($_POST['envoyer']))
+{
+    $message = $_POST['message'];
+    $id_utilisateur = $_SESSION['id'];
+    $id_conversation = $_GET['id'];
 
-          if(isset($_POST['envoyer'])){
-            $message = $_POST['message'];
-            $id_utilisateur = $_SESSION['id'];
-            $id_conversation = $_GET['id'];
+    $message = str_replace("'", "\'", $message);
 
-            $message = str_replace("'", "\'", $message);
-
-            $sql = "INSERT INTO messages (message, id_conversation, id_utilisateur, date_message)
+    $sql = "INSERT INTO messages (message, id_conversation, id_utilisateur, date_message)
               VALUES ('$message', '$id_conversation', '$id_utilisateur', NOW())";
-            $stmt= $db->prepare($sql);
-            $stmt->execute(); ?>
+    $stmt = $db->prepare($sql);
+    $stmt->execute(); ?>
             <p class="messages_text"> <?php echo "Le message a bien été posté."; ?></p>
             <?php
-          }
-            if(isset($_SESSION["message"])) { ?>
+}
+if (isset($_SESSION["message"]))
+{ ?>
             <p class="messages_text"> <?php echo $_SESSION["message"]; ?> </p>
               <?php unset($_SESSION["message"]);
-            }
-          ?>
+}
+?>
         </p>
         <?php
-        # Permet d'afficher les messages appartenant à une conversation
-       $req = $db->prepare("SELECT messages.id, login, message
+# Permet d'afficher les messages appartenant à une conversation
+$req = $db->prepare("SELECT messages.id, login, message
          FROM conversations
          JOIN messages ON messages.id_conversation = conversations.id
          JOIN utilisateurs ON utilisateurs.id = messages.id_utilisateur
          WHERE messages.id_conversation = '$id_conversation'");
-       $req->execute();
-        while ($post = $req->fetch())
-        {
-          # Permettra l'affichage du nombre de like
-          $query =  $db->prepare("SELECT COUNT(*) FROM like_dislike WHERE like_dislike = 1 AND id_message = ?");
-          $query->execute([$post["id"]]);
-          $nb_like = $query->fetch()[0];
-          # Permettra l'affichage du nombre de dislike
-          $query =  $db->prepare("SELECT COUNT(*) FROM like_dislike WHERE like_dislike = 0 AND id_message = ?");
-          $query->execute([$post["id"]]);
-          $nb_dislike = $query->fetch()[0];
-          ?>
+$req->execute();
+while ($post = $req->fetch())
+{
+    # Permettra l'affichage du nombre de like
+    $query = $db->prepare("SELECT COUNT(*) FROM like_dislike WHERE like_dislike = 1 AND id_message = ?");
+    $query->execute([$post["id"]]);
+    $nb_like = $query->fetch() [0];
+    # Permettra l'affichage du nombre de dislike
+    $query = $db->prepare("SELECT COUNT(*) FROM like_dislike WHERE like_dislike = 0 AND id_message = ?");
+    $query->execute([$post["id"]]);
+    $nb_dislike = $query->fetch() [0];
+?>
           <article class="messages_article">
-            <p class="messages_login"> Posté par <?= $post['login']; ?>.</p>
-            <p class="p_messages"><?= $post['message']; ?></p>
-            <a class="a_signaler" href="signaler.php?id_message=<?= $post['id'];?>&id_conversation=<?= $id_conversation; ?>"> Signaler le message</a>
+            <p class="messages_login"> Posté par <?=$post['login']; ?>.</p>
+            <p class="p_messages"><?=$post['message']; ?></p>
+            <a class="a_signaler" href="signaler.php?id_message=<?=$post['id']; ?>&id_conversation=<?=$id_conversation; ?>"> Signaler le message</a>
             <?php
-            if(isset($_SESSION['id']))
-            { # Affichage des boutons de vote uniquement si l'user est connecté ?>
+    if (isset($_SESSION['id']))
+    { # Affichage des boutons de vote uniquement si l'user est connecté
+         ?>
               <div class="alignement_thumbs">
-                <form action="like.php?id_message=<?= $post['id'];?>" method="post">
-                  <button class="like-btn" name="like" type="submit"> <?= $nb_like;  ?><i class=" fa fa-thumbs-up"></i> </button>
+                <form action="like.php?id_message=<?=$post['id']; ?>" method="post">
+                  <button class="like-btn" name="like" type="submit"> <?=$nb_like; ?><i class=" fa fa-thumbs-up"></i> </button>
                 </form>
-                <form action="dislike.php?id_message=<?= $post['id'];?>" method="post">
-                  <button class="like-btn" name="dislike" type="submit"> <?= $nb_dislike;  ?> <i class="fa fa-thumbs-down"></i></button>
+                <form action="dislike.php?id_message=<?=$post['id']; ?>" method="post">
+                  <button class="like-btn" name="dislike" type="submit"> <?=$nb_dislike; ?> <i class="fa fa-thumbs-down"></i></button>
                 </form>
               </div>
 
-              <?php } ?>
+              <?php
+    } ?>
           </article>
 
           <?php
-        }
-        ?>
+}
+?>
       </div>
 
       <?php
-      include("includes/bbcode.php"); # Permet d'ajouter des smileys ?>
+include ("includes/bbcode.php"); # Permet d'ajouter des smileys
+ ?>
       <center>
-
-
-    <?php if(isset($_SESSION['login'])){
-      ?>   <h2 class= "messages_h2">Poster une réponse</h2>
+    <?php if (isset($_SESSION['login']))
+{
+?>   <h2 class= "messages_h2">Poster une réponse</h2>
 
       <form method="post" action="" name="formulaire">
       <fieldset><legend class="messages_legend">Mise en forme</legend>
@@ -110,7 +119,7 @@ if(!isset($_GET['id'])){ # Redirige vers topics lorsque l'on vient de like_disli
       <img src="https://img.icons8.com/officexs/16/000000/warning-shield.png" title="!" alt="!" onClick="javascript:smilies(' :exclamation: ');return(false)" />
       </fieldset>
 
-      <fieldset><legend class="messages_legend"> Ecrire un message </legend><textarea cols="80" rows="8" id="messages_textarea" name="message"></textarea></fieldset>
+      <fieldset><legend class="messages_legend"> Ecrire un message </legend><textarea cols="80" style="width:50%" rows="8" id="messages_textarea" name="message"></textarea></fieldset>
       <input type="reset" name = "Effacer" value = "Effacer"/>
       <input type="submit" name="envoyer" value="Envoyer" />
 
@@ -118,20 +127,16 @@ if(!isset($_GET['id'])){ # Redirige vers topics lorsque l'on vient de like_disli
 
   </div></center>
 
-
-=======
-
-<?php }
-
-else {
-
-echo "pour répondre à cette conversation, connectez-vous!";
-
+<?php
 }
 
-  ?>
+else
+{
+    echo "pour répondre à cette conversation, connectez-vous!";
+}
+?>
 
-  <p><a class="messages_retour" href="conversations.php">Retour aux conversations</a></p>
-<?php include('includes/footer.php') ?>
+<center><a href="topics.php">Retour</a></center>
+<?php include ('includes/footer.php') ?>
 </body>
 </html>

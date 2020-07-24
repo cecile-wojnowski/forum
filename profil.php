@@ -1,40 +1,35 @@
 <?php
-include("includes/header.php");
+include ("includes/header.php");
 
-if(!isset($_SESSION['login'])){
-  header("Location:connexion.php");
+if (!isset($_SESSION['login']))
+{
+    header("Location:connexion.php");
 }
 
 # Affichage du message d'erreur
-if (isset($_SESSION['message'])) : ?>
-<div id="alert" class="<?php echo $_SESSION['message']['type']?>">
-  <p><?php echo $_SESSION['message']["message"]?></p>
+if (isset($_SESSION['message'])): ?>
+<div id="alert" class="<?php echo $_SESSION['message']['type'] ?>">
+  <p><?php echo $_SESSION['message']["message"] ?></p>
 </div>
-<?php unset($_SESSION["message"])?>
-<?php endif;
+<?php unset($_SESSION["message"]) ?>
+<?php
+endif;
 
-$id=$_SESSION['id'];
-$query=$db->prepare('SELECT * FROM utilisateurs WHERE id=:id');
-$query->bindValue(':id',$id,PDO::PARAM_INT);
+$id = $_SESSION['id'];
+$query = $db->prepare('SELECT * FROM utilisateurs WHERE id=:id');
+$query->bindValue(':id', $id, PDO::PARAM_INT);
 $query->execute();
-$data=$query->fetch();
+$data = $query->fetch();
 
 # Stockage des données de la table dans des variables
-$pass=$data["password"];
-$email=$data["email"];
-$signature=$data["signature"];
-$localisation=$data["localisation"];
-$website=$data["website"];
+$pass = $data["password"];
+$email = $data["email"];
+$signature = $data["signature"];
+$localisation = $data["localisation"];
+$website = $data["website"];
 
 ?>
-
-<!DOCTYPE html>
-<html lang="fr" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="css/form.css">
-    <title></title>
-  </head>
+<html>
   <body>
 
 
@@ -42,12 +37,13 @@ $website=$data["website"];
 <div class="container_profil">
 
 <form name="modifier_profil" method="post" action="profil_update.php" enctype="multipart/form-data">
-  <?php if(isset($_SESSION["message"]["message"])) {
+  <?php if (isset($_SESSION["message"]["message"]))
+{
     echo $_SESSION["message"]["message"];
-  } ?>
+} ?>
   <fieldset><legend>Identifiants</legend>
         <label for="pseudo"> Pseudo : </label>
-      <input type ="text" name="pseudo" id="pseudo" value="<?php echo stripslashes(htmlspecialchars($data['login']))?>">
+      <input type ="text" name="pseudo" id="pseudo" value="<?php echo stripslashes(htmlspecialchars($data['login'])) ?>">
 
 
     <label for="password">Nouveau mot de Passe :</label>
@@ -89,7 +85,7 @@ $website=$data["website"];
 </form>
 </div></center>
 <?php
-include('includes/footer.php')?>
+include ('includes/footer.php') ?>
 
 </body>
 </html>

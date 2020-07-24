@@ -1,23 +1,21 @@
 <?php
-if(isset($_GET['deconnexion'])){
-  session_start();
-  session_destroy();
+if (isset($_GET['deconnexion']))
+{
+    session_start();
+    session_destroy();
 }
 # Afficher les dernières conversations/messages
 $titre = "Accueil";
-include("includes/header.php");
- ?>
+include ("includes/header.php");
+?>
  <!DOCTYPE html>
  <html lang="fr" dir="ltr">
    <head>
      <meta charset="utf-8">
-     <title>Index</title>
-     <link rel="stylesheet" href="css/style.css">
-     <link rel="stylesheet" href="css/header.css">
-     <link rel="stylesheet" href="css/table.css">
    </head>
 
    <body>
+
      <div class="last_conversation">
      <h2> Bienvenue ! Notre forum est destiné à tout les salariés qui ont des questions sur leurs conditions de travail.
      Nous croyons en l'entraides.
@@ -34,12 +32,13 @@ include("includes/header.php");
 Derniers messages postés </th>
              </tr>
            <?php
-           # Afficher les messages
-           $query=$db->prepare('SELECT *
+# Afficher les messages
+$query = $db->prepare('SELECT *
            FROM messages ORDER BY  id ASC LIMIT 3');
-           $query->execute();
-           while($data=$query->fetch()){
-             ?>
+$query->execute();
+while ($data = $query->fetch())
+{
+?>
                </thead>
 
                  <tbody>
@@ -49,7 +48,7 @@ Derniers messages postés </th>
 
                    </tr>
                    <?php
-                 } ?>
+} ?>
                  </tbody>
              </table>
          </div>
@@ -60,52 +59,47 @@ Derniers messages postés </th>
           <img src="https://img.icons8.com/clouds/100/000000/info.png"/>
           <p>Les topics que vous pourrez discuter sur le forum</p>
           <?php
-          # Afficher les messages
-          $sql = 'SELECT * FROM topics';
-          $params = [];
-          $resultats = $db->prepare($sql);
-          $resultats->execute($params);
+# Afficher les messages
+$sql = 'SELECT * FROM topics';
+$params = [];
+$resultats = $db->prepare($sql);
+$resultats->execute($params);
 
-          if ($resultats->rowCount() > 0)
-          { ?>
+if ($resultats->rowCount() > 0)
+{ ?>
             <ul class="index_list">
               <?php while ($d = $resultats->fetch(PDO::FETCH_ASSOC))
-              {
-                echo '<li>' . $d['topic'] .'</li> <br>';
-               } ?>
+    {
+        echo '<li>' . $d['topic'] . '</li> <br>';
+    } ?>
             </ul>
-          <?php } ?>
+          <?php
+} ?>
          </div>
 
         <div class="stats">
 <img src="https://img.icons8.com/clouds/100/000000/edit-user.png"/>
-        <?php  $TotalDesUtilisateurs = $db->query('SELECT COUNT(*) FROM utilisateurs')->fetchColumn();
-          $query = $db->query('SELECT login, id FROM utilisateurs ORDER BY id DESC LIMIT 0, 1');
-          $data = $query->fetch();
-          $dernierutilisateur= stripslashes(htmlspecialchars($data['login']));
-          $totaldesmessages = $db->query('SELECT COUNT(*) FROM messages')->fetchColumn();
-          ?>
+        <?php $TotalDesUtilisateurs = $db->query('SELECT COUNT(*) FROM utilisateurs')
+    ->fetchColumn();
+$query = $db->query('SELECT login, id FROM utilisateurs ORDER BY id DESC LIMIT 0, 1');
+$data = $query->fetch();
+$dernierutilisateur = stripslashes(htmlspecialchars($data['login']));
+$totaldesmessages = $db->query('SELECT COUNT(*) FROM messages')
+    ->fetchColumn();
+?>
 
-          <html lang="en" dir="ltr">
-            <head>
-              <link rel="stylesheet" href="../css/footer.css">
-            </head>
-            <body>
 
-            </body>
-          </html>
           <?php
+$date = date("d-m-Y");
+$heure = date("H:i");
+echo ("Nous sommes le $date et il est $heure");
+echo '<p>Le total des messages du forum est <strong>' . $totaldesmessages . '</strong>.<br />';
+echo 'Le site et le forum comptent <strong>' . $TotalDesUtilisateurs . '</strong> utilisateurs.<br />';
+echo 'Le dernier membre inscrit est <a href="./voirprofil.php?m=' . $data['id'] . '">' . $dernierutilisateur . '</a>.</p>';
+echo '<a href="regles.php"> Accéder aux CGU du forum </a>';
 
-          $date = date("d-m-Y");
-          $heure = date("H:i");
-          echo("Nous sommes le $date et il est $heure");
-          echo'<p>Le total des messages du forum est <strong>'.$totaldesmessages.'</strong>.<br />';
-          echo'Le site et le forum comptent <strong>'.$TotalDesUtilisateurs.'</strong> utilisateurs.<br />';
-          echo'Le dernier membre inscrit est <a href="./voirprofil.php?m='.$data['id'].'">'.$dernierutilisateur.'</a>.</p>';
-          echo '<a href="regles.php"> Accéder aux CGU du forum </a>';
-
-          $query->CloseCursor();
-          ?>
+$query->CloseCursor();
+?>
           </div>
 
           <div class="index_plus">
@@ -117,6 +111,6 @@ Derniers messages postés </th>
         </div>
 
 
-        <?php include('includes/footer.php') ?>
+        <?php include ('includes/footer.php') ?>
    </body>
   </html>

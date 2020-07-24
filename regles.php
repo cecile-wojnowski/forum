@@ -3,13 +3,7 @@
     include("includes/identifiant.php");
     include("includes/header.php");?>
 
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-    <link rel="stylesheet" href="style.css">
-  </head>
+<html>
   <body>
 <center>
 <h1>Règles de bonne conduite sur le forum</h1>

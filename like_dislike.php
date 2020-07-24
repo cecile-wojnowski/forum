@@ -1,67 +1,50 @@
 <?php
 session_start();
-include("includes/identifiant.php");
+include("includes/identifiant.php"); # Connecte à la base
 
-$id_message = $_GET['id_message'];
-  # Insertion d'un like si l'utilisateur n'a pas déjà voté
-  if (isset($_POST['like']))
-  {
-    $id_utilisateur = $_SESSION['id'];
-    $query = $db->prepare("SELECT COUNT(*) FROM like_dislike
-    WHERE id_utilisateur = '$id_utilisateur' AND like_dislike = 1 AND id_message='$id_message'");
-    $query->execute();
-    $result = $query->fetchColumn();
+# Cette page va servir à like
+$like_dislike = false;
 
-    if($result == 0)
-    {
-      if(empty($_SESSION['id']))
-      {
-        echo "Vous devez vous connectez pour voter.";
-      }else
-      {
-        $id_utilisateur = $_SESSION['id'];
-        $like_dislike = true;
+# S'il n'y a pas de $_POST["dislike"], on redirige vers la liste des topics
+# Sinon, on prend la variable dont on a besoin et on continu
+if(!isset($_POST["dislike"])) {
+  header("Location:topics.php");
+} else {
+  $id_message = $_GET['id_message'];
+}
 
-        $req = $db->prepare("INSERT INTO like_dislike (id_message, id_utilisateur, like_dislike)
-        VALUES('$id_message', '$id_utilisateur', '$like_dislike')");
-        $req->execute();
+# On a besoin de l'id conversation pour rediriger au bon endroit
+$id_conversation = $db->query("SELECT * FROM messages WHERE id = $id_message")->fetch()["id_conversation"];
 
-        header("location:".  $_SERVER['HTTP_REFERER']); # permettre une redirection vers la page contenant la bonne conversation
-      }
-    } else{
-      echo "Vous avez déjà voté.";
-    }
-  }
 
-  # Insertion d'un dislike si l'utilisateur n'a pas déjà voté
-  if (isset($_POST['dislike']))
-  {
-    $id_utilisateur = $_SESSION['id'];
-    $query = $db->prepare("SELECT COUNT(*) FROM like_dislike
-    WHERE id_utilisateur = '$id_utilisateur' AND like_dislike = 0 AND id_message='$id_conversation'");
-    $query->execute();
-    $result = $query->fetchColumn();
+if(empty($_SESSION["id"])) # On vérifie si l'utilisateur est connecté
+{
+  $_SESSION["message"] = "Vous devez vous connectez pour voter.";
+  header("Location:messages.php?id=$id_conversation");
 
-    if($result == 0)
-    {
-      if(empty($_SESSION['id']))
-      {
-        echo "Vous devez vous connectez pour voter.";
-      }else
-      {
-        $id_utilisateur = $_SESSION['id'];
-        $like_dislike = false;
+}
+else # Sinon, on compte le nombre de vote déjà laissé par lui sur ce post pour pouvoir vérifier la deuxième condition
+{
+  $id_utilisateur = $_SESSION['id'];
+  $query = $db->prepare("SELECT * FROM like_dislike WHERE id_utilisateur = ? AND id_message= ?");
+  $query->execute([$id_utilisateur, $id_message]);
+}
 
-        $req = $db->prepare("INSERT INTO like_dislike (id_message, id_utilisateur, like_dislike)
-        VALUES('$id_message', '$id_utilisateur', '$like_dislike')");
-        $req->execute();
+if($query->rowCount() > 0) # On vérifie si l'utilisateur n'a pas déja voté
+{
+  $_SESSION["message"] = "Vous avez déjà voté pour ce message";
+  header("Location:messages.php?id=$id_conversation");
 
-        header("location:". $_SERVER['HTTP_REFERER']); # permettre une redirection vers la page contenant la bonne conversation
-      }
-    }else{
-      echo "Vous avez déjà voté.";
-    }
-  }
+}
+else # Si les deux sont faux, alors on peut ajouter le vote
+{
 
+  $req = $db->prepare("INSERT INTO like_dislike (id_message, id_utilisateur, like_dislike) VALUES(?, ?, ?)");
+  $req->execute([$id_message, $id_utilisateur, $like_dislike]);
+  $_SESSION["message"] = "Votre vote a bien été pris en compte";
+
+  header("Location:messages.php?id=$id_conversation");
+
+}
 
 ?>

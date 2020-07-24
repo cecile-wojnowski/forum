@@ -1,23 +1,9 @@
-
 <?php
-include("includes/identifiant.php");
-include("includes/header.php");
-
+include ("includes/identifiant.php");
+include ("includes/header.php");
 
 ?>
-
-<!DOCTYPE html>
 <html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
-
-
-
-</style>
-</head>
 <body>
 
 <center>
@@ -31,31 +17,29 @@ include("includes/header.php");
    </form>
 
    <?php
+$db_server = 'localhost';
+$db_name = 'forum';
+$db_user_login = 'root';
+$db_user_pass = '';
 
-  $db_server = 'localhost';
-  $db_name = 'forum';
-  $db_user_login = 'root';
-  $db_user_pass = '';
+// Ouvre une connexion au serveur MySQL
+$conn = mysqli_connect($db_server, $db_user_login, $db_user_pass, $db_name);
 
-  // Ouvre une connexion au serveur MySQL
-  $conn = mysqli_connect($db_server,$db_user_login, $db_user_pass, $db_name);
+// Récupère la recherche
+$recherche = isset($_POST['recherche']) ? $_POST['recherche'] : '';
 
-   // Récupère la recherche
-   $recherche = isset($_POST['recherche']) ? $_POST['recherche'] : '';
-
-   // la requete mysql
-   $q = $conn->query(
-   "SELECT * FROM conversations
+// la requete mysql
+$q = $conn->query("SELECT * FROM conversations
     WHERE titre LIKE '%$recherche%'
     OR conversation LIKE '%$recherche%'
     LIMIT 10");
 
-   // affichage du résultat
-   while( $r = mysqli_fetch_array($q)){
-   echo '<a href=conversations.php?id='.$r['id']. '>Résultat <a/>'.$r['titre'].', '.$r['conversation'].' <br />'
-
+// affichage du résultat
+while ($r = mysqli_fetch_array($q))
+{
+    echo '<a href=conversations.php?id=' . $r['id'] . '>Résultat <a/>' . $r['titre'] . ', ' . $r['conversation'] . ' <br />'
 ;
-   }
+}
 ?>
 </center>
 </div>
@@ -98,6 +82,6 @@ for (i = 0; i < coll.length; i++) {
   });
 }
 </script>
-<?php include('includes/footer.php')?>
+<?php include ('includes/footer.php') ?>
 </body>
 </html>

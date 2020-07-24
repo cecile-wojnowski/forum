@@ -1,6 +1,7 @@
 <?php
 # Gestion des messages accessible pour l'admin et le modérateur
 # Affichage des messages ?>
+<div class="container_admin">
 <h2 class="h2_moderation"> Gestion des messages : </h2>
   <table>
     <thead>
@@ -27,8 +28,8 @@
                 <td><?=$d['message'] ?></td>
                 <td><?=$d['id_conversation'] ?></td>
                 <td><?=$d['id_utilisateur'] ?></td>
-                <td><a href="moderation.php?modifier_message=<?php echo $d['id'] ?>"> Modifier </a></td>
-                <td><a href="moderation.php?supprimer_message=<?php echo $d['id'] ?>"> Supprimer </a></td>
+<tr>                <td><a href="moderation.php?modifier_message=<?php echo $d['id'] ?>"> Modifier </a></td></tr>
+                <td><a href="moderation.php?supprimer_message=<?php echo $d['id'] ?>"> Supprimer </a></td></tr>
               <?php
             }
         } ?>
@@ -106,3 +107,5 @@
                          echo "Erreur : " . $e->getMessage();
                      }
                  }?>
+</div>
+<?php include('includes/footer.php')  ?>

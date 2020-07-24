@@ -1,4 +1,7 @@
-<h2 class="h2_moderation"> Gestion des utilisateurs :</h2>
+<center><h1>Modération et administration du forum</h1></center>
+<div class="container_admin">
+  <h2 class="h2_moderation"> Gestion des utilisateurs :</h2>
+
 <?php
   /* Admin : gestion des utilisateurs */
 
@@ -13,6 +16,7 @@
 
     $id = $_GET['modifier_droits'];
       ?>
+
       <form name="modification_droits" action="moderation.php?modifier_droits=<?php echo $id ?>" method="POST">
 
         <table border="0" align="center" cellspacing="2" cellpadding="2">
@@ -55,10 +59,7 @@
 						<td> Signature</td>
 						<td><input type="text" name="signature" value="<?php echo $info['signature'] ?>"></td>
 					</tr>
-          <tr align="center">
-						<td> Avatar </td>
-						<td><input type="image" name="avatar" value="<?php echo $info['avatar'] ?>"></td>
-					</tr>
+
 
           <td><input name="modification_droits" type="submit" value="Modifier les droits"></td>
         </table>
@@ -108,8 +109,8 @@
             <td><?=$d['email'] ?></td>
             <td><?=$d['date_inscription'] ?></td>
             <td><?=$d['id_droits'] ?></td>
-            <td><a href="moderation.php?modifier_droits=<?php echo $d['id'] ?>">Modifier les droits</a></td>
-            <td><a href="moderation.php?supprimer_user=<?php echo $d['id'] ?>"> Supprimer l'utilisateur </a></td>
+          <tr>  <td><a href="moderation.php?modifier_droits=<?php echo $d['id'] ?>">Modifier les droits</a></td></tr><br/>
+          <br/>  <td><a href="moderation.php?supprimer_user=<?php echo $d['id'] ?>"> Supprimer l'utilisateur </a></td>
           </tr>
         </tbody>
       <?php } ?>
@@ -155,8 +156,8 @@
           while($data = $query->fetch()) # A adapter !
           {
             ?>
-            <td><?=$data['login'] ?></td>
-            <input type="checkbox" name="<?php$data['id']?>"/>
+            <td><?=$data['login'] ;?></td>
+            <input type="checkbox" name="<?php $data['id']; ?>"/>
             Débannir<br />
             <?php
           } ?>
@@ -167,5 +168,5 @@
         $query->CloseCursor();
   }
   ?>
-
+</div>
 </html>

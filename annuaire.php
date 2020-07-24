@@ -1,10 +1,8 @@
 <?php
+include ("includes/identifiant.php");
+include ("includes/header.php");
 
-include("includes/identifiant.php");
-include("includes/header.php");
-
-
- ?>
+?>
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -15,20 +13,22 @@ include("includes/header.php");
   <body>
     <table>
       <h2> Tout les membres inscrits sur le forum </h2>
+<div class="annuaire">
 
-    <?php $query=$db->prepare('SELECT *
+    <?php $query = $db->prepare('SELECT *
     FROM utilisateurs ORDER BY login ASC');
-    $query->execute();
-    while($data=$query->fetch()){
+$query->execute();
+while ($data = $query->fetch())
+{
 ?>
 <table class="" style="text-align:right">
 
     <tbody>
       <tr>
-        <td scope=""><a href="voirprofil.php?m=<?php echo $data['id']; ?>"><?php echo$data['login']?></a></td>
-        <th scope=""><?php echo$data['localisation']?></th>
-        <td scope=""><?php echo$data['website']?></td>
-        <td scope=""><?php echo$data['email']?></td>
+        <td scope=""><a href="voirprofil.php?m=<?php echo $data['id']; ?>"><?php echo $data['login'] ?></a></td>
+        <th scope=""><?php echo $data['localisation'] ?></th>
+        <td scope=""><?php echo $data['website'] ?></td>
+        <td scope=""><?php echo $data['email'] ?></td>
       </tr>
     </tbody>
   </table>
@@ -38,14 +38,10 @@ include("includes/header.php");
 
 
 
-<?php }
-?>
+<?php
+}
+?></div>
+<?php include ('includes/footer.php') ?>
+
   </body>
-
-
-
-<?php include('includes/footer.php') ?>
-
-
-
 </html>

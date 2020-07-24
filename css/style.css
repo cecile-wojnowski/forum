@@ -83,35 +83,39 @@ html {
   margin: 5px;
 }
 
+/* admin.php */
+
+.container_admin {
+  margin: 1%;
+  width: 70%;
+}
 
 
 /* annuaire.php */
-
-table {
-  table-layout: fixed;
+.annuaire table {
   width: 100%;
   padding: 1%;
   border-collapse: collapse;
   border: 3px solid lightgrey;
 }
 
-thead th:nth-child(1) {
+.annuaire thead th:nth-child(1) {
   width: 30%;
 }
 
-thead th:nth-child(2) {
+.annuaire thead th:nth-child(2) {
   width: 20%;
 }
 
-thead th:nth-child(3) {
+.annuaire thead th:nth-child(3) {
   width: 15%;
 }
 
-thead th:nth-child(4) {
+.annuaire thead th:nth-child(4) {
   width: 35%;
 }
 
-th, td {
+.annuaire th, td {
   padding: 20px;
 }
 
@@ -121,63 +125,49 @@ h2 {
 }
 
 /* page:messages.php */
-
 .fa {
   font-size: 2.2em;
 }
+
 .fa-thumbs-down, .fa-thumbs-o-down {
-  transform:rotateY(180deg);
-}
-.
-
-.fa button {
-
-border : none;
-
+  transform: rotateY(180deg);
 }
 
-.fa-thumbs-down:hover{
-  color:red;
+. .fa button {
+  border: none;
 }
 
+.fa-thumbs-down:hover {
+  color: red;
+}
 
 .message {
-background-color: white;
-border : solid 1px black;
-margin: 1%;
+  background-color: white;
+  border: solid 1px black;
+  margin: 1%;
 }
 
 .message article {
-
-margin: 1%;
-padding: 1%;
-
+  margin: 1%;
+  padding: 1%;
 }
 
-textarea{
+textarea {
   width: 300px;
   height: 200px;
 }
 
-
 /* page recherche.php */
-
 .collapsible {
-
-background-color: lightsalmon;
-
-
+  background-color: lightsalmon;
 }
 
-
-.recherche{
-
-width: 20%;
-padding: 3%;
-padding-bottom: 6%;
-margin: 2%;
-background-color: gainsboro;
-
+.recherche {
+  width: 20%;
+  padding: 3%;
+  padding-bottom: 6%;
+  margin: 2%;
+  background-color: gainsboro;
 }
 
 /* formulaire de recherche*/
@@ -213,7 +203,6 @@ form.recherche::after {
 }
 
 /* partie collapsible*/
-
 .collapsible {
   background-color: #eee;
   color: lightsalmon;
@@ -232,7 +221,6 @@ form.recherche::after {
 }
 
 .content {
-
   padding: 0 18px;
   display: none;
   overflow: hidden;
@@ -241,31 +229,29 @@ form.recherche::after {
 }
 
 /* topics.php */
-
 .topics {
   display: flex;
   flex-wrap: wrap;
 }
 
 .card {
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
   width: 20%;
   margin: 1%;
 }
 
 .card a {
-
   text-decoration: none;
-  color:black;
+  color: black;
 }
 
 .card a:hover {
-  color:grey;
+  color: grey;
 }
 
-.card:hover {stylesheet
-  box-shadow: 0 16px 32px 0 rgba(0,0,0,0.2);
+.card:hover {
+  stylesheet box-shadow: 0 16px 32px 0 rgba(0, 0, 0, 0.2);
   background-color: orange;
 }
 
@@ -274,56 +260,42 @@ form.recherche::after {
 }
 
 /* conversations.php */
-
 article {
-
-background-color: white;
-padding: 1%;
-margin: 1%;
-
+  background-color: white;
+  padding: 1%;
+  margin: 1%;
 }
 
 /* regles.php */
-
 .regles {
-
-background-color: white;
-width: 40%;
-margin: 1%;
-padding: 1%;
-line-height: 25px;
-
-
+  background-color: white;
+  width: 40%;
+  margin: 1%;
+  padding: 1%;
+  line-height: 25px;
 }
 
 /* voirprofil.php */
-
-
 .profil {
-
-background-color: white;
-margin: 2%;
-padding: 2%;
-
+  background-color: white;
+  margin: 2%;
+  padding: 2%;
 }
 
-
-
 /* footer.php */
-
 .navbar_bottom {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   background-color: orange;
   padding: 2%;
-  margin-top:5%;
+  margin-top: 5%;
 }
 
 .navbar_bottom a {
   color: white;
   text-decoration: none;
-  background-color:orange;
+  background-color: orange;
   margin: 1% 2% 0 2%;
   display: flex;
   flex-direction: column;
@@ -331,4 +303,256 @@ padding: 2%;
 
 .navbar_bottom a:hover {
   opacity: 0.7;
+}
+
+* {
+  font-family: 'Asap', sans-serif;
+}
+
+/* annuaire.php */
+table {
+  table-layout: fixed;
+  width: 100%;
+  padding: 1%;
+  border-collapse: collapse;
+  border: 3px solid lightgrey;
+}
+
+/*
+thead th:nth-child(1) {
+  width: 30%;
+}
+
+thead th:nth-child(2) {
+  width: 20%;
+}
+
+thead th:nth-child(3) {
+  width: 15%;
+}
+
+thead th:nth-child(4) {
+  width: 35%;
+}
+
+th, td {
+  padding: 20px;
+} */
+h2 {
+  text-align: center;
+  padding: 1%;
+}
+
+/* page:messages.php */
+body {
+  background-color: rgb(241, 241, 241);
+}
+
+/******* Messages.php *******/
+/* Boutons like et dislike */
+.fa {
+  padding: 2%;
+}
+
+.fa-thumbs-down, .fa-thumbs-o-down {
+  transform: rotateY(180deg);
+}
+
+.alignement_thumbs {
+  display: flex;
+  flex-direction: row;
+}
+
+.fa-thumbs-up:hover {
+  color: #4CAF50;
+  cursor: pointer;
+}
+
+.fa-thumbs-down:hover {
+  color: #AF504C;
+  cursor: pointer;
+}
+
+.like-btn {
+  border: none;
+  margin: 5%;
+}
+
+/* Apparence des textes */
+.messages {
+  background-color: rgb(241, 241, 241);
+  margin: 1%;
+}
+
+.messages_h1 {
+  font-size: 30px;
+  text-align: center;
+}
+
+.messages_h2 {
+  font-size: 20px;
+}
+
+.messages_login {
+  font-size: 1.2em;
+}
+
+.messages_article {
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1%;
+  border: 1px solid lightgrey;
+  text-align: justify;
+  width: 60%;
+}
+
+.p_messages {
+  color: grey;
+}
+
+.messages_text {
+  margin-left: 40%;
+}
+
+textarea {
+  width: 300px;
+  height: 200px;
+}
+
+#messages_textarea {
+  color: grey;
+}
+
+/* Apparence des liens */
+.messages_retour {
+  margin-left: 2%;
+}
+
+.a_signaler {
+  margin-left: 80%;
+}
+
+/****** Recherche.php ******/
+.collapsible {
+  background-color: lightsalmon;
+}
+
+.recherche {
+  width: 20%;
+  padding: 3%;
+  padding-bottom: 6%;
+  margin: 2%;
+  background-color: gainsboro;
+}
+
+/* formulaire de recherche*/
+.recherche input[type=text] {
+  padding: 10px;
+  font-size: 20px;
+  border: 1px solid grey;
+  float: left;
+  width: 80%;
+  background: #f1f1f1;
+}
+
+.recherche button {
+  float: left;
+  width: 20%;
+  padding: 6px;
+  background: lightsalmon;
+  color: white;
+  font-size: 17px;
+  border: 1px solid grey;
+  border-left: none;
+  cursor: pointer;
+}
+
+.recherche button:hover {
+  background: orange;
+}
+
+form.recherche::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* partie collapsible */
+.collapsible {
+  background-color: #eee;
+  color: lightsalmon;
+  cursor: pointer;
+  padding: 18px;
+  width: 50%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  text-align: center;
+}
+
+.active, .collapsible:hover {
+  background-color: #ccc;
+}
+
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: lightgrey;
+  width: 50%;
+}
+
+/****** topics.php ******/
+.topics {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  width: 20%;
+  margin: 1%;
+}
+
+.card a {
+  text-decoration: none;
+  color: black;
+}
+
+.card a:hover {
+  color: grey;
+}
+
+.card:hover {
+  stylesheet box-shadow: 0 16px 32px 0 rgba(0, 0, 0, 0.2);
+  background-color: orange;
+}
+
+.container {
+  box-shadow: 0 16px 32px 0 rgba(0, 0, 0, 0.2);
+  padding: 2px 16px;
+  transition: 0.3s;
+}
+
+.container:hover {
+  background-color: orange;
+  box-shadow: 0 16px 32px 0 rgba(0, 0, 0, 0.2);
+}
+
+/***** conversations.php ****/
+article {
+  background-color: white;
+  padding: 1%;
+  margin: 1%;
+}
+
+/***** regles.php ******/
+.regles {
+  background-color: white;
+  width: 40%;
+  margin: 1%;
+  padding: 1%;
+  line-height: 25px;
 }

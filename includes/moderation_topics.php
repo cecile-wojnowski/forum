@@ -1,3 +1,4 @@
+<div class="container_admin">
 <h2 class="h2_moderation"> Gestion des topics : </h2>
 <?php
 # Création/modification/suppression de topics accessible pour l'admin et le modérateur
@@ -120,3 +121,4 @@ if (isset($_POST['creation_topic'])) {
                           echo "Erreur : " . $e->getMessage();
                       }
                   }?>
+</div>
