@@ -46,10 +46,12 @@ margin: 1%;
   font-size: 1.2em;
 }
 .messages_article {
-margin: 1%;
+margin-left: auto;
+margin-right:auto;
 padding: 1%;
 border: 1px solid lightgrey;
 text-align: justify;
+width:60%;
 }
 .p_messages{
   color:grey;
