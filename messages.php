@@ -34,9 +34,9 @@ if(!isset($_GET['id'])){ # Redirige vers topics lorsque l'on vient de like_disli
             <p class="messages_text"> <?php echo "Le message a bien été posté."; ?></p>
             <?php
           }
-            if(isset($_SESSION["message"])) {
-              echo $_SESSION["message"];
-              unset($_SESSION["message"]);
+            if(isset($_SESSION["message"])) { ?>
+            <p class="messages_text"> <?php echo $_SESSION["message"]; ?> </p>
+              <?php unset($_SESSION["message"]);
             }
           ?>
         </p>
