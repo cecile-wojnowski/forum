@@ -1,5 +1,3 @@
-
-
 <?php
 
 include("includes/identifiant.php");

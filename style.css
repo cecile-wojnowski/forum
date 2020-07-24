@@ -136,7 +136,6 @@ form.example::after {
 }
 
 .card a {
-
   text-decoration: none;
   color:black;
 }
@@ -151,7 +150,13 @@ form.example::after {
 }
 
 .container {
+  box-shadow: 0 16px 32px 0 rgba(0,0,0,0.2);
   padding: 2px 16px;
+  transition: 0.3s;
+}
+.container:hover{
+  background-color: orange;
+  box-shadow: 0 16px 32px 0 rgba(0,0,0,0.2);
 }
 
 /* conversations.php */
