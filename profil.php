@@ -78,7 +78,7 @@ $website=$data["website"];
     <label><input type="checkbox" name="delete" value="Delete" />
     Supprimer l avatar</label>
     Avatar actuel :
-    <img src="img/avatars/<?php echo $data['avatar']; ?>"
+    <img src="img/<?php echo $data['avatar']; ?>"
   alt="pas d avatar" height = "100px" width = "100px"/> <br />
     <label for="signature">Signature :</label>
     <textarea cols="40" rows="4" name="signature" id="signature" placeholder="<?php echo stripslashes(htmlspecialchars($data['signature'])) ?>"></textarea>
