@@ -2,6 +2,45 @@
 * {
   font-family: 'Asap', sans-serif;
 }
+
+
+/* annuaire.php */
+
+table {
+  table-layout: fixed;
+  width: 100%;
+  padding: 1%;
+  border-collapse: collapse;
+  border: 3px solid lightgrey;
+}
+
+thead th:nth-child(1) {
+  width: 30%;
+}
+
+thead th:nth-child(2) {
+  width: 20%;
+}
+
+thead th:nth-child(3) {
+  width: 15%;
+}
+
+thead th:nth-child(4) {
+  width: 35%;
+}
+
+th, td {
+  padding: 20px;
+}
+
+h2 {
+  text-align: center;
+  padding: 1%;
+}
+
+/* page:messages.php */
+
 body{
   background-color: rgb(241,241,241);
 }
@@ -78,22 +117,39 @@ textarea{
 
 /****** Recherche.php ******/
 
+.collapsible {
+
+background-color: lightsalmon;
+
+
+}
+
+
+.recherche{
+
+width: 20%;
+padding: 3%;
+padding-bottom: 6%;
+margin: 2%;
+background-color: gainsboro;
+
+}
 
 /* formulaire de recherche*/
-form.example input[type=text] {
+.recherche input[type=text] {
   padding: 10px;
-  font-size: 17px;
+  font-size: 20px;
   border: 1px solid grey;
   float: left;
   width: 80%;
   background: #f1f1f1;
 }
 
-form.example button {
+.recherche button {
   float: left;
   width: 20%;
-  padding: 10px;
-  background: #2196F3;
+  padding: 6px;
+  background: lightsalmon;
   color: white;
   font-size: 17px;
   border: 1px solid grey;
@@ -101,11 +157,11 @@ form.example button {
   cursor: pointer;
 }
 
-form.example button:hover {
-  background: #0b7dda;
+.recherche button:hover {
+  background: orange;
 }
 
-form.example::after {
+form.recherche::after {
   content: "";
   clear: both;
   display: table;
@@ -115,14 +171,15 @@ form.example::after {
 
 .collapsible {
   background-color: #eee;
-  color: #444;
+  color: lightsalmon;
   cursor: pointer;
   padding: 18px;
-  width: 100%;
+  width: 50%;
   border: none;
   text-align: left;
   outline: none;
   font-size: 15px;
+  text-align: center;
 }
 
 .active, .collapsible:hover {
@@ -130,10 +187,12 @@ form.example::after {
 }
 
 .content {
+
   padding: 0 18px;
   display: none;
   overflow: hidden;
-  background-color: #f1f1f1;
+  background-color: lightgrey;
+  width: 50%;
 }
 
 /****** topics.php ******/

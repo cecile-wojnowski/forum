@@ -22,10 +22,11 @@ include("includes/header.php");
 
 <center>
 <h2>Chercher une conversation par son titre ou son contenu, tapez un mot !</h2>
-</center>
+
+<div class="recherche">
 
    <form method="POST" action="">
-   Recherche <input type="text" name="recherche">
+    <input type="text" name="recherche">
    <button type="submit"><i class="fa fa-search" name="submit"></i></button>
    </form>
 
@@ -51,25 +52,33 @@ include("includes/header.php");
 
    // affichage du résultat
    while( $r = mysqli_fetch_array($q)){
-   echo 'Résultat: '.$r['titre'].', '.$r['conversation'].' <br />'
+   echo '<a href=conversations.php?id='.$r['id']. '>Résultat <a/>'.$r['titre'].', '.$r['conversation'].' <br />'
+
 ;
    }
 ?>
+</center>
+</div>
 
-<center><h3> Vous ne savez pas quoi discuter ? Voici quelques idées de topics à visiter, cliquez pour en savoir plus</h3></center>
 
-<button type="button" class="collapsible">Topic 1</button>
+<center><h4> Vous ne savez pas quoi discuter ? Voici quelques idées de topics à visiter, cliquez pour en savoir plus</h4>
+
+
+<button type="button" class="collapsible">Embauche</button>
 <div class="content">
-  <a href="topics.php?id=1">Description du topic 1... </a>
+  <a href="topics.php?id=3"> Nouveau contrat de travail, négociation de salaire et des horaires, adaptation
+  dans un environnement de travail, tout ce qu'il faut savoir à l'embauche. </a>
 </div>
-<button type="button" class="collapsible">Topic 2</button>
+<button type="button" class="collapsible">Maladie et accident</button>
 <div class="content">
-  <a href="topics.php?id=2">Description du topic 2...</a>
+  <a href="topics.php?id=2">Arrêt maladie, accident au travail suscitent beaucoup de question, particulièrement
+  dans cette période de covid19, venez en parler. </a>
 </div>
-<button type="button" class="collapsible">Topic 3</button>
+<button type="button" class="collapsible">Licenciement</button>
 <div class="content">
-  <a href="topis.php?id=3">Description du topic 3...</a>
-</div>
+  <a href="topis.php?id=3">La perte de son travail est une peur pour la majorité d'entre nous, comment faire et se défendre ? Cliquez ici pour
+  en parler avec d'autres membres concernés.</a>
+</div></center>
 
 
 <script>

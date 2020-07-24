@@ -9,6 +9,9 @@
   <head>
     <meta charset="utf-8">
     <title><?php echo $titre; ?></title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/form.css">
+    <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="form.css">
     <link href="https://fonts.googleapis.com/css2?family=Asap&display=swap" rel="stylesheet">
@@ -17,9 +20,14 @@
     <link rel="stylesheet" href="header.css">
   </head>
   <body>
-    <div class="top_text">
-      <img src="img/forum2.png" alt="">
+    <div class="top">
+      <div class="top_text">
+        <h1><img src="https://img.icons8.com/doodle/96/000000/grand-master-key.png"/>
+Travail et salarié</h1>
+<h3>Vos droits, votre entraide</h3>
+
     </div>
+  </div>
     <?php
       $message = "";
 

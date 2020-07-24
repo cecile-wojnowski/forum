@@ -32,13 +32,13 @@ $website=$data["website"];
 <html lang="fr" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="form.css">
+    <link rel="stylesheet" href="css/form.css">
     <title></title>
   </head>
   <body>
 
 
-<h1>Modifier son profil</h1>
+<center><h1>Modifier son profil</h1>
 <div class="container_profil">
 
 <form name="modifier_profil" method="post" action="profil_update.php" enctype="multipart/form-data">
@@ -78,7 +78,7 @@ $website=$data["website"];
     <label><input type="checkbox" name="delete" value="Delete" />
     Supprimer l avatar</label>
     Avatar actuel :
-    <img src="img/avatars/<?php echo $data['avatar']; ?>"
+    <img src="img/<?php echo $data['avatar']; ?>"
   alt="pas d avatar" height = "100px" width = "100px"/> <br />
     <label for="signature">Signature :</label>
     <textarea cols="40" rows="4" name="signature" id="signature" placeholder="<?php echo stripslashes(htmlspecialchars($data['signature'])) ?>"></textarea>
@@ -87,7 +87,7 @@ $website=$data["website"];
     <input type="submit" name="modifier_profil" value="Modifier son profil"/>
   <input type="hidden" id="sent" name="sent" value="1" />
 </form>
-</div>
+</div></center>
 <?php
 include('includes/footer.php')?>
 

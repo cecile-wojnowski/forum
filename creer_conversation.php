@@ -12,6 +12,7 @@
     <meta charset="utf-8">
     <title></title>
     <link rel="stylesheet" href="form.css">
+    <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
 
@@ -28,9 +29,9 @@
 <div class="container_creer_conv">
 
       <form method='post' action=''>
-         Titre de la conversation: <input type='text' name='titre' />
-         Contenu de la conversation: <textarea name='conversation' /></textarea>
-         <label for="">Topic</label>
+         Titre de la conversation: <input type='text' name='titre' /><br/>
+         Contenu de la conversation:<br/> <textarea name='conversation' style="width:100%" placeholder="décrivez-ici votre question" /></textarea>
+         <br/><label for="">Topic</label><br/>
          <select name="topic">
            <?php   $reponse = $db->query('SELECT * FROM topics');
 
@@ -42,17 +43,6 @@
                   <br />
 
             </select>
-            <select name="statut">
-              <?php   $reponse = $db->query('SELECT * FROM topics');
-
-                 // On affiche chaque entrée une à une
-                 while ($donnees = $reponse->fetch()) {
-                     ?>
-                     <strong>Statut</strong> : <?php echo"<option value = '". $donnees[""]."'>". $donnees['statut']."</option>";
-                 } ?>
-                     <br />
-
-               </select>
 
          <input type='submit' name='poster_conversation' value='Poster la conversation' />
       </form>

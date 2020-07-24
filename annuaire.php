@@ -14,6 +14,7 @@ include("includes/header.php");
   </head>
   <body>
     <table>
+      <h2> Tout les membres inscrits sur le forum </h2>
 
     <?php $query=$db->prepare('SELECT *
     FROM utilisateurs ORDER BY login ASC');

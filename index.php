@@ -19,10 +19,9 @@ include("includes/header.php");
 
    <body>
      <div class="last_conversation">
-     <h2> bienvenue ! Notre forum est destiné à tout les salariés qui ont des questions sur leurs conditions de travail.
+     <h2> Bienvenue ! Notre forum est destiné à tout les salariés qui ont des questions sur leurs conditions de travail.
      Nous croyons en l'entraides.
    Que vous vouliez parler de salaire, embauche, licenciement ou négociation de salaire, vous êtes au bon endroit. </h2>
-
      </div>
      <div class="grid">
 
@@ -31,7 +30,8 @@ include("includes/header.php");
          <table>
            <thead>
              <tr>
-               <th> Derniers messages postés </th>
+               <th>                <img src="https://img.icons8.com/clouds/100/000000/light-on.png"/>
+Derniers messages postés </th>
              </tr>
            <?php
            # Afficher les messages
@@ -57,6 +57,7 @@ include("includes/header.php");
 
 
         <div class="index_topics">
+          <img src="https://img.icons8.com/clouds/100/000000/info.png"/>
           <p>Les topics que vous pourrez discuter sur le forum</p>
           <?php
           # Afficher les messages
@@ -77,7 +78,7 @@ include("includes/header.php");
          </div>
 
         <div class="stats">
-
+<img src="https://img.icons8.com/clouds/100/000000/edit-user.png"/>
         <?php  $TotalDesUtilisateurs = $db->query('SELECT COUNT(*) FROM utilisateurs')->fetchColumn();
           $query = $db->query('SELECT login, id FROM utilisateurs ORDER BY id DESC LIMIT 0, 1');
           $data = $query->fetch();
@@ -108,17 +109,14 @@ include("includes/header.php");
           </div>
 
           <div class="index_plus">
+            <img src="https://img.icons8.com/clouds/100/000000/law-document---v2.png"/>
             <p>Liens utiles pour les salariés et plébiscités par nos membres :</p>
             <p> <a href="https://travail-emploi.gouv.fr/">Ministère du travail</a> <br>
           <a href="https://www.juritravail.com/"> Juritravail </a>  </p>
           </div>
         </div>
 
-        <div class="index_links">
-          <p>Liens utiles pour les salariés et plébiscités par nos membres :</p>
-          <p> <a href="https://travail-emploi.gouv.fr/">Ministère du travail</a> <br>
-        <a href="https://www.juritravail.com/"> Juritravail </a>  </p>
-        </div>
+
         <?php include('includes/footer.php') ?>
    </body>
   </html>

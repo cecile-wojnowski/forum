@@ -1,6 +1,7 @@
 <?php
 include("includes/identifiant.php");
 include("includes/header.php");
+
 if(!isset($_GET['id'])){ # Redirige vers topics lorsque l'on vient de like_dislike
   header("Location:topics.php");
 } else {
@@ -118,6 +119,8 @@ if(!isset($_GET['id'])){ # Redirige vers topics lorsque l'on vient de like_disli
   </div></center>
 
 
+=======
+
 <?php }
 
 else {
@@ -127,6 +130,7 @@ echo "pour répondre à cette conversation, connectez-vous!";
 }
 
   ?>
+
   <p><a class="messages_retour" href="conversations.php">Retour aux conversations</a></p>
 <?php include('includes/footer.php') ?>
 </body>
