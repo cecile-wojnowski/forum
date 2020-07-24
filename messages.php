@@ -6,8 +6,6 @@ if(!isset($_GET['id'])){ # Redirige vers topics lorsque l'on vient de like_disli
 } else {
   $id_conversation = $_GET['id'];
 }
-
-
        ?>
 
       <div class="messages">
@@ -110,6 +108,8 @@ if(!isset($_GET['id'])){ # Redirige vers topics lorsque l'on vient de like_disli
     $message = $_POST['message'];
     $id_utilisateur = $_SESSION['id'];
     $id_conversation = $_GET['id'];
+
+    $message = str_replace("'", "\'", $message);
 
     $sql = "INSERT INTO messages (message, id_conversation, id_utilisateur, date_message)
       VALUES ('$message', '$id_conversation', '$id_utilisateur', NOW())";
