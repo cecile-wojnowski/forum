@@ -53,6 +53,7 @@ include("includes/header.php");
    // affichage du résultat
    while( $r = mysqli_fetch_array($q)){
    echo '<a href=conversations.php?id='.$r['id']. '>Résultat <a/>'.$r['titre'].', '.$r['conversation'].' <br />'
+
 ;
    }
 ?>
@@ -61,6 +62,7 @@ include("includes/header.php");
 
 
 <center><h4> Vous ne savez pas quoi discuter ? Voici quelques idées de topics à visiter, cliquez pour en savoir plus</h4>
+
 
 <button type="button" class="collapsible">Embauche</button>
 <div class="content">

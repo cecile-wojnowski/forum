@@ -41,45 +41,81 @@ h2 {
 
 /* page:messages.php */
 
+body{
+  background-color: rgb(241,241,241);
+}
+
+/******* Messages.php *******/
+/* Boutons like et dislike */
 .fa {
-  font-size: 2.2em;
+  padding:2%;
 }
 .fa-thumbs-down, .fa-thumbs-o-down {
   transform:rotateY(180deg);
 }
-.
-
-.fa button {
-
-border : none;
-
+.alignement_thumbs{
+  display: flex;
+  flex-direction: row;
 }
-
+.fa-thumbs-up:hover{
+  color:#4CAF50;
+  cursor: pointer;
+}
 .fa-thumbs-down:hover{
-  color:red;
+  color:#AF504C;
+  cursor: pointer;
 }
-
-
-.message {
-background-color: white;
-border : solid 1px black;
+.like-btn{
+  border:none;
+  margin:5%;
+}
+/* Apparence des textes */
+.messages {
+background-color: rgb(241,241,241);
 margin: 1%;
 }
-
-.message article {
-
-margin: 1%;
+.messages_h1{
+  font-size:30px;
+  text-align: center;
+}
+.messages_h2{
+  font-size:20px;
+}
+.messages_login{
+  font-size: 1.2em;
+}
+.messages_article {
+margin-left: auto;
+margin-right:auto;
 padding: 1%;
+border: 1px solid lightgrey;
+text-align: justify;
+width:60%;
+}
+.p_messages{
+  color:grey;
+}
+.messages_text{
+  margin-left:40%;
 
 }
-
 textarea{
   width: 300px;
   height: 200px;
 }
+#messages_textarea{
+  color:grey;
+}
+/* Apparence des liens */
+.messages_retour{
+  margin-left:2%;
+}
+.a_signaler{
+  margin-left:80%;
+}
 
 
-/* page recherche.php */
+/****** Recherche.php ******/
 
 .collapsible {
 
@@ -131,7 +167,7 @@ form.recherche::after {
   display: table;
 }
 
-/* partie collapsible*/
+/* partie collapsible */
 
 .collapsible {
   background-color: #eee;
@@ -159,7 +195,7 @@ form.recherche::after {
   width: 50%;
 }
 
-/* topics.php */
+/****** topics.php ******/
 
 .topics {
   display: flex;
@@ -174,7 +210,6 @@ form.recherche::after {
 }
 
 .card a {
-
   text-decoration: none;
   color:black;
 }
@@ -189,20 +224,24 @@ form.recherche::after {
 }
 
 .container {
+  box-shadow: 0 16px 32px 0 rgba(0,0,0,0.2);
   padding: 2px 16px;
+  transition: 0.3s;
+}
+.container:hover{
+  background-color: orange;
+  box-shadow: 0 16px 32px 0 rgba(0,0,0,0.2);
 }
 
-/* conversations.php */
+/***** conversations.php ****/
 
 article {
-
-background-color: white;
-padding: 1%;
-margin: 1%;
-
+  background-color: white;
+  padding: 1%;
+  margin: 1%;
 }
 
-/* regles.php */
+/***** regles.php ******/
 
 .regles {
 
@@ -217,7 +256,7 @@ line-height: 25px;
 
 
 
-/* footer.php */
+/***** footer.php ******/
 
 .navbar_bottom {
   display: flex;

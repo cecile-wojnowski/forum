@@ -19,8 +19,10 @@ include("includes/bbcode.php");
 <?php
 if(isset($_GET['id'])){
 
-$req = $db->prepare('SELECT * FROM topics, conversations
-  WHERE topics.id= conversations.id_topic');
+
+$req = $db->prepare('SELECT * FROM topics
+  JOIN conversations ON topics.id = conversations.id_topic
+  WHERE id_topic = ?');
 $req->execute(array($_GET['id']));
 
 while ($post = $req->fetch())

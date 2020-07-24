@@ -26,7 +26,7 @@
 <center>
 <img style="width:25%"src="https://images.pexels.com/photos/461077/pexels-photo-461077.jpeg?cs=srgb&dl=a-l-interieur-brouiller-bureau-cahier-461077.jpg&fm=jpg" alt="">
 
-<div class="container">
+<div class="container_creer_conv">
 
       <form method='post' action=''>
          Titre de la conversation: <input type='text' name='titre' /><br/>
