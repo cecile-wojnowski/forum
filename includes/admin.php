@@ -136,37 +136,5 @@
       echo "Erreur : " . $e->getMessage();
     }
   }
-
-  # Bannissement :
-  ?>
-  <h2 class="h2_moderation"> Bannissement :</h2>
-  <p class="p_admin"> Quel membre voulez-vous bannir ?</p>
-    <form method="post" name="form_bannissement" action="moderation.php?action=ban">
-      <label for="membre"> Inscrivez le pseudo : </label>
-      <input type="text" id="membre" name="membre">
-      <input type="submit"name="form_bannissement" value="Envoyer"><br />
-    </form>
-  <?php
-  if(isset($_POST['form_bannissement']))
-  {
-    $query = $db->query('SELECT id, login
-        FROM utilisateurs WHERE id_droits = 0');
-        if ($query->rowCount() > 0)
-        {
-          while($data = $query->fetch()) # A adapter !
-          {
-            ?>
-            <td><?=$data['login'] ;?></td>
-            <input type="checkbox" name="<?php $data['id']; ?>"/>
-            Débannir<br />
-            <?php
-          } ?>
-            <p><input type="submit" value="Débannir" /></p></form>
-            <?php
-        }
-        else echo '<p>Aucun membre banni pour le moment :p</p>';
-        $query->CloseCursor();
-  }
   ?>
 </div>
-</html>
