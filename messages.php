@@ -95,7 +95,7 @@ if(!isset($_GET['id'])){ # Redirige vers topics lorsque l'on vient de like_disli
       <img src="https://img.icons8.com/officexs/16/000000/warning-shield.png" title="!" alt="!" onClick="javascript:smilies(' :exclamation: ');return(false)" />
       </fieldset>
 
-      <fieldset><legend class="messages_legend"> Ecrire un message </legend><textarea cols="80" rows="8" id="message" name="message"></textarea></fieldset>
+      <fieldset><legend class="messages_legend"> Ecrire un message </legend><textarea cols="80" rows="8" id="messages_textarea" name="message"></textarea></fieldset>
 
       <input type="reset" name = "Effacer" value = "Effacer"/>
       <input type="submit" name="envoyer" value="Envoyer" />
@@ -126,7 +126,7 @@ echo "pour répondre à cette conversation, connectez-vous!";
 }
 
   ?>
-  <p><a href="conversations.php">Retour aux conversations</a></p>
+  <p><a class="messages_retour" href="conversations.php">Retour aux conversations</a></p>
 <?php include('includes/footer.php') ?>
 </body>
 </html>
