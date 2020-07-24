@@ -18,6 +18,22 @@ if(!isset($_GET['id'])){ # Redirige vers topics lorsque l'on vient de like_disli
         </h1>
         <p>
           <?php
+
+
+          if(isset($_POST['envoyer'])){
+            $message = $_POST['message'];
+            $id_utilisateur = $_SESSION['id'];
+            $id_conversation = $_GET['id'];
+
+            $message = str_replace("'", "\'", $message);
+
+            $sql = "INSERT INTO messages (message, id_conversation, id_utilisateur, date_message)
+              VALUES ('$message', '$id_conversation', '$id_utilisateur', NOW())";
+            $stmt= $db->prepare($sql);
+            $stmt->execute(); ?>
+            <p class="messages_text"> <?php echo "Le message a bien été posté."; ?></p>
+            <?php
+          }
             if(isset($_SESSION["message"])) {
               echo $_SESSION["message"];
               unset($_SESSION["message"]);
@@ -94,7 +110,6 @@ if(!isset($_GET['id'])){ # Redirige vers topics lorsque l'on vient de like_disli
       </fieldset>
 
       <fieldset><legend class="messages_legend"> Ecrire un message </legend><textarea cols="80" rows="8" id="messages_textarea" name="message"></textarea></fieldset>
-
       <input type="reset" name = "Effacer" value = "Effacer"/>
       <input type="submit" name="envoyer" value="Envoyer" />
 
@@ -102,22 +117,8 @@ if(!isset($_GET['id'])){ # Redirige vers topics lorsque l'on vient de like_disli
 
   </div></center>
 
-  <?php
 
-  if(isset($_POST['envoyer'])){
-    $message = $_POST['message'];
-    $id_utilisateur = $_SESSION['id'];
-    $id_conversation = $_GET['id'];
-
-    $message = str_replace("'", "\'", $message);
-
-    $sql = "INSERT INTO messages (message, id_conversation, id_utilisateur, date_message)
-      VALUES ('$message', '$id_conversation', '$id_utilisateur', NOW())";
-    $stmt= $db->prepare($sql);
-    $stmt->execute();
-    echo "Le message a bien été posté.";
-  }
-}
+<?php }
 
 else {
 
