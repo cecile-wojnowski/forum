@@ -28,8 +28,9 @@
                 <td><?=$d['message'] ?></td>
                 <td><?=$d['id_conversation'] ?></td>
                 <td><?=$d['id_utilisateur'] ?></td>
-<tr>                <td><a href="modifier_message.php?id=<?= $d['id'] ?>"> Modifier </a></td></tr>
-                <td><a href="supprimer_message.php?id=<?= $d['id'] ?>"> Supprimer </a></td></tr>
+                <td><a href="modifier_message.php?id=<?= $d['id'] ?>"> Modifier </a></td>
+                <td><a href="supprimer_message.php?id=<?= $d['id'] ?>"> Supprimer </a></td>
+              </tr>
               <?php
             }
         } ?>
