@@ -218,6 +218,13 @@ article {
   padding: 1%;
   margin: 1%;
 }
+.conversations a{
+  color:black;
+}
+.conversations a:hover{
+  text-decoration: none;
+  opacity: 0.7;
+}
 
 /* regles.php */
 .regles {
