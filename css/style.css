@@ -88,6 +88,17 @@ html {
 .h2_index{
 
 }
+/* Conversation */
+.conversations{
+  margin-left: auto;
+  margin-right: auto;
+  width:80%;
+  border: 1px solid lightgrey;
+  box-shadow: 3px 3px 3px lightgrey;
+}
+.a_conversations{
+  margin-left:10%;
+}
 
 /* admin.php */
 
@@ -329,26 +340,6 @@ table {
   border: 1px solid lightgrey;
 }
 
-/*
-thead th:nth-child(1) {
-  width: 30%;
-}
-
-thead th:nth-child(2) {
-  width: 20%;
-}
-
-thead th:nth-child(3) {
-  width: 15%;
-}
-
-thead th:nth-child(4) {
-  width: 35%;
-}
-
-th, td {
-  padding: 20px;
-} */
 h2 {
   text-align: center;
   padding: 1%;

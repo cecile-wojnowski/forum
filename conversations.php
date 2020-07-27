@@ -3,20 +3,8 @@ $titre = "Conversations";
 include("includes/identifiant.php");
 include("includes/header.php");
 include("includes/bbcode.php");
-?>
 
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
-
-
-
-<?php
-if (isset($_GET['id']))
+if(isset($_GET['id']))
 {
 
     $req = $db->prepare('SELECT * FROM topics
@@ -31,16 +19,14 @@ if (isset($_GET['id']))
 
 ?>
 
-    <div>
-        <article>
-            <h1><?=$post['titre']; ?></h1>
-            <p><?=$post['conversation'] ?></p>
-            <p>
-                <a href="messages.php?id=<?=$post['id']; ?>">Lire la suite</a>
-            </p>
-        </article>
 
-    </div>
+  <article class="conversations">
+    <h1><?=$post['titre']; ?></h1>
+    <p><?=$post['conversation'] ?></p>
+    <p>
+      <a href="messages.php?id=<?=$post['id']; ?>">Lire la suite</a>
+    </p>
+  </article>
 
 <?php
     }
@@ -48,10 +34,6 @@ if (isset($_GET['id']))
 
 ?>
 
-<p><a href="topics.php">Retour aux Topics</a></p>
+<p><a class="a_conversations" href="topics.php">Retour aux Topics</a></p>
 
-
-<?php include("includes/footer.php");
-?>
-</body>
-</html>
+<?php include("includes/footer.php");?>
