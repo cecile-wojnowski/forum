@@ -1,7 +1,7 @@
 <div class="container_admin">
 <h2 class="h2_moderation"> Gestion des topics : </h2>
 
-<h3> Créer un nouveau topic : </h3>
+<h3 class="h3_moderation"> Créer un nouveau topic : </h3>
 
 <form name="creation_topic" class="" action="creation_topic.php" method="post">
   <label for="">Nom du topic</label>
@@ -13,7 +13,9 @@
     <option value="public"> Public </option>
     <option value="private"> Privé </option>
   </select>
-  <input type="submit" name="creation_topic" value="Créer topic">
+  <div class="input_moderation">
+    <input type="submit" name="creation_topic" value="Créer topic">
+  </div>
 </form>
 
 <?php # Affichage des topics

@@ -93,15 +93,25 @@ html {
   margin:auto;
 }
 
-/* admin.php */
+/* Moderation.php et admin.php */
 
 .container_admin {
   margin: 1%;
   width: 70%;
+  margin:auto;
 }
-
-
-
+.h2_moderation{
+  background-color: lightgrey;
+  font-size:25px;
+  margin-top:5%;
+}
+.h3_moderation{
+  font-size:20px;
+}
+.input_moderation{
+  margin-left:40%;
+  margin-bottom:5%;
+}
 h2 {
   text-align: center;
   padding: 1%;

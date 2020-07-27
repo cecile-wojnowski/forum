@@ -8,12 +8,6 @@ if (isset($_GET['deconnexion']))
 $titre = "Accueil";
 include("includes/header.php");
 ?>
- <!DOCTYPE html>
- <html lang="fr" dir="ltr">
-   <head>
-     <meta charset="utf-8">
-   </head>
-
    <body>
      <article class="presentation_index">
         <h2 class="h2_index"> Bienvenue ! </h2>
