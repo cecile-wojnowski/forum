@@ -21,8 +21,11 @@ else
             $req_titre->execute([$id_conversation]);
             $req= $req_titre->fetch();
 
+            $message = $req['conversation'];
+            $message = str_replace("\'", "'", $message);
+
             echo "<h2>".$req['titre']."</h2>";
-            echo "<p class='p_messages'>" .$req['conversation']. "</p>";
+            echo "<p class='p_messages'>" .$message. "</p>";
             ?>
         </article>
         <p>

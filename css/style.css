@@ -292,8 +292,8 @@ h2 {
 }
 
 .messages_conversation{
-  font-size: 20px;
-  text-align: center;
+  font-size: 18px;
+  text-align: justify;
   background-color: rgb(241, 241, 241);
   width:60%;
   margin:auto;
