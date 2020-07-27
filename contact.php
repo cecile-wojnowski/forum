@@ -11,7 +11,9 @@ include("includes/header.php"); ?>
 { ?>
 <form class="" action="" method="post">
   <label for="">Titre</label>
-<input type="text" name="titre" value="">
+  <div class="titre_contact">
+    <input type="text" name="titre" value="">
+  </div>
 <fieldset><legend class="messages_legend">Message</legend><textarea class="messages_textarea" name="message_contact" value="" cols="80" style="width:50%" rows="8"> </textarea>
 </fieldset>
 <input type="submit" name="submit" value="Envoyer">
