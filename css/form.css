@@ -34,7 +34,7 @@ input[type=reset] {
 }
 
 input[type=reset]:hover {
-  background-color: #A04945;
+  opacity: 0.7;
 }
 
 input[type=submit] {

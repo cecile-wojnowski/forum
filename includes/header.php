@@ -21,10 +21,9 @@
     <div class="top">
       <div class="top_text">
         <h1><img src="https://img.icons8.com/doodle/96/000000/grand-master-key.png"/>
-Travail et salarié</h1>
-<h3>Vos droits, votre entraide</h3>
-
-    </div>
+          Travail et salarié</h1>
+          <h3>Vos droits, votre entraide</h3>
+      </div>
   </div>
     <?php
       $message = "";

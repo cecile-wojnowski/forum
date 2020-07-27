@@ -261,32 +261,7 @@ article {
   font-style: italic;
   color:grey;
 }
-/* footer.php */
-.navbar_bottom {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  background-color: orange;
-  padding: 2%;
-  margin-top: 5%;
-}
 
-.navbar_bottom a {
-  color: white;
-  text-decoration: none;
-  background-color: orange;
-  margin: 1% 2% 0 2%;
-  display: flex;
-  flex-direction: column;
-}
-
-.navbar_bottom a:hover {
-  opacity: 0.7;
-}
-
-* {
-  font-family: 'Asap', sans-serif;
-}
 
 /* annuaire.php */
 table {
@@ -316,7 +291,6 @@ h2 {
   display: flex;
   flex-direction: row;
 }
-
 .fa-thumbs-up:hover {
   color: #4CAF50;
   cursor: pointer;
@@ -527,4 +501,33 @@ form.recherche::after {
   margin: 1%;
   padding: 1%;
   line-height: 25px;
+}
+
+/* footer.php */
+.navbar_bottom {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  background-color: orange;
+  padding: 2%;
+  margin-top: 5%;
+}
+
+.navbar_bottom a {
+  color: white;
+  text-decoration: none;
+  background-color: orange;
+  margin: 1% 2% 0 2%;
+  display: flex;
+  flex-direction: column;
+}
+
+.navbar_bottom a:hover {
+  opacity: 0.7;
+  text-decoration: none;
+  color: white;
+}
+
+* {
+  font-family: 'Asap', sans-serif;
 }
