@@ -5,9 +5,6 @@ include("includes/header.php");
 include("includes/bbcode.php");
 ?>
 
-   <html>
-     <body>
-
 <div class="topics">
 
   <?php
@@ -15,9 +12,6 @@ include("includes/bbcode.php");
       echo $_SESSION["message"];
       unset($_SESSION["message"]);
     }
-  ?>
-
-<?php
 
 # Si une session est ouverte et que l'id_droit est celui des modérateurs ou des admins...
 # On affiche tous les topics, qu'ils soient publics ou privés
