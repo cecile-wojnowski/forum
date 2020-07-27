@@ -6,7 +6,7 @@ if (isset($_GET['deconnexion']))
 }
 # Afficher les dernières conversations/messages
 $titre = "Accueil";
-include ("includes/header.php");
+include("includes/header.php");
 ?>
  <!DOCTYPE html>
  <html lang="fr" dir="ltr">

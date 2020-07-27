@@ -1,4 +1,5 @@
 <?php
+$titre = "Conversations";
 include("includes/identifiant.php");
 include("includes/header.php");
 include("includes/bbcode.php");

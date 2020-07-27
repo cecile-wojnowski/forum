@@ -1,5 +1,7 @@
 <?php
+$titre = "Modération";
 include("includes/header.php");
+
 ?>
 <html>
   <body>

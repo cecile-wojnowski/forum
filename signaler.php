@@ -1,6 +1,6 @@
 <?php
 session_start();
-include ("includes/identifiant.php");
+include("includes/identifiant.php");
 if (isset($_SESSION["id"]))
 {
     $id_message = $_GET['id_message'];

@@ -1,5 +1,5 @@
 <?php
-
+$titre = "Topics";
 include("includes/identifiant.php");
 include("includes/header.php");
 include("includes/bbcode.php");

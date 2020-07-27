@@ -1,6 +1,7 @@
 <?php
-include ("includes/identifiant.php");
-include ("includes/header.php");
+$titre = "Messages";
+include("includes/identifiant.php");
+include("includes/header.php");
 
 if (!isset($_GET['id']))
 { # Redirige vers topics lorsque l'on vient de like_dislike

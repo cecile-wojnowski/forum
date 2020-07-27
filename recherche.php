@@ -1,6 +1,6 @@
 <?php
-include ("includes/identifiant.php");
-include ("includes/header.php");
+include("includes/identifiant.php");
+include("includes/header.php");
 
 ?>
 <html>
