@@ -3,7 +3,7 @@
 
 <h3> Créer un nouveau topic : </h3>
 
-<form name="creation_topic" class="" action="../creation_topic.php" method="post">
+<form name="creation_topic" class="" action="creation_topic.php" method="post">
   <label for="">Nom du topic</label>
    <input type="text" name="nom_topic" value="">
   <label for="">Numéro du topic</label>
