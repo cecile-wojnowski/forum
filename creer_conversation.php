@@ -9,7 +9,6 @@ if (isset($_SESSION['login']))
 <center>
 <img style="width:25%"src="https://images.pexels.com/photos/461077/pexels-photo-461077.jpeg?cs=srgb&dl=a-l-interieur-brouiller-bureau-cahier-461077.jpg&fm=jpg" alt="">
 <div class="container_creer_conv">
-
       <form method='post' action=''>
          Titre de la conversation: <input type='text' name='titre' /><br/>
          Contenu de la conversation:<br/> <textarea name='conversation' style="width:100%" placeholder="décrivez-ici votre question" /></textarea>
@@ -18,19 +17,17 @@ if (isset($_SESSION['login']))
          <select name="topic">
            <?php $reponse = $db->query('SELECT * FROM topics');
 
-    // On affiche chaque entrée une à une
-    while ($donnees = $reponse->fetch())
-    {
-?>
-                  <strong>catégorie</strong> : <?php echo "<option value = '" . $donnees["id"] . "'>" . $donnees['topic'] . "</option>";
-    } ?>
-                  <br />
-
-            </select>
-
+            // On affiche chaque entrée une à une
+            while ($donnees = $reponse->fetch())
+            {
+              ?>
+              <strong>catégorie</strong> : <?php echo "<option value = '" . $donnees["id"] . "'>" . $donnees['topic'] . "</option>";
+            } ?>
+          </select>
          <input type='submit' name='poster_conversation' value='Poster la conversation' />
       </form>
-    </div></center>
+    </div>
+  </center>
 
  <?php
     if (isset($_POST['poster_conversation']))

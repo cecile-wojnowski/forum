@@ -46,7 +46,7 @@ input[type=submit] {
   cursor: pointer;
   float: center;
   display: block;
-  margin:auto;
+  margin:1%;
 }
 
 input[type=submit]:hover {
