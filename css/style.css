@@ -493,6 +493,7 @@ form.recherche::after {
   margin: 1%;
   padding: 1%;
   line-height: 25px;
+  text-align: justify;
 }
 
 /* footer.php */

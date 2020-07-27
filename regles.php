@@ -4,10 +4,8 @@
   include("includes/identifiant.php");
   include("includes/header.php");?>
 
-<html>
-  <body>
 <center>
-<h1>Règles de bonne conduite sur le forum</h1>
+<h2>Règles de bonne conduite sur le forum</h2>
 
 <img src="https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?cs=srgb&dl=mains-gens-personnes-individus-3184418.jpg&fm=jpg" style="width:25%" alt="">
 <div class="regles">
