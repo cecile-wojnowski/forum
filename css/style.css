@@ -21,16 +21,15 @@ html {
   margin-top: 5%;
   display: grid;
   grid-template-columns: 4fr 2fr;
-  grid-column-gap: 20px;
+  grid-column-gap: 3px;
   grid-row-gap: 20px;
   text-align: center;
 }
 
 .last_messages {
-  border: solid 1px #D8D8D4;
   grid-column-start: 1;
   margin: 10px;
-  box-shadow: 6px 3px 3px black;
+  box-shadow: 3px 3px 3px lightgrey;
 }
 
 .last_conversation {
@@ -38,7 +37,7 @@ html {
   grid-column-start: auto;
   background-color: white;
   padding: 1%;
-  box-shadow: 6px 3px 3px black;
+  box-shadow: 3px 3px 3px lightgrey;
 }
 
 .index_topics {
@@ -48,7 +47,7 @@ html {
   grid-column-start: auto;
   padding: 1%;
   margin: 5px;
-  box-shadow: 6px 3px 3px black;
+  box-shadow: 3px 3px 3px lightgrey;
 }
 
 .index_plus {
@@ -58,7 +57,7 @@ html {
   grid-column-start: 2;
   padding: 1%;
   margin: 5px;
-  box-shadow: 6px 3px 3px black;
+  box-shadow: 3px 3px 3px lightgrey;
 }
 
 .index_list {
@@ -72,7 +71,7 @@ html {
   border: solid 1px #D8D8D4;
   border-radius: 2px;
   margin: 5px;
-  box-shadow: 6px 3px 3px black;
+  box-shadow: 6px 3px 3px lightgrey;
 }
 
 .index_links {
@@ -81,6 +80,14 @@ html {
   border: solid 1px #D8D8D4;
   border-radius: 2px;
   margin: 5px;
+}
+.p_index{
+  font-size:20px;
+  text-align: justify;
+  padding:1%;
+}
+.h2_index{
+
 }
 
 /* admin.php */
@@ -320,7 +327,7 @@ table {
   width: 100%;
   padding: 1%;
   border-collapse: collapse;
-  border: 3px solid lightgrey;
+  border: 1px solid lightgrey;
 }
 
 /*

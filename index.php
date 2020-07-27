@@ -15,12 +15,41 @@ include("includes/header.php");
    </head>
 
    <body>
+     <article class="presentation_index">
+        <h2 class="h2_index"> Bienvenue ! </h2>
+        <p class= "p_index">  <br>
+          Notre forum est destiné à tout les salariés qui ont des questions sur leurs conditions de travail.
+          Que vous vouliez parler de salaire, d'embauche, de licenciement ou de négociation de salaire,
+          vous êtes au bon endroit.
+        </p>
+      </article>
 
-     <div class="last_conversation">
-     <h2> Bienvenue ! Notre forum est destiné à tout les salariés qui ont des questions sur leurs conditions de travail.
-     Nous croyons en l'entraides.
-   Que vous vouliez parler de salaire, embauche, licenciement ou négociation de salaire, vous êtes au bon endroit. </h2>
-     </div>
+      <div class="last_conversation">
+        <table>
+          <thead>
+            <th> Dernières conversations </th>
+          </thead>
+          <?php $query = $db->prepare('SELECT *
+                     FROM conversations ORDER BY  id ASC LIMIT 3');
+          $query->execute();
+          while ($data = $query->fetch())
+          {
+          ?>
+                         </thead>
+
+                           <tbody>
+                             <tr>
+                               <td><?=$data['titre'] ?></td>
+                               <td><?=$data['conversation'] ?></td>
+
+                             </tr>
+                             <?php
+          } ?>
+                           </tbody>
+                       </table>
+        </table>
+      </div>
+
      <div class="grid">
 
 
