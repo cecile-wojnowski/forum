@@ -29,10 +29,13 @@ $signature = $data["signature"];
 $localisation = $data["localisation"];
 $website = $data["website"];
 $avatar = $data["avatar"];
+$id_droits = $data["id_droits"];
+$login = $data["login"];
 
 ?>
 <html>
   <body>
+    <p class="p_profil"> Bonjour <?php echo $login ?>, votre id_droits est <?php echo $id_droits ?>. </p>
 
 
 <center><h1>Modifier son profil</h1>
