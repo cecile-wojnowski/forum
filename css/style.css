@@ -88,20 +88,6 @@ html {
 .h2_index{
 
 }
-/* Conversation */
-.conversations{
-  margin-left: auto;
-  margin-right: auto;
-  width:80%;
-  border: 1px solid lightgrey;
-  box-shadow: 3px 3px 3px lightgrey;
-}
-.a_conversations{
-  margin-left:10%;
-}
-.h1_conversations{
-  font-size:30px;
-}
 
 /* admin.php */
 
@@ -144,38 +130,6 @@ h2 {
   padding: 1%;
 }
 
-/* page:messages.php */
-.fa {
-  font-size: 2.2em;
-}
-
-.fa-thumbs-down, .fa-thumbs-o-down {
-  transform: rotateY(180deg);
-}
-
-. .fa button {
-  border: none;
-}
-
-.fa-thumbs-down:hover {
-  color: red;
-}
-
-.message {
-  background-color: white;
-  border: solid 1px black;
-  margin: 1%;
-}
-
-.message article {
-  margin: 1%;
-  padding: 1%;
-}
-
-textarea {
-  width: 300px;
-  height: 200px;
-}
 
 /* page recherche.php */
 .collapsible {
@@ -348,11 +302,6 @@ h2 {
   padding: 1%;
 }
 
-/* page:messages.php */
-body {
-  background-color: rgb(241, 241, 241);
-}
-
 /******* Messages.php *******/
 /* Boutons like et dislike */
 .fa {
@@ -385,15 +334,25 @@ body {
 
 /* Apparence des textes */
 .messages {
-  background-color: rgb(241, 241, 241);
   margin: 1%;
 }
 
-.messages_h1 {
-  font-size: 30px;
+.messages_conversation{
+  font-size: 20px;
   text-align: center;
+  background-color: rgb(241, 241, 241);
+  width:60%;
+  margin:auto;
+  border:solid 1px grey;
+  border-radius:5px;
 }
-
+.messages_boutons{
+  display: flex;
+  flex-direction: row;
+  width:15%;
+  margin-top:1%;
+  margin-bottom:1%;
+}
 .messages_h2 {
   font-size: 20px;
 }
@@ -541,11 +500,24 @@ form.recherche::after {
   transition: 0.3s;
 }
 
-/***** conversations.php ****/
-article {
-  background-color: white;
-  padding: 1%;
-  margin: 1%;
+/* Conversation */
+.conversations{
+  margin-left: auto;
+  margin-right: auto;
+  width:80%;
+  border: 1px solid lightgrey;
+  box-shadow: 3px 3px 3px lightgrey;
+  transition:0.2s;
+}
+.conversations:hover{
+  box-shadow: 0 16px 32px 0 rgba(0, 0, 0, 0.2);
+  background-color: orange;
+}
+.a_conversations{
+  margin-left:10%;
+}
+.h1_conversations{
+  font-size:30px;
 }
 
 /***** regles.php ******/

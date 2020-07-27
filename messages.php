@@ -15,39 +15,40 @@ else
 <center><a href="topics.php">Retour</a></center>
 
       <div class="messages">
-        <h1 class= "messages_h1">
+        <article class= "messages_conversation">
           <?php
-$req_titre = $db->prepare("SELECT * FROM conversations WHERE id = ?");
-$req_titre->execute([$id_conversation]);
-$req= $req_titre->fetch();
-echo "<h2>".$req['titre']."</h2><br/>";
-echo $req['conversation'];
-?>
-        </h1>
+            $req_titre = $db->prepare("SELECT * FROM conversations WHERE id = ?");
+            $req_titre->execute([$id_conversation]);
+            $req= $req_titre->fetch();
+
+            echo "<h2>".$req['titre']."</h2>";
+            echo "<p class='p_messages'>" .$req['conversation']. "</p>";
+            ?>
+        </article>
         <p>
           <?php
 
-if (isset($_POST['envoyer']))
-{
-    $message = $_POST['message'];
-    $id_utilisateur = $_SESSION['id'];
-    $id_conversation = $_GET['id'];
+        if (isset($_POST['envoyer']))
+        {
+            $message = $_POST['message'];
+            $id_utilisateur = $_SESSION['id'];
+            $id_conversation = $_GET['id'];
 
-    $message = str_replace("'", "\'", $message);
+            $message = str_replace("'", "\'", $message);
 
-    $sql = "INSERT INTO messages (message, id_conversation, id_utilisateur, date_message)
-              VALUES ('$message', '$id_conversation', '$id_utilisateur', NOW())";
-    $stmt = $db->prepare($sql);
-    $stmt->execute(); ?>
-            <p class="messages_text"> <?php echo "Le message a bien été posté."; ?></p>
-            <?php
-}
-if (isset($_SESSION["message"]))
-{ ?>
-            <p class="messages_text"> <?php echo $_SESSION["message"]; ?> </p>
-              <?php unset($_SESSION["message"]);
-}
-?>
+            $sql = "INSERT INTO messages (message, id_conversation, id_utilisateur, date_message)
+                      VALUES ('$message', '$id_conversation', '$id_utilisateur', NOW())";
+            $stmt = $db->prepare($sql);
+            $stmt->execute(); ?>
+                    <p class="messages_text"> <?php echo "Le message a bien été posté."; ?></p>
+                    <?php
+        }
+        if (isset($_SESSION["message"]))
+        { ?>
+                    <p class="messages_text"> <?php echo $_SESSION["message"]; ?> </p>
+                      <?php unset($_SESSION["message"]);
+        }
+        ?>
         </p>
         <?php
 # Permet d'afficher les messages appartenant à une conversation
@@ -121,10 +122,11 @@ include ("includes/bbcode.php"); # Permet d'ajouter des smileys
       </fieldset>
 
       <fieldset><legend class="messages_legend"> Ecrire un message </legend><textarea cols="80" style="width:50%" rows="8" id="messages_textarea" name="message"></textarea></fieldset>
-      <input type="reset" name = "Effacer" value = "Effacer"/>
-      <input type="submit" name="envoyer" value="Envoyer" />
-
-      </form>
+      <div class="messages_boutons">
+        <input type="submit" name="envoyer" value="Envoyer" />
+        <input type="reset" name = "Effacer" value = "Effacer"/>
+      </div>
+    </form>
 
   </div></center>
 
@@ -135,9 +137,4 @@ else
 {
     echo "pour répondre à cette conversation, connectez-vous!";
 }
-?>
-
-<center><a href="topics.php">Retour</a></center>
-<?php include ('includes/footer.php') ?>
-</body>
-</html>
+include('includes/footer.php') ?>
