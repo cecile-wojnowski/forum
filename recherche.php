@@ -1,4 +1,5 @@
 <?php
+$titre = "Faire une recherche";
 include("includes/identifiant.php");
 include("includes/header.php");
 
