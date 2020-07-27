@@ -2,17 +2,14 @@
 $titre = "Faire une recherche";
 include("includes/identifiant.php");
 include("includes/header.php");
-
 ?>
-<html>
-<body>
 
 <center>
 <h2>Chercher une conversation par son titre ou son contenu, tapez un mot !</h2>
 
 <div class="recherche">
 
-   <form method="POST" action="">
+   <form method="POST" action="" name="recherche">
     <input type="text" name="recherche">
    <button type="submit"><i class="fa fa-search" name="submit"></i></button>
    </form>
@@ -29,18 +26,24 @@ $conn = mysqli_connect($db_server, $db_user_login, $db_user_pass, $db_name);
 // Récupère la recherche
 $recherche = isset($_POST['recherche']) ? $_POST['recherche'] : '';
 
-// la requete mysql
-$q = $conn->query("SELECT * FROM conversations
-    WHERE titre LIKE '%$recherche%'
-    OR conversation LIKE '%$recherche%'
-    LIMIT 10");
+/*if(isset($_POST['recherche'])){ */
+  // la requete mysql
+  $q = $conn->query("SELECT * FROM conversations
+      WHERE titre LIKE '%$recherche%'
+      OR conversation LIKE '%$recherche%'
+      LIMIT 10");
 
-// affichage du résultat
-while ($r = mysqli_fetch_array($q))
-{
-    echo '<a href=conversations.php?id=' . $r['id'] . '>Résultat <a/>' . $r['titre'] . ', ' . $r['conversation'] . ' <br />'
-;
+  // affichage du résultat
+  while ($r = mysqli_fetch_array($q))
+  {
+    $conversation = $r['conversation'];
+    $conversation = str_replace("\'", "'", $conversation);
+
+      echo '<a href=conversations.php?id=' . $r['id'] . '>Résultat <a/>'.'<br>' . $r['titre'] . ' : ' . $conversation . ' <br />'
+  ;
+#  }
 }
+
 ?>
 </center>
 </div>
