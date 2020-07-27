@@ -28,7 +28,18 @@ if(isset($_SESSION['id_droits'])){
     foreach($req->fetchAll() as $post):
     ?>
     <div class="card">
-      <img src="img/<?= $post['image'];?>" alt="Avatar" style="width:100%">
+      <?php # Assigne une image de base si la bdd est vide
+      if($post['image'] == NULL)
+      { ?>
+        <img src="img/forum1.webp" alt="Avatar" style="width:100%">
+        <?php
+      }else
+      { ?>
+        <img src="img/<?= $post['image'];?>" alt="Avatar" style="width:100%">
+        <?php
+      }
+      ?>
+
       <div class="container">
         <h4><?= $post['topic']; ?></h4>
         <a href="conversations.php?id=<?= $post['id']; ?>">Voir les conversations</a>
@@ -42,7 +53,17 @@ if(isset($_SESSION['id_droits'])){
   foreach($req->fetchAll() as $post):
   ?>
   <div class="card">
-    <img src="img/forum1.webp" alt="Avatar" style="width:100%">
+    <?php # Assigne une image de base si la bdd est vide
+    if($post['image'] == NULL)
+    { ?>
+      <img src="img/forum1.webp" alt="Avatar" style="width:100%">
+      <?php
+    }else
+    { ?>
+      <img src="img/<?= $post['image'];?>" alt="Avatar" style="width:100%">
+      <?php
+    }
+    ?>
     <div class="container">
       <h4><?= $post['topic']; ?></h4>
       <a href="conversations.php?id=<?= $post['id']; ?>">Voir les conversations</a>
