@@ -3,10 +3,50 @@ table {
   border-collapse: collapse;
   width: 100%;
   background-color: white;
+  table-layout: auto;
+  padding: 1%;
 }
 
 td, th {
-  border: 1px solid lightgrey;
   text-align: left;
   padding: 8px;
+  border-bottom: 1px solid #EAEEF4;
+}
+
+/* annuaire.php */
+.annuaire{
+  border: solid 1px lightgrey;
+  width:80%;
+  margin:auto;
+}
+.annuaire table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.annuaire thead{
+  background-color: #EAEEF4;
+}
+.annuaire thead th:nth-child(1) {
+  width: 30%;
+}
+
+.annuaire thead th:nth-child(2) {
+  width: 20%;
+}
+
+.annuaire thead th:nth-child(3) {
+  width: 15%;
+}
+
+.annuaire thead th:nth-child(4) {
+  width: 35%;
+}
+
+.annuaire th, td {
+  padding: 20px;
+}
+
+.a_annuaire:hover{
+  text-decoration: none;
+  opacity: 0.7;
 }

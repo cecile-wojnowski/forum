@@ -33,10 +33,11 @@ html {
 }
 
 .last_conversation {
-  margin: 10px;
+  margin: auto;
   grid-column-start: auto;
   background-color: white;
   box-shadow: 3px 3px 3px lightgrey;
+  width:80%;
 }
 
 .index_topics {
@@ -85,8 +86,9 @@ html {
   text-align: justify;
   padding:1%;
 }
-.h2_index{
-
+.presentation_index{
+  width:80%;
+  margin:auto;
 }
 
 /* admin.php */
@@ -97,33 +99,6 @@ html {
 }
 
 
-/* annuaire.php */
-.annuaire table {
-  width: 100%;
-  padding: 1%;
-  border-collapse: collapse;
-  border: 3px solid lightgrey;
-}
-
-.annuaire thead th:nth-child(1) {
-  width: 30%;
-}
-
-.annuaire thead th:nth-child(2) {
-  width: 20%;
-}
-
-.annuaire thead th:nth-child(3) {
-  width: 15%;
-}
-
-.annuaire thead th:nth-child(4) {
-  width: 35%;
-}
-
-.annuaire th, td {
-  padding: 20px;
-}
 
 h2 {
   text-align: center;
@@ -264,13 +239,7 @@ article {
 
 
 /* annuaire.php */
-table {
-  table-layout: fixed;
-  width: 100%;
-  padding: 1%;
-  border-collapse: collapse;
-  border: 1px solid lightgrey;
-}
+
 
 h2 {
   text-align: center;
