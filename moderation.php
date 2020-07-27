@@ -3,15 +3,14 @@ $titre = "Modération";
 include("includes/header.php");
 
 ?>
-<html>
-  <body>
+<center><h1>Modération et administration du forum</h1></center>
 
-    <?php
-    if (isset($_SESSION["message"]))
-    { ?>
-                <p class="messages_text"> <?php echo $_SESSION["message"]; ?> </p>
-                  <?php unset($_SESSION["message"]);
-    }
+  <?php
+  if (isset($_SESSION["message"]))
+  { ?>
+    <p class="messages_text"> <?php echo $_SESSION["message"]; ?> </p>
+    <?php unset($_SESSION["message"]);
+  }
 # Gestion des utilisateurs réservée à l'admin
 if ($_SESSION['id_droits'] == 4)
 {
@@ -30,10 +29,15 @@ $params = [];
 $resultats = $db->prepare($sql);
 $resultats->execute($params);
 if ($resultats->rowCount() > 0)
-{
-   while ($d = $resultats->fetch(PDO::FETCH_ASSOC))
+{ ?> <table>
+   <?php while ($d = $resultats->fetch(PDO::FETCH_ASSOC))
      {
        ?>
+       <thead>
+         <th> Titre </th>
+         <th> Message </th>
+         <th> Nom d'utilisateur </th>
+       </thead>
        <tr>
          <td><?=$d['titre_contact'] ?></td>
          <td><?=$d['message_contact'] ?></td>

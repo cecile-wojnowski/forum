@@ -1,7 +1,5 @@
-<center><h1>Modération et administration du forum</h1></center>
 <div class="container_admin">
   <h2 class="h2_moderation"> Gestion des utilisateurs :</h2>
-
 
 <?php # Affiche la liste des utilisateurs
   $sql = 'SELECT * FROM utilisateurs';
@@ -33,8 +31,8 @@
             <td><?=$d['email'] ?></td>
             <td><?=date('d/m/Y', $d['date_inscription']) ?></td>
             <td><?=$d['id_droits'] ?></td>
-          <tr>  <td><a href="modifier_utilisateur.php?id=<?= $d['id']; ?>">Modifier l'utilisateur</a></td></tr><br/>
-          <br/>  <td><a href="supprimer_utilisateur.php?id=<?= $d['id']; ?>">Supprimer l'utilisateur </a></td>
+            <td><a href="modifier_utilisateur.php?id=<?= $d['id']; ?>">Modifier l'utilisateur</a></td>
+            <td><a href="supprimer_utilisateur.php?id=<?= $d['id']; ?>">Supprimer l'utilisateur </a></td>
           </tr>
         </tbody>
       <?php } ?>
