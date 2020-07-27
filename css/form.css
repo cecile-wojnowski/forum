@@ -45,7 +45,8 @@ input[type=submit] {
   border-radius: 4px;
   cursor: pointer;
   float: center;
-  margin: 1%;
+  display: block;
+  margin:auto;
 }
 
 input[type=submit]:hover {
@@ -68,7 +69,6 @@ input[type=submit]:hover {
     margin-top: 0;
   }
 }
-
 .container_profil {
   border-radius: 5px;
   background-color: #f2f2f2;

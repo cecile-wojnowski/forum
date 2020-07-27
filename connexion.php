@@ -1,17 +1,7 @@
 <?php
 $titre = "Connexion";
 include("includes/header.php");
-?>
 
-<!DOCTYPE html>
-<html lang="fr" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
-
-<?php
 if (isset($_SESSION['id']))
 {
     echo "Vous êtes déjà connecté, <a href='deconnexion.php' me déconnecter </a> ou <a href='profil.php'> voir mon profil </a> ";
@@ -25,17 +15,12 @@ else
     <form method="POST" action="connexion.php">
       <div class="container">
         <h2>Connectez-vous avec votre login et mot de passe</h2>
-        <div class="form">
-          <label forb="">Login</label>
+          <label for="">Login</label>
           <input type="text" class="form-field animation a3" placeholder="login" name="login" id="pseudo">
           <label for="">Password</label>
           <input type="password" class="form-field animation a4" placeholder="Password" name="password" id="password">
-
           <p class="animation a5">	<a href="./inscription.php">Pas encore inscrit ?</a></p>
-          <div class="button">
-            <button type="submit" value="Connexion"> Se connecter </button>
-          </div>
-        </div>
+          <input type="submit" value="Connexion">
       </div>
 
     <?php

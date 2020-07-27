@@ -36,7 +36,6 @@ html {
   margin: 10px;
   grid-column-start: auto;
   background-color: white;
-  padding: 1%;
   box-shadow: 3px 3px 3px lightgrey;
 }
 
@@ -544,13 +543,8 @@ form.recherche::after {
 
 .container {
   box-shadow: 0 16px 32px 0 rgba(0, 0, 0, 0.2);
-  padding: 2px 16px;
+  padding: 2px 16px 15px;
   transition: 0.3s;
-}
-
-.container:hover {
-  background-color: orange;
-  box-shadow: 0 16px 32px 0 rgba(0, 0, 0, 0.2);
 }
 
 /***** conversations.php ****/
