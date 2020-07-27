@@ -1,4 +1,5 @@
 <?php
+$titre = "Créer une conversation";
 include("includes/identifiant.php");
 include("includes/header.php");
 

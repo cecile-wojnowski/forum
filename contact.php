@@ -1,4 +1,5 @@
 <?php
+$titre = "Nous contacter";
 include("includes/identifiant.php");
 include("includes/header.php"); ?>
 
@@ -53,4 +54,4 @@ include('includes/footer.php');
 ?>
 
   </body>
-</html><?php include('includes/footer.php') ?>
+</html>

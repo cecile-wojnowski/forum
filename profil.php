@@ -1,5 +1,6 @@
 <?php
-include ("includes/header.php");
+$titre = "Mon profil";
+include("includes/header.php");
 
 if (!isset($_SESSION['login']))
 {

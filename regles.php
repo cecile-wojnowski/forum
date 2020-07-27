@@ -1,7 +1,8 @@
 
 <?php
-    include("includes/identifiant.php");
-    include("includes/header.php");?>
+  $titre = "Règles du forum";
+  include("includes/identifiant.php");
+  include("includes/header.php");?>
 
 <html>
   <body>

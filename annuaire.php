@@ -1,6 +1,7 @@
 <?php
-include ("includes/identifiant.php");
-include ("includes/header.php");
+$titre = "Annuaire";
+include("includes/identifiant.php");
+include("includes/header.php");
 
 ?>
 
