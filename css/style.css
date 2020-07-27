@@ -99,6 +99,9 @@ html {
 .a_conversations{
   margin-left:10%;
 }
+.h1_conversations{
+  font-size:30px;
+}
 
 /* admin.php */
 

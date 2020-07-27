@@ -21,7 +21,7 @@ if(isset($_GET['id']))
 
 
   <article class="conversations">
-    <h1><?=$post['titre']; ?></h1>
+    <h1 class="h1_conversations"><?=$post['titre']; ?></h1>
     <p><?=$post['conversation'] ?></p>
     <p>
       <a href="messages.php?id=<?=$post['id']; ?>">Lire la suite</a>
