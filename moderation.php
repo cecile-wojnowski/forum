@@ -32,6 +32,8 @@ if ($resultats->rowCount() > 0)
 { ?> <table>
    <?php while ($d = $resultats->fetch(PDO::FETCH_ASSOC))
      {
+       $message = $d['message_contact'];
+       $message = str_replace("\'", "'", $message);
        ?>
        <thead>
          <th> Titre </th>
@@ -40,7 +42,7 @@ if ($resultats->rowCount() > 0)
        </thead>
        <tr>
          <td><?=$d['titre_contact'] ?></td>
-         <td><?=$d['message_contact'] ?></td>
+         <td><?=$message ?></td>
          <td><?=$d['login'] ?></td>
          <td><a href="supprimer_message_contact.php?id=<?= $d['id'] ?>"> Supprimer </a></td>
        </tr>
