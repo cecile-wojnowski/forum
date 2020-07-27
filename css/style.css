@@ -373,6 +373,7 @@ textarea {
   padding-bottom: 6%;
   margin: 2%;
   background-color: gainsboro;
+  text-align: justify;
 }
 
 /* formulaire de recherche*/

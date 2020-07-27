@@ -15,36 +15,32 @@ include("includes/header.php");
    </form>
 
    <?php
-$db_server = 'localhost';
-$db_name = 'forum';
-$db_user_login = 'root';
-$db_user_pass = '';
-
-// Ouvre une connexion au serveur MySQL
-$conn = mysqli_connect($db_server, $db_user_login, $db_user_pass, $db_name);
-
 // Récupère la recherche
 $recherche = isset($_POST['recherche']) ? $_POST['recherche'] : '';
 
-/*if(isset($_POST['recherche'])){ */
+if(isset($_POST['recherche']))
+{
   // la requete mysql
-  $q = $conn->query("SELECT * FROM conversations
+  $query = $db->prepare("SELECT * FROM conversations
       WHERE titre LIKE '%$recherche%'
       OR conversation LIKE '%$recherche%'
       LIMIT 10");
+  $query->execute(); ?>
 
-  // affichage du résultat
-  while ($r = mysqli_fetch_array($q))
-  {
-    $conversation = $r['conversation'];
-    $conversation = str_replace("\'", "'", $conversation);
+  <div class="resultats">
+    <?php // affichage du résultat
+    while ($data = $query->fetch())
+    {
+      $conversation = $data['conversation'];
+      $conversation = str_replace("\'", "'", $conversation);
 
-      echo '<a href=conversations.php?id=' . $r['id'] . '>Résultat <a/>'.'<br>' . $r['titre'] . ' : ' . $conversation . ' <br />'
-  ;
-#  }
-}
+        echo '<a href=conversations.php?id=' . $data['id'] . '>Résultat <a/>'.'<br>' . $data['titre'] . ' : ' . $conversation . ' <br />';
+    } ?>
+    <?php
+} ?>
 
-?>
+</div>
+
 </center>
 </div>
 
