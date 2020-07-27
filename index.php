@@ -34,13 +34,15 @@ include("includes/header.php");
           $query->execute();
           while ($data = $query->fetch())
           {
+            $conversation = $data['conversation'];
+            $conversation = str_replace("\'", "'", $conversation);
           ?>
                          </thead>
 
                            <tbody>
                              <tr>
                                <td><?=$data['titre'] ?></td>
-                               <td><?=$data['conversation'] ?></td>
+                               <td><?=$conversation ?></td>
 
                              </tr>
                              <?php
