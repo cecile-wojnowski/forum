@@ -15,29 +15,32 @@ include("includes/header.php");
    </form>
 
    <?php
+
 // Récupère la recherche
-$recherche = isset($_POST['recherche']) ? $_POST['recherche'] : '';
 
-if(isset($_POST['recherche']))
-{
-  // la requete mysql
-  $query = $db->prepare("SELECT * FROM conversations
-      WHERE titre LIKE '%$recherche%'
-      OR conversation LIKE '%$recherche%'
-      LIMIT 10");
-  $query->execute(); ?>
+# $recherche = isset($_POST['recherche']) ? $_POST['recherche'] : '';
 
-  <div class="resultats">
-    <?php // affichage du résultat
-    while ($data = $query->fetch())
-    {
-      $conversation = $data['conversation'];
-      $conversation = str_replace("\'", "'", $conversation);
+$query = "SELECT * FROM conversations";
 
-        echo '<a href=conversations.php?id=' . $data['id'] . '>Résultat <a/>'.'<br>' . $data['titre'] . ' : ' . $conversation . ' <br />';
-    } ?>
-    <?php
-} ?>
+if (isset($_POST['recherche'])) {
+
+      $query .= ' WHERE titre LIKE ? OR conversation LIKE ?';
+      $recherche = "%" . addcslashes($_POST['recherche'], '_') . "%";
+      $resultats = $db->prepare($query);
+      $resultats->execute([$recherche, $recherche]);
+      if ($resultats->rowCount() > 0) {
+        while ($d = $resultats->fetch(PDO::FETCH_ASSOC)) { ?>
+          <hr>
+          <div class="resultat">
+            <p class = "titre_resultat"><?= str_replace('\\', '', $d['titre']) ?></p>
+            <p class = "message_resultat"><?= str_replace('\\', '', $d['conversation']) ?></p>
+            <p class = "liens_resultat"><a href="messages.php?id=<?= $d["id"] ?>">Voir la conversation</a></p>
+          </div>
+<?php
+        }
+      }
+}
+?>
 
 </div>
 

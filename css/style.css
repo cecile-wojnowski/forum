@@ -131,7 +131,16 @@ h2 {
   background-color: gainsboro;
 }
 
+/* résultats de recherche */
+.titre_resultat {
+  font-weight: bold;
+}
+
 /* formulaire de recherche*/
+.recherche form {
+  padding-bottom: 60px;
+}
+
 .recherche input[type=text] {
   padding: 10px;
   font-size: 20px;
