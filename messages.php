@@ -124,7 +124,7 @@ include ("includes/bbcode.php"); # Permet d'ajouter des smileys
       <img src="https://img.icons8.com/officexs/16/000000/warning-shield.png" title="!" alt="!" onClick="javascript:smilies(' :exclamation: ');return(false)" />
       </fieldset>
 
-      <fieldset><legend class="messages_legend"> Ecrire un message </legend><textarea cols="80" style="width:50%" rows="8" id="messages_textarea" name="message"></textarea></fieldset>
+      <fieldset><legend class="messages_legend"> Ecrire un message </legend><textarea cols="80" style="width:50%" rows="8" class="messages_textarea" name="message"></textarea></fieldset>
       <div class="messages_boutons">
         <input type="submit" name="envoyer" value="Envoyer" />
         <input type="reset" name = "Effacer" value = "Effacer"/>

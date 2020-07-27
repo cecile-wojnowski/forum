@@ -347,7 +347,7 @@ textarea {
   height: 200px;
 }
 
-#messages_textarea {
+.messages_textarea {
   color: grey;
 }
 

@@ -3,24 +3,17 @@ $titre = "Nous contacter";
 include("includes/identifiant.php");
 include("includes/header.php"); ?>
 
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
 <center>
 <img src="https://images.pexels.com/photos/1591062/pexels-photo-1591062.jpeg?cs=srgb&dl=cubes-e-mail-gros-plan-mot-1591062.jpg&fm=jpg" alt="" style="width:20%">
 <div class="container">
-<p>Envoyez-nous un message</p>
+<h4>Envoyez-nous un message</h4>
 <?php if (isset($_SESSION['login']))
 { ?>
 <form class="" action="" method="post">
   <label for="">Titre</label>
 <input type="text" name="titre" value="">
-<label for="">Message</label>
-<input type="textarea" name="message_contact" value="">
+<fieldset><legend class="messages_legend">Message</legend><textarea class="messages_textarea" name="message_contact" value="" cols="80" style="width:50%" rows="8"> </textarea>
+</fieldset>
 <input type="submit" name="submit" value="Envoyer">
 </center>
 </form>
