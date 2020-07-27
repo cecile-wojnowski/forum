@@ -63,6 +63,8 @@ html {
 .index_list {
   background-color: white;
   margin: 5px;
+  text-align: justify;
+  margin-left:10%;
 }
 
 .stats {

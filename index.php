@@ -25,7 +25,7 @@ include("includes/header.php");
       </article>
 
       <div class="last_conversation">
-        <table>
+        <table class="table_index">
           <thead>
             <th> Dernières conversations </th>
           </thead>
@@ -56,7 +56,7 @@ include("includes/header.php");
 
 
        <div class= "last_messages">
-         <table>
+         <table class="table_index">
            <thead>
              <tr>
                <th>                <img src="https://img.icons8.com/clouds/100/000000/light-on.png"/>
@@ -100,9 +100,9 @@ if ($resultats->rowCount() > 0)
 { ?>
             <ul class="index_list">
               <?php while ($d = $resultats->fetch(PDO::FETCH_ASSOC))
-    {
-        echo '<li>' . $d['topic'] . '</li> <br>';
-    } ?>
+              {
+                echo "-" . " " . $d['topic'] . '<br>';
+              } ?>
             </ul>
           <?php
 } ?>
