@@ -31,7 +31,7 @@
             <td><?=$d['id'] ?></td>
             <td><?=$d['login'] ?></td>
             <td><?=$d['email'] ?></td>
-            <td><?=$d['date_inscription'] ?></td>
+            <td><?=date('d/m/Y', $d['date_inscription']) ?></td>
             <td><?=$d['id_droits'] ?></td>
           <tr>  <td><a href="modifier_utilisateur.php?id=<?= $d['id']; ?>">Modifier l'utilisateur</a></td></tr><br/>
           <br/>  <td><a href="supprimer_utilisateur.php?id=<?= $d['id']; ?>">Supprimer l'utilisateur </a></td>
