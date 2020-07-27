@@ -21,6 +21,28 @@ include("includes/moderation_topics.php");
 include("includes/moderation_messages.php");
 ?>
 <h2 class="h2_moderation"> Messages reçus : </h2>
+<?php
+$sql = 'SELECT * FROM contact
+INNER JOIN utilisateurs ON utilisateurs.id = contact.id_utilisateur';
+$params = [];
+$resultats = $db->prepare($sql);
+$resultats->execute($params);
+if ($resultats->rowCount() > 0)
+{
+   while ($d = $resultats->fetch(PDO::FETCH_ASSOC))
+     {
+       ?>
+       <tr>
+         <td><?=$d['titre_contact'] ?></td>
+         <td><?=$d['message_contact'] ?></td>
+         <td><?=$d['login'] ?></td>
+         <td><a href="supprimer_message.php?id=<?= $d['id'] ?>"> Supprimer </a></td>
+       </tr>
+       <?php
+     }
+ } ?>
+</tbody>
+</table>
 
 <h2 class="h2_moderation"> Gestion des signalements : </h2>
   <?php
