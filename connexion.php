@@ -1,6 +1,6 @@
 <?php
 $titre = "Connexion";
-include ("includes/header.php");
+include("includes/header.php");
 ?>
 
 <!DOCTYPE html>
@@ -74,11 +74,8 @@ else
                         $_SESSION['login'] = $data['login'];
                         $_SESSION['id_droits'] = $data['id_droits'];
                         $_SESSION['id'] = $data['id'];
+                        header("Location:profil.php"); # Redirige vers Profil si la connexion est réussie
 
-                        $message = '<p>Bienvenue ' . $data['login'] . 'votre id_droits est ' . $data['id_droits'] . ',
-                    vous êtes maintenant connecté!</p>
-                    <p>Cliquez <a href="./index.php">ici</a>
-                    pour revenir à la page d accueil</p> et ici pour <a href="profil.php"> voir votre profil </a>';
                     }
                 }
                 else
@@ -93,7 +90,7 @@ else
     echo $message . '</div></body></html>';
 }
 
-include ("includes/footer.php");
+include("includes/footer.php");
 ?>
 </body>
 </html>
