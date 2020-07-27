@@ -1,6 +1,6 @@
 <?php
-include ("includes/identifiant.php");
-include ("includes/header.php");
+include("includes/identifiant.php");
+include("includes/header.php");
 
 if (isset($_SESSION['login']))
 {
@@ -44,8 +44,6 @@ if (isset($_SESSION['login']))
         $stmt = $db->prepare($sql);
         $stmt->execute($data);
 
-var_dump($stmt);
-
         echo "<center>votre nouvelle conversation a bien été postée !</center>";
     }
 
@@ -56,5 +54,5 @@ else
 
 }
 
-include ('includes/footer.php');
+include('includes/footer.php');
 ?>

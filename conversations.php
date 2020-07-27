@@ -1,7 +1,7 @@
 <?php
-include ("includes/identifiant.php");
-include ("includes/header.php");
-include ("includes/bbcode.php");
+include("includes/identifiant.php");
+include("includes/header.php");
+include("includes/bbcode.php");
 ?>
 
 <!DOCTYPE html>
@@ -50,7 +50,7 @@ if (isset($_GET['id']))
 <p><a href="topics.php">Retour aux Topics</a></p>
 
 
-<?php include ("includes/footer.php");
+<?php include("includes/footer.php");
 ?>
 </body>
 </html>

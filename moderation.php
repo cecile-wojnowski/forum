@@ -1,5 +1,5 @@
 <?php
-include ("includes/header.php");
+include("includes/header.php");
 ?>
 <html>
   <body>
@@ -14,15 +14,16 @@ include ("includes/header.php");
 if ($_SESSION['id_droits'] == 4)
 {
     //Afficher la partie admin
-    include ("includes/admin.php");
+    include("includes/admin.php");
 }
 
-include ("includes/moderation_topics.php");
-include ("includes/moderation_messages.php");
+include("includes/moderation_topics.php");
+include("includes/moderation_messages.php");
 ?>
+<h2 class="h2_moderation"> Messages reçus : </h2>
 
-    <h2 class="h2_moderation"> Gestion des signalements : </h2>
-    <?php
+<h2 class="h2_moderation"> Gestion des signalements : </h2>
+  <?php
 # Afficher les messages signalés
 $sql = 'SELECT messages.id, message FROM messages INNER JOIN signaler ON messages.id = signaler.id_message ';
 $params = [];

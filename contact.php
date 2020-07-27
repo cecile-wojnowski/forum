@@ -1,6 +1,6 @@
 <?php
-include ("includes/identifiant.php");
-include ("includes/header.php"); ?>
+include("includes/identifiant.php");
+include("includes/header.php"); ?>
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -26,7 +26,7 @@ include ("includes/header.php"); ?>
 </div>
 
 <?php
-    if (isset($_POST['submit']))
+    if(isset($_POST['submit']))
     {
 
         $titre_contact = $_POST['titre'];
@@ -39,18 +39,18 @@ include ("includes/header.php"); ?>
         $stmt = $db->prepare($sql);
         $stmt->execute($data);
 
-        echo "<center>votre message a bien été envoyé !</center>";
+        echo "<center>Votre message a bien été envoyé !</center>";
     }
 
 }
 else
 {
-    echo "vous devez vous connectez pour envoyer un message";
+    echo "Vous devez vous connectez pour envoyer un message";
 
 }
 
-include ('includes/footer.php');
+include('includes/footer.php');
 ?>
 
   </body>
-</html><?php include ('includes/footer.php') ?>
+</html><?php include('includes/footer.php') ?>
