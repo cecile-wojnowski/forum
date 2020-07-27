@@ -281,7 +281,12 @@ article {
   margin: 2%;
   padding: 2%;
 }
-
+/* Profil */
+.p_profil{
+  text-align: center;
+  font-style: italic;
+  color:grey;
+}
 /* footer.php */
 .navbar_bottom {
   display: flex;

@@ -32,10 +32,21 @@ $avatar = $data["avatar"];
 $id_droits = $data["id_droits"];
 $login = $data["login"];
 
+$droits_explication = [
+"inscrit" => "Vous avez le niveau 2, il vous permet de participer aux discussions et de gérer votre profil.",
+"modo" => "Vous avez le niveau 3, en tant que modérateur vous pouvez créer un topic et gérer les messages.",
+"admin" => "Vous avez le niveau 4, en tant qu'admin vous pouvez créer un topic, gérer les messages ainsi que les utilisateurs."];
 ?>
 <html>
   <body>
-    <p class="p_profil"> Bonjour <?php echo $login ?>, votre id_droits est <?php echo $id_droits ?>. </p>
+    <p class="p_profil"> Bonjour <?php echo $login ?>, votre id_droits est <?php echo $id_droits ?>.
+    <?php if($id_droits == 2){
+      echo $droits_explication["inscrit"];
+    }elseif($id_droits == 3){
+      echo $droits_explication["modo"];
+    }elseif($id_droits == 4){
+      echo $droits_explication["admin"];
+    } ?> </p>
 
 
 <center><h1>Modifier son profil</h1>
